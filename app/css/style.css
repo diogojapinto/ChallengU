@@ -820,3 +820,12 @@ footer .footer-brand {
     height: 100%;
     background: image("../images/challenges-barney.jpg");
 }
+
+.screenshotLink {
+    width: 100%;
+    margin: 0px auto
+}
+
+.screenshotPic {
+    margin: 0px auto
+}
