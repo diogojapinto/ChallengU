@@ -133,10 +133,11 @@ a:hover {
     margin-top: -4px;
     vertical-align: middle;
     width: 70px;
+    background-color: #df691a;
 }
 
 .separator_first_circle {
-    border: 3px solid #0064E8;
+    border: 3px solid #df691a;
     border-radius: 12px;
     display: inline-block;
     height: 12px;
@@ -144,11 +145,11 @@ a:hover {
 }
 
 .separator_second_circle {
-    border: 2px solid #fff;
-    border-radius: 4px;
-    float: left;
-    height: 4px;
-    width: 4px;
+    /* border: 2px solid #fff;
+     border-radius: 4px;
+     float: left;
+     height: 4px;
+     width: 4px;*/
 }
 
 /***************navbar********************/
@@ -305,6 +306,7 @@ section {
 
 /**************************services*********************************/
 #services {
+    min-height: 20em;
 }
 
 .service-box {
