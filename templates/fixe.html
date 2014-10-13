@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Social Network Template</title>
+
+    <!-- Includes Bootstrap CSS With Custom Styling -->
+    <link href="css/default.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+
+</head>
+<body>
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <a href="#sidebar-menu" id="toggle-sidebar-menu" class="visible-xs"><i class="fa fa-bars fa-2x"></i></a>
+        <ul class="nav navbar-nav">
+            <!-- Notifications -->
+            <li class="dropdown notifications  hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icon-envelope-1"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="media">
+                        <a class="pull-left" href="#"><img class="media-object thumb" src="images/people/110/guy-2.jpg"
+                                                           alt="50x50" width="50"></a>
+
+                        <div class="media-body">
+                            <span class="label label-default pull-right">5 min</span>
+                            <h5 class="media-heading">Adrian D.</h5>
+
+                            <p class="margin-none">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <a class="pull-left" href="#"><img class="media-object thumb"
+                                                           src="images/people/110/woman-7.jpg" alt="50x50"
+                                                           width="50"></a>
+
+                        <div class="media-body">
+                            <span class="label label-default pull-right">2 days</span>
+                            <h5 class="media-heading">Jane B.</h5>
+
+                            <p class="margin-none">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <a class="pull-left" href="#"><img class="media-object thumb" src="images/people/110/guy-8.jpg"
+                                                           alt="50x50" width="50"></a>
+
+                        <div class="media-body">
+                            <span class="label label-default pull-right">3 days</span>
+                            <h5 class="media-heading">Andrew M.</h5>
+
+                            <p class="margin-none">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <!-- User -->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="images/people/110/guy-5.jpg" alt="Bill" class="img-circle" width="40"/>
+                    Bill <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="messages.html">Messages</a></li>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </li>
+            <!-- Search -->
+            <div class="input-group hidden-xs pull-left">
+                <span class="input-group-addon"><i class="icon-search"></i></span>
+                <input type="text" class="form-control" placeholder="Search a friend">
+            </div>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="alert hidden-xs">
+                <a href="#">
+                    New message from
+                    <strong>Jonathan</strong>
+                </a>
+            </li>
+            <li class="pull-right">
+                <a href="#" id="toggle-chat">
+                    <i class="fa fa-comments"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="sidebar left hidden-xs">
+    <a id="brand" href="#">Social Admin Template</a>
+
+    <div id="menu">
+        <ul>
+            <li class="category">Navigation</li>
+            <li class="hasSubmenu  ">
+                <a href="#timeline" data-toggle="collapse">
+                    <i class="icon-ship-wheel"></i> Timeline
+                </a>
+                <ul class="collapse " id="timeline">
+                    <li>
+                        <a href="index.html"> <i class="fa fa-circle-o"></i> Blocks</a>
+                    </li>
+                    <li>
+                        <a href="timeline-list.html"><i class="fa fa-circle-o"></i> Listing</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="">
+                <a href="profile.html">
+                    <i class="icon-user-1"></i> Profile
+                </a>
+            </li>
+            <li class="">
+                <a href="users.html">
+                    <i class="fa fa-group"></i> Users
+                </a>
+            </li>
+            <li class=" active">
+                <a href="messages.html">
+                    <i class="icon-comment-fill-1"></i> Messages
+                </a>
+            </li>
+            <li class="">
+                <a href="login.html">
+                    <i class="icon-lock-fill"></i> Login
+                </a>
+            </li>
+            <li class="hasSubmenu ">
+                <a href="#components" data-toggle="collapse">
+                    <i class="icon-paint-brushes"></i>UI Components
+                </a>
+                <ul class="collapse " id="components">
+                    <li class="">
+                        <a href="buttons.html">
+                            <i class="fa fa-circle-o"></i> Buttons
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="icons.html">
+                            <i class="fa fa-circle-o"></i> Icons
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="progress.html">
+                            <i class="fa fa-circle-o"></i> Progress
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="grid.html">
+                            <i class="fa fa-circle-o"></i> Grid
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="forms.html">
+                            <i class="fa fa-circle-o"></i> Forms
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="tables.html">
+                            <i class="fa fa-circle-o"></i> Tables
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="widgets.html">
+                            <i class="fa fa-circle-o"></i> Widgets
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--<li class="">-->
+            <!--<a href="not-found.html">-->
+            <!--<i class="icon-alert"></i> Not Found-->
+            <!--</a>-->
+            <!--</li>-->
+
+            <!-- Sample 2 Level Collapse -->
+            <li class="hasSubmenu">
+                <a href="#collapse" data-toggle="collapse">
+                    <i class="fa fa-chevron-circle-down"></i> Collapse
+                </a>
+                <ul class="collapse" id="collapse">
+                    <li class="hasSubmenu">
+                        <a href="#collapse-1" data-toggle="collapse">
+                            <i class="fa fa-circle-o"></i> Submenu
+                        </a>
+                        <ul class="collapse" id="collapse-1">
+                            <li>
+                                <a href="#">Regular Link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-circle-o"></i> Regular Link</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="category border top">News Feeds</li>
+            <li class="reset">
+                <ul>
+                    <li class="media news-item">
+                        <span class="news-item-success pull-right "><i class="fa fa-circle"></i></span>
+                <span class="pull-left media-object">
+                    <i class="fa fa-fw fa-bell"></i>
+                </span>
+
+                        <div class="media-body">
+                            <a href="" class="text-white">Adrian</a> just logged in
+                            <span class="time">2 min ago</span>
+                        </div>
+                    </li>
+                    <li class="media news-item">
+                        <span class="news-item-success pull-right "><i class="fa fa-circle"></i></span>
+                <span class="pull-left media-object">
+                    <i class="fa fa-fw fa-bell"></i>
+                </span>
+
+                        <div class="media-body">
+                            <a href="" class="text-white">Adrian</a> just added <a href=""
+                                                                                   class="text-white">mosaicpro</a> as
+                            their office
+                            <span class="time">2 min ago</span>
+                        </div>
+                    </li>
+                    <li class="media news-item">
+                <span class="pull-left media-object">
+                    <i class="fa fa-fw fa-bell"></i>
+                </span>
+
+                        <div class="media-body">
+                            <a href="" class="text-white">Adrian</a> just logged in
+                            <span class="time">2 min ago</span>
+                        </div>
+                    </li>
+                    <li class="media news-item">
+                <span class="pull-left media-object">
+                    <i class="fa fa-fw fa-bell"></i>
+                </span>
+
+                        <div class="media-body">
+                            <a href="" class="text-white">Adrian</a> just logged in
+                            <span class="time">2 min ago</span>
+                        </div>
+                    </li>
+                    <li class="media news-item">
+                <span class="pull-left media-object">
+                    <i class="fa fa-fw fa-bell"></i>
+                </span>
+
+                        <div class="media-body">
+                            <a href="" class="text-white">Adrian</a> just logged in
+                            <span class="time">2 min ago</span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="category">Filter</li>
+            <li class="reset">
+                <ul>
+                    <li><a href="#"><span class="fa fa-fw fa-circle-o text-success"></span> Work Related</a></li>
+                    <li><a href="#"><span class="fa fa-fw fa-circle-o text-primary"></span> Very Important</a></li>
+                    <li><a href="#"><span class="fa fa-fw fa-circle-o text-info"></span> Friends &amp; Family</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="sidebar right hidden-xs">
+    <div class="chat-search">
+        <input type="text" class="form-control" placeholder="Search"/>
+    </div>
+
+    <ul class="chat-filter nav nav-pills ">
+        <li class="active"><a href="#" data-target="li">All</a></li>
+        <li><a href="#" data-target=".online">Online</a></li>
+        <li><a href="#" data-target=".offline">Offline</a></li>
+    </ul>
+    <ul class="chat-contacts">
+        <li class="online" data-user-id="1">
+            <a href="#">
+                <div class="media">
+                    <div class="pull-left">
+                        <span class="status"></span>
+                        <img src="images/people/110/guy-6.jpg" width="40" class="img-circle"/>
+                    </div>
+                    <div class="media-body">
+
+                        <div class="contact-name">Jonathan S.</div>
+                        <small>"Free Today"</small>
+                    </div>
+                </div>
+            </a>
+        </li>
+
+        <li class="online away" data-user-id="2">
+            <a href="#">
+
+                <div class="media">
+                    <div class="pull-left">
+                        <span class="status"></span>
+                        <img src="images/people/110/woman-5.jpg" width="40" class="img-circle"/>
+                    </div>
+                    <div class="media-body">
+                        <div class="contact-name">Mary A.</div>
+                        <small>"Feeling Groovy"</small>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="online" data-user-id="3">
+            <a href="#">
+                <div class="media">
+                    <div class="pull-left">
+                        <span class="status"></span>
+                        <img src="images/people/110/guy-3.jpg" width="40" class="img-circle"/>
+                    </div>
+                    <div class="media-body">
+                        <div class="contact-name">Adrian D.</div>
+                        <small>Busy</small>
+                    </div>
+                </div>
+            </a>
+        </li>
+        <li class="offline" data-user-id="4">
+            <a href="#">
+
+                <div class="media">
+                    <div class="pull-left">
+                        <img src="images/people/110/woman-6.jpg" width="40" class="img-circle"/>
+                    </div>
+                    <div class="media-body">
+                        <div class="contact-name">Michelle S.</div>
+                        <small>Offline</small>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script id="chat-window-template" type="text/x-handlebars-template">
+
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="chat-collapse" data-target="#chat-bill">
+            <a href="#" class="close"><i class="fa fa-times"></i></a>
+            <a href="#"><img src="{{user_image}}" width="40" class="pull-left">
+                <span class="contact-name">{{user}}</span>
+            </a>
+        </div>
+        <div class="panel-body" id="chat-bill">
+            <div class="media">
+                <div class="pull-left">
+                    <img src="{{user_image}}" width="25" class="img-circle" alt=""/>
+                </div>
+                <div class="media-body">
+                    <span class="message">Feeling Groovy?</span>
+                </div>
+            </div>
+            <div class="media right">
+                <div class="pull-right">
+                    <img src="{{user_image}}" width="25" class="img-circle" alt=""/>
+                </div>
+                <div class="media-body">
+                    <span class="message">Yep.</span>
+                </div>
+            </div>
+            <div class="media">
+                <div class="pull-left">
+                    <img src="{{user_image}}" width="25" class="img-circle" alt=""/>
+                </div>
+                <div class="media-body">
+                    <span class="message">This chat window looks amazing.</span>
+                </div>
+            </div>
+            <div class="media right">
+                <div class="pull-right">
+                    <img src="{{user_image}}" width="25" class="img-circle" alt=""/>
+                </div>
+                <div class="media-body">
+                    <span class="message">Thanks!</span>
+                </div>
+            </div>
+
+
+        </div>
+        <input type="text" class="form-control" placeholder=""/>
+    </div>
+</script>
+
+<div class="chat-window-container">
+
+</div>
+
+<div id="content">
+<div class="container-fluid">
+<!-- Content -->
+<div class="media messages-container">
+<div class="messages-list pull-left">
+    <div class="panel panel-default">
+        <ul class="list-group">
+            <li class="list-group-item active">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/woman-5.jpg" width="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Today</span>
+                            <span class="user">Mary D.</span>
+
+                            <div class="message">Are we ok to meet...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/guy-3.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Adrian T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/woman-4.jpg" width="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">5 days</span>
+                            <span class="user">Michelle A.</span>
+
+                            <div class="message">Nice design.</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/woman-3.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Sue T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/guy-9.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Adrian T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/woman-9.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Adrian T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/guy-6.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Adrian T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <div class="media">
+                        <div class="media-object pull-left">
+                            <img src="images/people/110/guy-2.jpg" height="50" alt=""/>
+                        </div>
+                        <div class="media-body">
+                            <span class="date">Sat</span>
+                            <span class="user">Adrian T.</span>
+
+                            <div class="message">Looking forward to...</div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="media-body">
+    <div class="panel panel-default share">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <a class="btn btn-primary" href="#">
+                    <i class="fa fa-envelope"></i>
+                    Send
+                </a>
+            </div>
+            <!-- /btn-group -->
+            <input type="text" class="form-control share-text" placeholder="Write message..."/>
+        </div>
+        <!-- /input-group -->
+    </div>
+    <div class="media">
+        <div class="pull-left media-object">
+            <a href="#">
+                <img src="images/people/110/woman-5.jpg" width="60" alt=""/>
+            </a>
+        </div>
+        <div class="media-body message">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-white">
+                    <div class="pull-right">
+                        <small class="text-muted">2 min ago</small>
+                    </div>
+                    <a href="#">Mary D.</a>
+                </div>
+                <div class="panel-body">
+                    Hi Bill,<br/>
+                    Is it ok if we schedule the meeting tomorrow?
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="media">
+        <div class="pull-right media-object">
+            <img src="images/people/110/guy-5.jpg" width="60" alt=""/>
+        </div>
+        <div class="media-body message">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-white">
+                    <div class="pull-right">
+                        <small class="text-muted">10 min ago</small>
+                    </div>
+                    <a href="#">Me</a>
+                </div>
+                <div class="panel-body">
+                    Are we still on for Today?
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="media">
+        <div class="pull-left media-object">
+            <img src="images/people/110/woman-5.jpg" width="60" alt=""/>
+        </div>
+        <div class="media-body message">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-white">
+                    <div class="pull-right">
+                        <small class="text-muted">1 day ago</small>
+                    </div>
+                    <a href="#">Mary D.</a>
+                </div>
+                <div class="panel-body">
+                    Cool. It's settled. Tomorrow will discuss the project.
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="media">
+        <div class="pull-right media-object">
+            <img src="images/people/110/guy-5.jpg" width="60" alt=""/>
+        </div>
+        <div class="media-body message">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-white">
+                    <div class="pull-right">
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                    <a href="#">Me</a>
+                </div>
+                <div class="panel-body">
+                    I suggest a meeting on Tuesday. What do you think?
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>
+<!-- // Content -->
+</div>
+<!-- // Container-Fluid -->
+
+<!-- Footer -->
+<div class="footer">
+    Social Network Template &copy; Copyright Notice
+</div>
+<!-- // Footer -->
+
+</div>
+<!-- // Content -->
+
+<!-- Custom Scripts -->
+<script src="js/vendor.min.js"></script>
+<script src="js/scripts.js"></script>
+
+</body>
+</html>
