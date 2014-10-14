@@ -815,3 +815,19 @@ footer .footer-brand {
         font-size: 24px;
     }
 }
+
+.carousel-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: image("../images/challenges-barney.jpg");
+}
+
+.screenshotLink {
+    width: 100%;
+    margin: 0px auto
+}
+
+.screenshotPic {
+    margin: 0px auto
+}
