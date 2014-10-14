@@ -212,12 +212,12 @@ a:hover {
 #slider .carousel-inner .item img {
     height: 449px;
     width: auto;
-    margin: 0px 150px 0px 0px;
-    padding-bottom: 25px;
+    margin: 0px 0px 0px 0px;
+    padding-bottom: 0px;
 }
 
 #slider .carousel-inner .item:first-child img {
-    margin: 0px 150px 0px 0px;
+    margin: 0px 0px 0px 0px;
     padding-bottom: 0px;
 }
 
