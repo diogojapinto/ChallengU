@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Submit your challenge</title>
+    <script src="../js/angular.min.js"></script>
+</head>
+<body>
+<div>
+    <form method="get">
+        <h1>Create a challenge</h1>
+
+        <p>Name it</p> <input type="text" placeholder="Your challenge name" required>
+
+        <p>Category</p>
+        <input type="checkbox" value="to implement with angular">To implement with angular
+
+        <p>Proof type</p>
+        <select>
+            <option value="to implement with angular">To implement with angular</option>
+        </select>
+
+        <p>Difficulty</p>
+        <input type="range" value="3" step="1" min="1" max="5" data-show-value="true" data-popup-enabled="true">
+        <span>to implement with angular</span>
+
+        <p>Description</p>
+        <textarea placeholder="Your description of the challenge" required></textarea>
+        <input type="submit">
+
+    </form>
+</div>
+</body>
+</html>
