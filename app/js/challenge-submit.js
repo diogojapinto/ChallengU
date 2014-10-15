@@ -6,14 +6,14 @@
             name: "",
             category: [""],
             type: "",
-            difficulty: 0,
+            difficulty: 3,
             description: ""
         }
 
-        this.categories = [funny, serious, dangerous];
-        this.types = [video, sound, text, photo];
-        this.difficulties = [1, 2, 3, 4, 5];
+        this.challengeCategories = ['funny', 'serious', 'dangerous'];
+        this.challengeTypes = ['video', 'sound', 'text', 'photo'];
+        this.challengeDifficulties = [1, 2, 3, 4, 5];
 
     });
 
-});
+})();
