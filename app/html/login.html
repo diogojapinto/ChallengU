@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Login</title>
+<head>
+	<meta charset="utf-8">
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/loginController.js"></script>
 </head>
-<body>
-<h1>Cenas</h1>
+<body ng-app="login">
+	<div ng-controller="LoginController as loginCtrl">
+		<form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
+			<label>Username: </label>
+			<input ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
+			<br/>
+			<label>Password: </label>
+			<input ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
+			<br/>
+			<a href="">Forgot your password?</a>
+			<br/>
+			<button type="button" ng-click="loginCtrl.resetForm()">Reset</button>
+			<input ng-disabled="!loginForm.$valid" type="submit" value="Submit"/>
+		</form>
+	</div>
 </body>
 </html>
