@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module('challenge-submit', []);
 
-    app.controller('ChallengeSubmit', [$http, function ($http) {
+    app.controller('ChallengeSubmit', ['$http', function ($http) {
         //default values
         this.challenge = {
             name      : "",
@@ -22,6 +22,6 @@
             });
 
         this.challengeTypes = ['video', 'sound', 'text', 'photo'];
-    });
+    }]);
 
 })();
