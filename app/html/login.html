@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<script src="../js/angular.min.js"></script>
-	<script src="../js/loginController.js"></script>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
 </head>
 <body ng-app="login">
-	<div ng-controller="LoginController as loginCtrl">
-		<form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
-			<label>Username: </label>
-			<input ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
-			<br/>
-			<label>Password: </label>
-			<input ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
-			<br/>
-			<a href="">Forgot your password?</a>
-			<br/>
-			<button type="button" ng-click="loginCtrl.resetForm()">Reset</button>
-			<input ng-disabled="!loginForm.$valid" type="submit" value="Submit"/>
-		</form>
-	</div>
+<div ng-controller="LoginController as loginCtrl">
+    <form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
+        <label>Username: </label>
+        <input ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
+        <br/>
+        <label>Password: </label>
+        <input ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
+        <br/>
+        <a href="">Forgot your password?</a>
+        <br/>
+        <button ng-disabled="!loginForm.$valid" type="submit">
+            Submit
+        </button>
+        <button ng-show="loginCtrl.user.username || loginCtrl.user.password" type="button"
+                ng-click="loginCtrl.resetForm()">
+            Reset
+        </button>
+    </form>
+</div>
+
+<script src="../js/angular.min.js"></script>
+<script src="../js/loginController.js"></script>
 </body>
 </html>
