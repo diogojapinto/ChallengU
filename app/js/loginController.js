@@ -5,7 +5,7 @@
     this.user = {};
 
     this.addUser = function (user) {
-
+        alert(user.username);
     };
 
     this.resetForm = function() {
