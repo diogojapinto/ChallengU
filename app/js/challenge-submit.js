@@ -13,9 +13,9 @@
 
         //get categories
         this.challengeCategories = ['funny', 'serious', 'dangerous']; //to replace
-        $http.get("../server/getCategories").
+        $http.post("../server/app").
             success(function (data, status, headers, config) {
-
+                alert("ola");
             }).
             error(function (data, status, headers, config) {
 
