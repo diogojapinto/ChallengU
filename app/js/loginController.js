@@ -8,6 +8,7 @@
     this.addUser = function (user) {
         /* Submits the user information, in an attempt to login */
         //TODO: get new page
+        alert(user.username);
     };
 
     this.resetForm = function() {
