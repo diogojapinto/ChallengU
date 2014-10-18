@@ -4,28 +4,45 @@
     <title>Login</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
 <body ng-app="login">
-<div ng-controller="LoginController as loginCtrl">
-    <form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
-        <label>Username: </label>
-        <input ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
-        <br/>
-        <label>Password: </label>
-        <input ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
-        <br/>
-        <a href="">Forgot your password?</a>
-        <br/>
-        <button ng-disabled="!loginForm.$valid" type="submit">
-            Submit
-        </button>
-        <button ng-show="loginCtrl.user.username || loginCtrl.user.password" type="button"
-                ng-click="loginCtrl.resetForm()">
-            Reset
-        </button>
-    </form>
-</div>
-<script src="../js/angular.min.js"></script>
-<script src="../js/loginController.js"></script>
+<div class="container" ng-controller="LoginController as loginCtrl">
+    <div class="row vertical-offset-100">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row-fluid user-row">
+                        <img src="https://www.dnnsoftware.com/portals/0/Images/DNN/login.png" style="width:30%;height:30%" class="img-responsive"
+                             alt="Conxole Admin"/>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
+                        <!--<label>Username: </label>-->
+                        <input class="form-control" ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
+                        <br/>
+                        <!--<label>Password: </label>-->
+                        <input class="form-control" ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
+                        <br/>
+                        <a href="">Forgot your password?</a>
+                        <br/>
+                        <button class="btn btn-block btn-lg btn-success" ng-disabled="!loginForm.$valid" type="submit">
+                            Submit
+                        </button>
+                        <button class="btn btn-block btn-lg btn-danger" ng-show="loginCtrl.user.username || loginCtrl.user.password"
+                                type="button"
+                                ng-click="loginCtrl.resetForm()">
+                            Reset
+                        </button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+            <script src="../js/angular.min.js"></script>
+            <script src="../js/loginController.js"></script>
 </body>
 </html>
