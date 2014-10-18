@@ -171,7 +171,9 @@ INSERT INTO Category(name) VALUES
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
 
-CREATE OR REPLACE FUNCTION assert_new_challenge_target() RETURNS TRIGGER AS $$
+/*
+CREATE OR REPLACE FUNCTION assert_new_challenge_target() RETURNS TRIGGER AS 
+$$
 BEGIN
 IF NEW.targetUserID == NULL THEN 
 	IF NEW.target == 'private' THEN
@@ -185,9 +187,11 @@ ELSE
 	RETURN NEW;
 END IF;
 END
-$$ LANGUAGE plpgsql;
+$$
+LANGUAGE plpgsql;
 
 DROP TRIGGER IF EXISTS assert_new_challenge_target_trigger ON Challenge;
 CREATE TRIGGER assert_new_challenge_target_trigger
 BEFORE INSERT ON ProductCategory
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
+*/
