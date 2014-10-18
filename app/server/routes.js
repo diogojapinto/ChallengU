@@ -1,11 +1,8 @@
 var path = require('path');
-var db = require('./database-setup');
+var db = require('./database-requests.js');
 exports.start = function (app) {
 
 //entry point
-    app.get('*', function (req, res) {
-        res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
-    });
 
     app.get("/login", function (req, res) {
         res.sendfile(path.join(__dirname, '../html', 'login.html'));
@@ -15,7 +12,11 @@ exports.start = function (app) {
         res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
     });
 
+    app.post("/get-categories", function (req, res) {
+        console.log(db.getCategories());
+    });
 
-    // todo: remove, just for testing
-    console.log(db.query('SELECT $1::int AS number', ['1']));
+    app.get('*', function (req, res) {
+        res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
+    });
 };

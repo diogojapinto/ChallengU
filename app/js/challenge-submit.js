@@ -12,13 +12,13 @@
         };
 
         //get categories
-        this.challengeCategories = ['funny', 'serious', 'dangerous']; //to replace
-        $http.post("../server/app").
+        this.challengeCategories = []; //to replace
+        $http.post("/get-categories").
             success(function (data, status, headers, config) {
                 alert("ola");
             }).
             error(function (data, status, headers, config) {
-
+                alert("fail");
             });
 
         this.challengeTypes = ['video', 'sound', 'text', 'photo'];

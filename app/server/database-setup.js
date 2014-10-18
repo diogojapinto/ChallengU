@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = "postgres://postgres:any@localhost/ChallengeU";
+var conString = "postgres://postgres:wso277@localhost/challengeu";
 
 /*
  * receives a base query (string) and corresponding args

@@ -22,26 +22,26 @@ DROP TYPE IF EXISTS ChallengeType;
 /***********************************
 *              Types               *
 ************************************/
-CREATE TYPE UserType        AS ENUM ('user', 'moderator', 'admin');
-CREATE TYPE UserState       AS ENUM ('ban', 'tempban', 'normal');
+CREATE TYPE UserType AS ENUM ('user', 'moderator', 'admin');
+CREATE TYPE UserState AS ENUM ('ban', 'tempban', 'normal');
 CREATE TYPE ChallengeTarget AS ENUM ('private', 'community', 'friendly');
-CREATE TYPE ChallengeType   AS ENUM ('Text', 'Audio', 'Video', 'Picture');
+CREATE TYPE ChallengeType AS ENUM ('Text', 'Audio', 'Video', 'Picture');
 
 
 /***********************************
 *              Tables              *
 ************************************/
 CREATE TABLE RegisteredUser (
-  userID         SERIAL      PRIMARY KEY,
-  username       VARCHAR(15)             NOT NULL,
-  pass           VARCHAR                 NOT NULL,
-  name           VARCHAR                 NOT NULL,
-  email          VARCHAR     UNIQUE      NOT NULL,
+  userID         SERIAL PRIMARY KEY,
+  username       VARCHAR(15)         NOT NULL,
+  pass           VARCHAR             NOT NULL,
+  name           VARCHAR             NOT NULL,
+  email          VARCHAR UNIQUE      NOT NULL,
   photo          VARCHAR,
   work           VARCHAR,
   hometown       VARCHAR,
-  lastFreePoints TIMESTAMP               NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  xp             INTEGER                 NOT NULL DEFAULT 0,
+  lastFreePoints TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  xp             INTEGER             NOT NULL DEFAULT 0,
   userType       UserType,
   userState      UserState,
 
@@ -50,104 +50,104 @@ CREATE TABLE RegisteredUser (
 );
 
 
-CREATE TABLE  Category (
+CREATE TABLE Category (
   categoryID SERIAL PRIMARY KEY,
   name       VARCHAR
 );
 
 
-CREATE TABLE  Challenge (
-  challengeID  SERIAL           PRIMARY KEY,
-  userID       INTEGER, 
-  content      VARCHAR          NOT NULL,
-  difficulty   INTEGER          NOT NULL,
-  target       ChallengeTarget  DEFAULT 'community',
+CREATE TABLE Challenge (
+  challengeID  SERIAL PRIMARY KEY,
+  userID       INTEGER,
+  content      VARCHAR NOT NULL,
+  difficulty   INTEGER NOT NULL,
+  target       ChallengeTarget DEFAULT 'community',
   type         challengeType,
   targetUserID INTEGER,
 
-  FOREIGN KEY (userID) REFERENCES RegisteredUser               ON DELETE CASCADE,
-  FOREIGN KEY (targetUserID) REFERENCES RegisteredUser(userID) ON DELETE CASCADE,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
+  FOREIGN KEY (targetUserID) REFERENCES RegisteredUser (userID) ON DELETE CASCADE,
   CHECK (difficulty >= 1 AND difficulty <= 5)
 );
 
 
-CREATE TABLE  ChallengeCategory (
-  challengeID  INTEGER,
-  categoryID   INTEGER,
+CREATE TABLE ChallengeCategory (
+  challengeID INTEGER,
+  categoryID  INTEGER,
 
   PRIMARY KEY (challengeID, categoryID),
-  FOREIGN KEY (challengeID)  REFERENCES Challenge,
+  FOREIGN KEY (challengeID) REFERENCES Challenge,
   FOREIGN KEY (categoryID) REFERENCES Category
 );
 
 
-CREATE TABLE  Comment (
-  commentID   SERIAL       PRIMARY KEY NOT NULL,
-  content     VARCHAR(150)             NOT NULL,
+CREATE TABLE Comment (
+  commentID   SERIAL PRIMARY KEY NOT NULL,
+  content     VARCHAR(150)       NOT NULL,
   userID      INTEGER,
   challengeID INTEGER,
 
-  FOREIGN KEY (userID)      REFERENCES RegisteredUser ON DELETE SET NULL,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE
 );
 
 
-CREATE TABLE  RateChallenge (
+CREATE TABLE RateChallenge (
   userID      INTEGER,
   challengeID INTEGER,
   rating      INTEGER NOT NULL,
 
-  FOREIGN KEY (userID)      REFERENCES RegisteredUser ON DELETE SET NULL,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (challengeID) REFERENCES Challenge,
   CHECK (rating = -1 OR rating = 1)
 );
 
 
-CREATE TABLE  RateComment (
+CREATE TABLE RateComment (
   userID    INTEGER,
   commentID INTEGER,
   rating    INTEGER NOT NULL,
 
-  FOREIGN KEY (userID)    REFERENCES RegisteredUser ON DELETE SET NULL,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (commentID) REFERENCES Comment ON DELETE CASCADE,
   CHECK (rating = -1 OR rating = 1)
 );
 
 
-CREATE TABLE  ChallengeProof (
+CREATE TABLE ChallengeProof (
   proofID     SERIAL PRIMARY KEY NOT NULL,
   userID      INTEGER,
   challengeID INTEGER,
   content     VARCHAR            NOT NULL,
 
-  FOREIGN KEY(userID)      REFERENCES RegisteredUser ON DELETE CASCADE,
-  FOREIGN KEY(challengeID) REFERENCES Challenge ON DELETE CASCADE,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
+  FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE,
   CONSTRAINT un UNIQUE (userID, challengeID)
 );
 
 
-CREATE TABLE  RateChallengeProof (
-  userID   INTEGER,
-  proofID  INTEGER,
-  rating   INTEGER NOT NULL,
+CREATE TABLE RateChallengeProof (
+  userID  INTEGER,
+  proofID INTEGER,
+  rating  INTEGER NOT NULL,
 
-  FOREIGN KEY (userID)  REFERENCES RegisteredUser ON DELETE SET NULL,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (proofID) REFERENCES ChallengeProof,
   CHECK (rating = -1 OR rating = 1)
 );
 
 
-CREATE TABLE  Achievement (
+CREATE TABLE Achievement (
   achievementID SERIAL PRIMARY KEY,
   name          VARCHAR UNIQUE NOT NULL,
-  pointsReward  INTEGER NOT NULL
+  pointsReward  INTEGER        NOT NULL
 );
 
 
-CREATE TABLE  UserAchievement (
-  userID         INTEGER,
-  achievementID  INTEGER,
-  FOREIGN KEY (userID)         REFERENCES RegisteredUser ON DELETE CASCADE,
+CREATE TABLE UserAchievement (
+  userID        INTEGER,
+  achievementID INTEGER,
+  FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
   FOREIGN KEY (achievementID) REFERENCES Achievement
 );
 
@@ -158,7 +158,7 @@ CREATE TABLE  UserAchievement (
 
 /* Categories */
 
-INSERT INTO Category(name) VALUES 
+INSERT INTO Category (name) VALUES
   ('Serious'),
   ('Funny'),
   ('Dangerous'),
@@ -169,18 +169,18 @@ INSERT INTO Category(name) VALUES
   ('Idiotic');
 
 /* Users */
-
-INSERT INTO User VALUES
+/*
+INSERT INTO RegisteredUser VALUES
   ("mod1", "passmod1", "Mod", "mod@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT, "moderator",
    "normal");
 
-INSERT INTO User VALUES
+INSERT INTO RegisteredUser VALUES
   ("joao", "passjoao", "Joao", "joao@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT, "user",
    "normal");
-INSERT INTO User VALUES
+INSERT INTO RegisteredUser VALUES
   ("manuel", "passmanuel", "Manuel", "manuel@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT,
    "user", "normal");
-
+*/
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
 

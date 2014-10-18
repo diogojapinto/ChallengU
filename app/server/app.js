@@ -27,3 +27,6 @@ var port = 8080;
 app.listen(port, ipAddress, function(){
   console.log((new Date()) + ' Server is listening on port ' + port);
 });
+
+//Exports
+exports = app;
