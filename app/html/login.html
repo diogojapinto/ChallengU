@@ -14,7 +14,7 @@
                 <div class="panel-heading">
                     <div class="row-fluid user-row">
                         <img src="../images/login.png" style="width:30%;height:30%" class="img-responsive"
-                             alt="Conxole Admin"/>
+                             alt="Console Admin"/>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -28,7 +28,8 @@
                         <button class="btn btn-block btn-lg btn-success" ng-disabled="!loginForm.$valid" type="submit">
                             Submit
                         </button>
-                        <button class="btn btn-block btn-lg btn-danger" ng-show="loginCtrl.user.username || loginCtrl.user.password"
+                        <button class="btn btn-block btn-lg btn-danger"
+                                ng-show="loginCtrl.user.username || loginCtrl.user.password"
                                 type="button"
                                 ng-click="loginCtrl.resetForm()">
                             Reset
@@ -36,11 +37,11 @@
                     </form>
                 </div>
             </div>
-            </div>
         </div>
     </div>
+</div>
 
-            <script src="../js/angular.min.js"></script>
-            <script src="../js/loginController.js"></script>
+<script src="../js/angular.min.js"></script>
+<script src="../js/loginController.js"></script>
 </body>
 </html>
