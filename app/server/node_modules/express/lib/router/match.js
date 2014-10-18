@@ -1,3 +1,8 @@
+/**
+ * Module dependencies.
+ */
+
+var pathRegexp = require('path-to-regexp');
 
 /**
  * Expose `Layer`.

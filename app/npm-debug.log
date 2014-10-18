@@ -1,0 +1,345 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 warn package.json ChallengU@1.0.0 No description
+6 warn package.json ChallengU@1.0.0 No repository field.
+7 warn package.json ChallengU@1.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose install where, deps [ 'C:\\Users\\Fábio\\git\\ChallengU\\app',
+9 verbose install   [ 'express:', 'body-parser', 'method-override', 'morgan' ] ]
+10 info preinstall ChallengU@1.0.0
+11 verbose readDependencies using package.json deps
+12 verbose cache add [ 'express:@~4.6.1', null ]
+13 verbose cache add name=undefined spec="express:@~4.6.1" args=["express:@~4.6.1",null]
+14 verbose parsed url { protocol: 'express:',
+14 verbose parsed url   slashes: null,
+14 verbose parsed url   auth: '',
+14 verbose parsed url   host: '',
+14 verbose parsed url   port: null,
+14 verbose parsed url   hostname: '',
+14 verbose parsed url   hash: null,
+14 verbose parsed url   search: null,
+14 verbose parsed url   query: null,
+14 verbose parsed url   pathname: '~4.6.1',
+14 verbose parsed url   path: '~4.6.1',
+14 verbose parsed url   href: 'express:~4.6.1' }
+15 verbose cache add [ 'body-parser@~1.4.3', null ]
+16 verbose cache add name=undefined spec="body-parser@~1.4.3" args=["body-parser@~1.4.3",null]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: null,
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'body-parser@~1.4.3',
+17 verbose parsed url   path: 'body-parser@~1.4.3',
+17 verbose parsed url   href: 'body-parser@~1.4.3' }
+18 verbose cache add [ 'method-override@~2.1.1', null ]
+19 verbose cache add name=undefined spec="method-override@~2.1.1" args=["method-override@~2.1.1",null]
+20 verbose parsed url { protocol: null,
+20 verbose parsed url   slashes: null,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: null,
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: null,
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: 'method-override@~2.1.1',
+20 verbose parsed url   path: 'method-override@~2.1.1',
+20 verbose parsed url   href: 'method-override@~2.1.1' }
+21 verbose cache add [ 'morgan@~1.1.1', null ]
+22 verbose cache add name=undefined spec="morgan@~1.1.1" args=["morgan@~1.1.1",null]
+23 verbose parsed url { protocol: null,
+23 verbose parsed url   slashes: null,
+23 verbose parsed url   auth: null,
+23 verbose parsed url   host: null,
+23 verbose parsed url   port: null,
+23 verbose parsed url   hostname: null,
+23 verbose parsed url   hash: null,
+23 verbose parsed url   search: null,
+23 verbose parsed url   query: null,
+23 verbose parsed url   pathname: 'morgan@~1.1.1',
+23 verbose parsed url   path: 'morgan@~1.1.1',
+23 verbose parsed url   href: 'morgan@~1.1.1' }
+24 silly lockFile 51ebfaee-express-4-6-1 express:@~4.6.1
+25 verbose lock express:@~4.6.1 C:\Users\Fábio\AppData\Roaming\npm-cache\51ebfaee-express-4-6-1.lock
+26 verbose cache add name="body-parser" spec="~1.4.3" args=["body-parser","~1.4.3"]
+27 verbose parsed url { protocol: null,
+27 verbose parsed url   slashes: null,
+27 verbose parsed url   auth: null,
+27 verbose parsed url   host: null,
+27 verbose parsed url   port: null,
+27 verbose parsed url   hostname: null,
+27 verbose parsed url   hash: null,
+27 verbose parsed url   search: null,
+27 verbose parsed url   query: null,
+27 verbose parsed url   pathname: '~1.4.3',
+27 verbose parsed url   path: '~1.4.3',
+27 verbose parsed url   href: '~1.4.3' }
+28 verbose addNamed [ 'body-parser', '~1.4.3' ]
+29 verbose addNamed [ null, '>=1.4.3-0 <1.5.0-0' ]
+30 silly lockFile 09a058c8-body-parser-1-4-3 body-parser@~1.4.3
+31 verbose lock body-parser@~1.4.3 C:\Users\Fábio\AppData\Roaming\npm-cache\09a058c8-body-parser-1-4-3.lock
+32 verbose cache add name="method-override" spec="~2.1.1" args=["method-override","~2.1.1"]
+33 verbose parsed url { protocol: null,
+33 verbose parsed url   slashes: null,
+33 verbose parsed url   auth: null,
+33 verbose parsed url   host: null,
+33 verbose parsed url   port: null,
+33 verbose parsed url   hostname: null,
+33 verbose parsed url   hash: null,
+33 verbose parsed url   search: null,
+33 verbose parsed url   query: null,
+33 verbose parsed url   pathname: '~2.1.1',
+33 verbose parsed url   path: '~2.1.1',
+33 verbose parsed url   href: '~2.1.1' }
+34 verbose addNamed [ 'method-override', '~2.1.1' ]
+35 verbose addNamed [ null, '>=2.1.1-0 <2.2.0-0' ]
+36 silly lockFile dba61a8c-method-override-2-1-1 method-override@~2.1.1
+37 verbose lock method-override@~2.1.1 C:\Users\Fábio\AppData\Roaming\npm-cache\dba61a8c-method-override-2-1-1.lock
+38 verbose cache add name="morgan" spec="~1.1.1" args=["morgan","~1.1.1"]
+39 verbose parsed url { protocol: null,
+39 verbose parsed url   slashes: null,
+39 verbose parsed url   auth: null,
+39 verbose parsed url   host: null,
+39 verbose parsed url   port: null,
+39 verbose parsed url   hostname: null,
+39 verbose parsed url   hash: null,
+39 verbose parsed url   search: null,
+39 verbose parsed url   query: null,
+39 verbose parsed url   pathname: '~1.1.1',
+39 verbose parsed url   path: '~1.1.1',
+39 verbose parsed url   href: '~1.1.1' }
+40 verbose addNamed [ 'morgan', '~1.1.1' ]
+41 verbose addNamed [ null, '>=1.1.1-0 <1.2.0-0' ]
+42 silly lockFile 2a2f7426-morgan-1-1-1 morgan@~1.1.1
+43 verbose lock morgan@~1.1.1 C:\Users\Fábio\AppData\Roaming\npm-cache\2a2f7426-morgan-1-1-1.lock
+44 silly addNameRange { name: 'body-parser',
+44 silly addNameRange   range: '>=1.4.3-0 <1.5.0-0',
+44 silly addNameRange   hasData: false }
+45 silly addNameRange { name: 'method-override',
+45 silly addNameRange   range: '>=2.1.1-0 <2.2.0-0',
+45 silly addNameRange   hasData: false }
+46 silly lockFile 51ebfaee-express-4-6-1 express:@~4.6.1
+47 silly lockFile 51ebfaee-express-4-6-1 express:@~4.6.1
+48 silly addNameRange { name: 'morgan', range: '>=1.1.1-0 <1.2.0-0', hasData: false }
+49 verbose addNamed [ 'express:@~4.6.1', '' ]
+50 verbose addNamed [ null, '*' ]
+51 silly lockFile 0066e5e3-express-4-6-1 express:@~4.6.1@
+52 verbose lock express:@~4.6.1@ C:\Users\Fábio\AppData\Roaming\npm-cache\0066e5e3-express-4-6-1.lock
+53 silly addNameRange { name: 'express:@~4.6.1', range: '*', hasData: false }
+54 verbose request where is ~4.6.1
+55 verbose request registry express:/
+56 verbose request id 57947660a2765501
+57 verbose url raw ~4.6.1
+58 verbose url resolving [ 'express:/', './~4.6.1' ]
+59 verbose url resolved express:/~4.6.1
+60 verbose request where is express:/~4.6.1
+61 info trying registry request attempt 1 at 16:06:35
+62 http GET express:/~4.6.1
+63 info retry will retry, error on last attempt: Error: Invalid protocol: express:
+64 verbose request where is /body-parser
+65 verbose request registry https://registry.npmjs.org/
+66 verbose url raw /body-parser
+67 verbose url resolving [ 'https://registry.npmjs.org/', './body-parser' ]
+68 verbose url resolved https://registry.npmjs.org/body-parser
+69 verbose request where is https://registry.npmjs.org/body-parser
+70 info trying registry request attempt 1 at 16:06:35
+71 verbose etag "2Z3MRRW3UTD2PGDGVXU6ZKF4D"
+72 http GET https://registry.npmjs.org/body-parser
+73 verbose request where is /morgan
+74 verbose request registry https://registry.npmjs.org/
+75 verbose url raw /morgan
+76 verbose url resolving [ 'https://registry.npmjs.org/', './morgan' ]
+77 verbose url resolved https://registry.npmjs.org/morgan
+78 verbose request where is https://registry.npmjs.org/morgan
+79 info trying registry request attempt 1 at 16:06:35
+80 verbose etag "9XCRWUDGXSRP5O4MDP1T9VN3W"
+81 http GET https://registry.npmjs.org/morgan
+82 verbose request where is /method-override
+83 verbose request registry https://registry.npmjs.org/
+84 verbose url raw /method-override
+85 verbose url resolving [ 'https://registry.npmjs.org/', './method-override' ]
+86 verbose url resolved https://registry.npmjs.org/method-override
+87 verbose request where is https://registry.npmjs.org/method-override
+88 info trying registry request attempt 1 at 16:06:35
+89 verbose etag "9PVER2MH3KEG1HPPCJQD6ICO2"
+90 http GET https://registry.npmjs.org/method-override
+91 http 304 https://registry.npmjs.org/body-parser
+92 silly registry.get cb [ 304,
+92 silly registry.get   { date: 'Sat, 18 Oct 2014 15:06:41 GMT',
+92 silly registry.get     server: 'Apache',
+92 silly registry.get     via: '1.1 varnish',
+92 silly registry.get     'last-modified': 'Sat, 18 Oct 2014 15:06:41 GMT',
+92 silly registry.get     'cache-control': 'max-age=60',
+92 silly registry.get     etag: '"2Z3MRRW3UTD2PGDGVXU6ZKF4D"',
+92 silly registry.get     age: '9',
+92 silly registry.get     'x-served-by': 'cache-fra1235-FRA',
+92 silly registry.get     'x-cache': 'HIT',
+92 silly registry.get     'x-cache-hits': '1',
+92 silly registry.get     'x-timer': 'S1413644801.224418,VS0,VE0',
+92 silly registry.get     vary: 'Accept',
+92 silly registry.get     'content-length': '0',
+92 silly registry.get     'keep-alive': 'timeout=10, max=50',
+92 silly registry.get     connection: 'Keep-Alive' } ]
+93 verbose etag https://registry.npmjs.org/body-parser from cache
+94 http 304 https://registry.npmjs.org/morgan
+95 silly registry.get cb [ 304,
+95 silly registry.get   { date: 'Sat, 18 Oct 2014 15:06:41 GMT',
+95 silly registry.get     server: 'Apache',
+95 silly registry.get     via: '1.1 varnish',
+95 silly registry.get     'last-modified': 'Sat, 18 Oct 2014 15:06:41 GMT',
+95 silly registry.get     'cache-control': 'max-age=60',
+95 silly registry.get     etag: '"9XCRWUDGXSRP5O4MDP1T9VN3W"',
+95 silly registry.get     age: '9',
+95 silly registry.get     'x-served-by': 'cache-fra1242-FRA',
+95 silly registry.get     'x-cache': 'HIT',
+95 silly registry.get     'x-cache-hits': '1',
+95 silly registry.get     'x-timer': 'S1413644801.227964,VS0,VE0',
+95 silly registry.get     vary: 'Accept',
+95 silly registry.get     'content-length': '0',
+95 silly registry.get     'keep-alive': 'timeout=10, max=50',
+95 silly registry.get     connection: 'Keep-Alive' } ]
+96 verbose etag https://registry.npmjs.org/morgan from cache
+97 silly addNameRange number 2 { name: 'body-parser',
+97 silly addNameRange   range: '>=1.4.3-0 <1.5.0-0',
+97 silly addNameRange   hasData: true }
+98 silly addNameRange versions [ 'body-parser',
+98 silly addNameRange   [ '1.0.0',
+98 silly addNameRange     '1.0.1',
+98 silly addNameRange     '1.0.2',
+98 silly addNameRange     '1.1.0',
+98 silly addNameRange     '1.1.1',
+98 silly addNameRange     '1.1.2',
+98 silly addNameRange     '1.2.0',
+98 silly addNameRange     '1.2.1',
+98 silly addNameRange     '1.2.2',
+98 silly addNameRange     '1.3.0',
+98 silly addNameRange     '1.3.1',
+98 silly addNameRange     '1.4.0',
+98 silly addNameRange     '1.4.1',
+98 silly addNameRange     '1.4.2',
+98 silly addNameRange     '1.4.3',
+98 silly addNameRange     '1.5.0',
+98 silly addNameRange     '1.5.1',
+98 silly addNameRange     '1.5.2',
+98 silly addNameRange     '1.6.0',
+98 silly addNameRange     '1.6.1',
+98 silly addNameRange     '1.6.2',
+98 silly addNameRange     '1.6.3',
+98 silly addNameRange     '1.6.4',
+98 silly addNameRange     '1.6.5',
+98 silly addNameRange     '1.6.6',
+98 silly addNameRange     '1.6.7',
+98 silly addNameRange     '1.7.0',
+98 silly addNameRange     '1.8.0',
+98 silly addNameRange     '1.8.1',
+98 silly addNameRange     '1.8.2',
+98 silly addNameRange     '1.8.3',
+98 silly addNameRange     '1.8.4',
+98 silly addNameRange     '1.9.0' ] ]
+99 verbose addNamed [ 'body-parser', '1.4.3' ]
+100 verbose addNamed [ '1.4.3', '1.4.3' ]
+101 silly lockFile b6d1f7e9-body-parser-1-4-3 body-parser@1.4.3
+102 verbose lock body-parser@1.4.3 C:\Users\Fábio\AppData\Roaming\npm-cache\b6d1f7e9-body-parser-1-4-3.lock
+103 silly addNameRange number 2 { name: 'morgan', range: '>=1.1.1-0 <1.2.0-0', hasData: true }
+104 silly addNameRange versions [ 'morgan',
+104 silly addNameRange   [ '1.0.0',
+104 silly addNameRange     '1.0.1',
+104 silly addNameRange     '1.1.0',
+104 silly addNameRange     '1.1.1',
+104 silly addNameRange     '1.2.0',
+104 silly addNameRange     '1.2.1',
+104 silly addNameRange     '1.2.2',
+104 silly addNameRange     '1.2.3',
+104 silly addNameRange     '1.3.0',
+104 silly addNameRange     '1.3.1',
+104 silly addNameRange     '1.3.2',
+104 silly addNameRange     '1.4.0' ] ]
+105 verbose addNamed [ 'morgan', '1.1.1' ]
+106 verbose addNamed [ '1.1.1', '1.1.1' ]
+107 silly lockFile bf9e70f4-morgan-1-1-1 morgan@1.1.1
+108 verbose lock morgan@1.1.1 C:\Users\Fábio\AppData\Roaming\npm-cache\bf9e70f4-morgan-1-1-1.lock
+109 silly lockFile b6d1f7e9-body-parser-1-4-3 body-parser@1.4.3
+110 silly lockFile b6d1f7e9-body-parser-1-4-3 body-parser@1.4.3
+111 silly lockFile 09a058c8-body-parser-1-4-3 body-parser@~1.4.3
+112 silly lockFile 09a058c8-body-parser-1-4-3 body-parser@~1.4.3
+113 silly lockFile bf9e70f4-morgan-1-1-1 morgan@1.1.1
+114 silly lockFile bf9e70f4-morgan-1-1-1 morgan@1.1.1
+115 silly lockFile 2a2f7426-morgan-1-1-1 morgan@~1.1.1
+116 silly lockFile 2a2f7426-morgan-1-1-1 morgan@~1.1.1
+117 http 304 https://registry.npmjs.org/method-override
+118 silly registry.get cb [ 304,
+118 silly registry.get   { date: 'Sat, 18 Oct 2014 15:06:41 GMT',
+118 silly registry.get     server: 'Apache',
+118 silly registry.get     via: '1.1 varnish',
+118 silly registry.get     'last-modified': 'Sat, 18 Oct 2014 15:06:41 GMT',
+118 silly registry.get     'cache-control': 'max-age=60',
+118 silly registry.get     etag: '"9PVER2MH3KEG1HPPCJQD6ICO2"',
+118 silly registry.get     age: '0',
+118 silly registry.get     'x-served-by': 'cache-fra1224-FRA',
+118 silly registry.get     'x-cache': 'HIT',
+118 silly registry.get     'x-cache-hits': '1',
+118 silly registry.get     'x-timer': 'S1413644801.224367,VS0,VE697',
+118 silly registry.get     vary: 'Accept',
+118 silly registry.get     'content-length': '0',
+118 silly registry.get     'keep-alive': 'timeout=10, max=50',
+118 silly registry.get     connection: 'Keep-Alive' } ]
+119 verbose etag https://registry.npmjs.org/method-override from cache
+120 silly addNameRange number 2 { name: 'method-override',
+120 silly addNameRange   range: '>=2.1.1-0 <2.2.0-0',
+120 silly addNameRange   hasData: true }
+121 silly addNameRange versions [ 'method-override',
+121 silly addNameRange   [ '1.0.0',
+121 silly addNameRange     '1.0.1',
+121 silly addNameRange     '1.0.2',
+121 silly addNameRange     '2.0.0',
+121 silly addNameRange     '2.0.1',
+121 silly addNameRange     '2.0.2',
+121 silly addNameRange     '2.1.0',
+121 silly addNameRange     '2.1.1',
+121 silly addNameRange     '2.1.2',
+121 silly addNameRange     '2.1.3',
+121 silly addNameRange     '2.2.0',
+121 silly addNameRange     '2.3.0' ] ]
+122 verbose addNamed [ 'method-override', '2.1.3' ]
+123 verbose addNamed [ '2.1.3', '2.1.3' ]
+124 silly lockFile b4e26855-method-override-2-1-3 method-override@2.1.3
+125 verbose lock method-override@2.1.3 C:\Users\Fábio\AppData\Roaming\npm-cache\b4e26855-method-override-2-1-3.lock
+126 silly lockFile b4e26855-method-override-2-1-3 method-override@2.1.3
+127 silly lockFile b4e26855-method-override-2-1-3 method-override@2.1.3
+128 silly lockFile dba61a8c-method-override-2-1-1 method-override@~2.1.1
+129 silly lockFile dba61a8c-method-override-2-1-1 method-override@~2.1.1
+130 info trying registry request attempt 2 at 16:06:45
+131 http GET express:/~4.6.1
+132 info retry will retry, error on last attempt: Error: Invalid protocol: express:
+133 info trying registry request attempt 3 at 16:07:45
+134 http GET express:/~4.6.1
+135 silly lockFile 0066e5e3-express-4-6-1 express:@~4.6.1@
+136 silly lockFile 0066e5e3-express-4-6-1 express:@~4.6.1@
+137 error Error: Invalid protocol: express:
+137 error     at Request.self._buildRequest (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:460:53)
+137 error     at Request.init (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:637:10)
+137 error     at new Request (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:131:8)
+137 error     at request (C:\Program Files\nodejs\node_modules\npm\node_modules\request\index.js:47:10)
+137 error     at RegClient.makeRequest (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:224:13)
+137 error     at RegClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:132:17)
+137 error     at null._onTimeout (C:\Program Files\nodejs\node_modules\npm\node_modules\retry\lib\retry_operation.js:32:10)
+137 error     at Timer.listOnTimeout [as ontimeout] (timers.js:112:15)
+138 error If you need help, you may report this *entire* log,
+138 error including the npm and node versions, at:
+138 error     <http://github.com/npm/npm/issues>
+139 error System Windows_NT 6.2.9200
+140 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+141 error cwd C:\Users\Fábio\git\ChallengU\app
+142 error node -v v0.10.32
+143 error npm -v 1.4.28
+144 verbose exit [ 1, true ]
