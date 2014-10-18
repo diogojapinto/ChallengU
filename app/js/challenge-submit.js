@@ -12,10 +12,14 @@
         };
 
         //get categories
-        this.challengeCategories = []; //to replace
+        this.challengeCategories = [];
+        var categories = this.challengeCategories;
         $http.post("/get-categories").
             success(function (data, status, headers, config) {
-                alert("ola");
+
+                for (i = 0; i < data.length; i++) {
+                    categories[i] = data[i].name;
+                }
             }).
             error(function (data, status, headers, config) {
                 alert("fail");

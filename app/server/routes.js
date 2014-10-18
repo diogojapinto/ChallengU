@@ -2,7 +2,7 @@ var path = require('path');
 var db = require('./database-requests.js');
 exports.start = function (app) {
 
-//entry point
+    //entry point
 
     app.get("/login", function (req, res) {
         res.sendfile(path.join(__dirname, '../html', 'login.html'));
@@ -13,7 +13,9 @@ exports.start = function (app) {
     });
 
     app.post("/get-categories", function (req, res) {
-        console.log(db.getCategories());
+        db.getCategories(function (categories) {
+            res.send(categories.rows);
+        });
     });
 
     app.get('*', function (req, res) {
