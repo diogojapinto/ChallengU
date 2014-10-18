@@ -18,11 +18,12 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 app.use(express.static(__dirname + '../../landing/'));
 //routes============================
-require('./routes.js')(app);
+var routes = require('./routes.js')
+routes.start(app);
 
 //listen============================
-var ipaddress = "127.0.0.1";
+var ipAddress = "127.0.0.1";
 var port = 8080;
-app.listen(port, ipaddress, function(){
+app.listen(port, ipAddress, function(){
   console.log((new Date()) + ' Server is listening on port ' + port);
 });
