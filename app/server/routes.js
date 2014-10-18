@@ -16,6 +16,9 @@ exports.start = function (app) {
         console.log(db.getCategories());
     });
 
+    app.post("/create-challenge", function(req, res){
+    console.log('REQUEST = ' + req);
+    });
     app.get('*', function (req, res) {
         res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
     });
