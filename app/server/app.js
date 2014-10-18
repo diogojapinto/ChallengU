@@ -19,7 +19,7 @@ app.get("/login", function(req, res) {
     res.sendFile(path.join(__dirname, '../html', 'login.html'));
 });
 
-app.get("/postChallenge", function(req, res) {
+app.get("/post-challenge", function(req, res) {
     res.sendFile(path.join(__dirname, '../html', 'challenge-submit.html'));
 });
 

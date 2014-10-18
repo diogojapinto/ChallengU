@@ -13,20 +13,15 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row-fluid user-row">
-                        <img src="https://www.dnnsoftware.com/portals/0/Images/DNN/login.png"
-                             style="width:30%;height:30%" class="img-responsive"
+                        <img src="../images/login.png" style="width:30%;height:30%" class="img-responsive"
                              alt="Conxole Admin"/>
                     </div>
                 </div>
                 <div class="panel-body">
                     <form name="loginForm" ng-submit="loginForm.$valid && loginCtrl.addUser(user)">
-                        <!--<label>Username: </label>-->
-                        <input class="form-control" ng-model="loginCtrl.user.username" type="text"
-                               placeholder="Username" required/>
+                        <input class="form-control" ng-model="loginCtrl.user.username" type="text" placeholder="Username" required/>
                         <br/>
-                        <!--<label>Password: </label>-->
-                        <input class="form-control" ng-model="loginCtrl.user.password" type="password"
-                               placeholder="Password" required/>
+                        <input class="form-control" ng-model="loginCtrl.user.password" type="password" placeholder="Password" required/>
                         <br/>
                         <a href="">Forgot your password?</a>
                         <br/>
