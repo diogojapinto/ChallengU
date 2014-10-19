@@ -20,7 +20,7 @@ exports.start = function (app) {
 
     app.post("/login-user", function (req, res) {
         db.getUser(req.body.username,function (user) {
-            if (user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
+            if (user.rows != null && user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
                 res.send("OK");
             } else {
                 res.status(404).send("NOT OK");

@@ -1,14 +1,13 @@
 (function () {
     var app = angular.module('login', []);
 
-    app.controller('LoginController', ['$scope', '$http', 'Login', function ($scope, $http, Login) {
+    app.controller('LoginController', ['$scope', '$http', '$window', 'Login', function ($scope, $http, $window, Login) {
         /* Controller that manages the login of an user */
         this.user = {};
         $scope.formData = {};
         $scope.loading = true;
 
         $scope.login = function () {
-            alert("Ola");
             $scope.loading = true;
             if ($scope.formData != undefined) {
                 Login.create($scope.formData)
@@ -16,6 +15,7 @@
                         $scope.loading = false;
                         $scope.formData = {};
                         alert("success");
+                        $window.location.href = '/';
                     })
                     .error(function (data) {
                         alert("failed: " + data);
