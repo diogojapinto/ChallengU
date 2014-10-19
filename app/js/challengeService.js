@@ -3,11 +3,11 @@ angular.module('challenge-service', [])
     .factory('Challenges', ['$http', function ($http) {
         return{
             create       : function (challengeData) {
+                console.log(challengeData);
                 $http.post('/create-challenge', challengeData)
                     .success(function (data) {
                         $scope.loading = false;
                         $scope.formData = {};
-                        alert("success");
                     })
                     .error(function (data) {
                         alert("failed: " + data);
@@ -21,7 +21,7 @@ angular.module('challenge-service', [])
                         }
                     }).
                     error(function (data, status, headers, config) {
-                        alert("fail");
+                        alert("failed: " + data);
                     });
             }
         }
