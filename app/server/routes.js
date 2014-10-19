@@ -28,12 +28,14 @@ exports.start = function (app) {
 
     app.post("/login-user", function (req, res) {
         db.getUser(req.body.username,function (user) {
-            if (user.rows != null && user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
-                req.session.regenerate(function() {
-                    var user = user.rows[0];
-                    req.session.user = user;
-                    res.redirect('/');
-                });
+            console.log(user.rows[0]);
+            var user = user.rows[0];
+            console.log(req.body);
+            if (user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
+
+                    //req.session.user = user;
+                    //res.redirect('/');
+
             } else {
                 res.status(404).send("NOT OK");
             }
