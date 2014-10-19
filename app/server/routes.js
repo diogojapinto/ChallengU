@@ -38,8 +38,13 @@ exports.start = function (app) {
     });
 
     app.post("/create-challenge", function(req, res){
-        console.log('REQUEST == ' + req.body);
-    //Insert into db here
+        db.insertChallenge(req.body, function (isfine) {
+            if (isfine) {
+                res.send("OK");
+            } else {
+                res.send("FAIL");
+            }
+        });
     });
     app.get('*', function (req, res) {
         res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
