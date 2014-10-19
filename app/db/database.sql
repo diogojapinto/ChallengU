@@ -1,6 +1,7 @@
 ﻿/***********************************
 *              Cleanup             *
 ************************************/
+DROP TABLE IF EXISTS RegisteredUser;
 DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
 DROP TABLE IF EXISTS RateChallengeProof;
