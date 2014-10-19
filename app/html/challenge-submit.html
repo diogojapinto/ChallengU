@@ -22,19 +22,24 @@
                     <h1>Create a challenge!</h1>
 
                     <input class="form-control" ng-model="formData.name" type="text"
-                           placeholder="Your challenge name" required >
+                           placeholder="Your challenge name" required>
 
                     <h3>Category</h3>
 
-                    <span style="padding-left: 0.2em" ng-repeat="category in chalg.challengeCategories">
-                        <input class="chck" id="check" type="checkbox" value="category" ng-model="formData.category">
-                        <label for="check">{{category}}</label>
+                    <span style="padding-left: 0.2em" ng-repeat="category in formData.challengeCategories">
+                        <label>
+                            <input class="chck" id="category" type="checkbox" value="category">
+                            {{category}}
+                        </label>
                     </span>
 
                     <h3>Proof type</h3>
 
                     <div class="styled-select">
-                        <select ng-model="formData.challengeType" ng-options="option for option in chalg.challengeTypes">
+                        <select ng-model="formData.challengeType">
+                            <option ng-repeat="option in chalg.challengeTypes" selected="selected">
+                                {{option}}
+                            </option>
                         </select>
                     </div>
 
@@ -44,9 +49,12 @@
 
                     <div style="text-align: center">{{formData.difficulty}}</div>
 
-                    <textarea class="form-control" placeholder="Your description of the challenge" require ng-model="formData.description"></textarea>
+                    <textarea class="form-control" placeholder="Your description of the challenge" require
+                              ng-model="formData.description"></textarea>
                     <br/>
-                    <button class="btn btn-success btn-block btn-lg" type="submit" ng-click="createChallenge()">Post your Challenge!</button>
+                    <button class="btn btn-success btn-block btn-lg" type="submit" ng-click="createChallenge()">Post
+                        your Challenge!
+                    </button>
 
                 </form>
 
