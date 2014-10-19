@@ -19,10 +19,7 @@ exports.start = function (app) {
     });
 
     app.post("/login-user", function (req, res) {
-        console.log(req.body);
         db.getUser(req.body.username,function (user) {
-            console.log(user.rows[0].pass + " = " + req.body.password);
-            console.log(user.rows[0].username + " = " + req.body.username);
             if (user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
                 res.send("OK");
             } else {
