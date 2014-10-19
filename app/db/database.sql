@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS RegisteredUser;
 
 DROP TYPE IF EXISTS UserType;
 DROP TYPE IF EXISTS UserState;
-DROP TYPE IF EXISTS ChallengePrivacy;
+DROP TYPE ChallengeTarget;
 DROP TYPE IF EXISTS ChallengeType;
 
 
@@ -169,18 +169,18 @@ INSERT INTO Category (name) VALUES
   ('Idiotic');
 
 /* Users */
-/*
-INSERT INTO RegisteredUser VALUES
-  ("mod1", "passmod1", "Mod", "mod@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT, "moderator",
-   "normal");
 
 INSERT INTO RegisteredUser VALUES
-  ("joao", "passjoao", "Joao", "joao@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT, "user",
-   "normal");
+  (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
+   'normal');
+
 INSERT INTO RegisteredUser VALUES
-  ("manuel", "passmanuel", "Manuel", "manuel@gmail.com", "/path/to/photo.jpg", "job", "hometown", DEFAULT, DEFAULT,
-   "user", "normal");
-*/
+  (DEFAULT,'joao1', 'passjoao', 'Joao', 'joao@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
+   'normal');
+INSERT INTO RegisteredUser VALUES
+  (DEFAULT,'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT,
+   'user', 'normal');
+
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
 

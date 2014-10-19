@@ -18,6 +18,19 @@ exports.start = function (app) {
         });
     });
 
+    app.post("/login-user", function (req, res) {
+        console.log(req.body);
+        db.getUser(req.body.user.username,function (user) {
+            console.log(user.rows[0].pass + " = " + req.body.user.password);
+            console.log(user.rows[0].username + " = " + req.body.user.username);
+            if (user.rows[0].pass === req.body.user.password && user.rows[0].username === req.body.user.username) {
+                res.send("OK");
+            } else {
+                res.status(404).send("NOT OK");
+            }
+        });
+    });
+
     app.post("/create-challenge", function(req, res){
     console.log('REQUEST = ' + req);
     });
