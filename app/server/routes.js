@@ -4,6 +4,14 @@ exports.start = function (app) {
 
     //entry point
 
+    app.get('/logout', function(req, res){
+        // destroy the user's session to log them out
+        // will be re-created next request
+        req.session.destroy(function(){
+            res.redirect('/');
+        });
+    });
+
     app.get("/login", function (req, res) {
         res.sendfile(path.join(__dirname, '../html', 'login.html'));
     });
@@ -21,7 +29,11 @@ exports.start = function (app) {
     app.post("/login-user", function (req, res) {
         db.getUser(req.body.username,function (user) {
             if (user.rows != null && user.rows[0].pass === req.body.password && user.rows[0].username === req.body.username) {
-                res.send("OK");
+                req.session.regenerate(function() {
+                    var user = user.rows[0];
+                    req.session.user = user;
+                    res.redirect('/');
+                });
             } else {
                 res.status(404).send("NOT OK");
             }

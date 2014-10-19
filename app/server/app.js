@@ -17,6 +17,8 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 app.use(express.static(path.join(__dirname, '../../landing/')));
+app.use(express.cookieParser('shhhh, very very very secretzzzzz'));
+app.use(express.session());
 //routes============================
 var routes = require('./routes.js')
 routes.start(app);
