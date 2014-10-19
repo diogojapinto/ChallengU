@@ -15,7 +15,7 @@
                         $scope.loading = false;
                         $scope.formData = {};
                         alert("success");
-                        //$window.location.href = '/';
+                        $window.location.href = '/';
                     })
                     .error(function (data) {
                         alert("failed: " + data);
