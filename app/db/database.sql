@@ -1,4 +1,4 @@
-/***********************************
+﻿/***********************************
 *              Cleanup             *
 ************************************/
 DROP TABLE IF EXISTS UserAchievement;
@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS RegisteredUser;
 
 DROP TYPE IF EXISTS UserType;
 DROP TYPE IF EXISTS UserState;
-DROP TYPE ChallengeTarget;
+DROP TYPE IF EXISTS ChallengeTarget;
 DROP TYPE IF EXISTS ChallengeType;
 
 
