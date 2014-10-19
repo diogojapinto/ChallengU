@@ -4,14 +4,6 @@ exports.start = function (app) {
 
     //entry point
 
-    app.get('/logout', function(req, res){
-        // destroy the user's session to log them out
-        // will be re-created next request
-        req.session.destroy(function(){
-            res.redirect('/');
-        });
-    });
-
     app.get("/login", function (req, res) {
         res.sendfile(path.join(__dirname, '../html', 'login.html'));
     });
