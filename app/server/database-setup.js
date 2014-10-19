@@ -23,3 +23,7 @@ exports.query = function (baseQuery, args, callback) {
     });
 };
 
+exports.insertChallenge = function (name, difficulty, type, desc, categories, callback) {
+    pg.connect(conString, function (err, client, done))
+};
+

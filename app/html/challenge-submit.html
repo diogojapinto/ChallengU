@@ -26,9 +26,12 @@
 
                     <h3>Category</h3>
 
-                    <span style="padding-left: 0.2em" ng-repeat="category in formData.challengeCategories">
-                        <label>
-                            <input class="chck" id="category" type="checkbox" value="category">
+                    <span style="padding-left: 0.2em">
+                        <label ng-repeat="category in chalg.challengeCategories">
+                            <input ng-checked="formData.category.indexOf(category) > -1"
+                                   ng-click="toggleSelection(category)"
+                                   class="chck" id="category" type="checkbox"
+                                   value="{{category}}">
                             {{category}}
                         </label>
                     </span>
@@ -36,7 +39,7 @@
                     <h3>Proof type</h3>
 
                     <div class="styled-select">
-                        <select ng-model="formData.challengeType"
+                        <select ng-model="formData.type"
                                 ng-options="option for option in chalg.challengeTypes">
 
                         </select>

@@ -3,7 +3,6 @@ angular.module('challenge-service', [])
     .factory('Challenges', ['$http', function ($http) {
         return{
             create       : function (challengeData) {
-                console.log(challengeData);
                 $http.post('/create-challenge', challengeData)
                     .success(function (data) {
                         $scope.loading = false;
