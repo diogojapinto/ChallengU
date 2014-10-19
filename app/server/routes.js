@@ -4,10 +4,10 @@ exports.start = function (app) {
 
     //entry point
 
-    app.get('/logout', function(req, res){
+    app.get('/logout', function (req, res) {
         // destroy the user's session to log them out
         // will be re-created next request
-        req.session.destroy(function(){
+        req.session.destroy(function () {
             res.redirect('/');
         });
     });
@@ -17,20 +17,26 @@ exports.start = function (app) {
     });
 
     app.get("/post-challenge", function (req, res) {
-        res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
+        if (req.session.user) {
+            res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
+        } else {
+
+        }
     });
 
     app.post("/get-categories", function (req, res) {
-        db.getCategories(function (categories) {
-            res.send(categories.rows);
-        });
+        if (req.session.user) {
+            db.getCategories(function (categories) {
+                res.send(categories.rows);
+            });
+        }
     });
 
     app.post("/login-user", function (req, res) {
-        db.getUser(req.body.username,function (user) {
+        db.getUser(req.body.username, function (user) {
             var user = user.rows[0];
             if (user && user.pass === req.body.password && user.username === req.body.username) {
-                req.session.regenerate(function() {
+                req.session.regenerate(function () {
                     req.session.user = user;
                     res.status(200).send("OK");
                 });
@@ -40,9 +46,9 @@ exports.start = function (app) {
         });
     });
 
-    app.post("/create-challenge", function(req, res){
+    app.post("/create-challenge", function (req, res) {
         db.insertChallenge(req.body, function (isfine) {
-            if (isfine) {
+            if (isfine && req.session.user) {
                 res.send("OK");
             } else {
                 res.send("FAIL");
