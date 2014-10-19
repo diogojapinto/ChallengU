@@ -13,18 +13,31 @@
 
         $scope.createChallenge = function () {
             $scope.loading = true;
-            console.log($scope.formData);
             if ($scope.formData.name != "" && $scope.formData.category.length >= 1) {
-                alert("create");
                 Challenges.create($scope.formData)
             }
         };
 
         //get categories
-        $scope.formData.challengeCategories = [];
-        Challenges.getCategories($scope.formData.challengeCategories);
+        this.challengeCategories = [];
+        Challenges.getCategories(this.challengeCategories);
 
         this.challengeTypes = ['sound', 'text', 'photo', 'video'];
+
+        // toggle selection for a given fruit by name
+        $scope.toggleSelection = function toggleSelection(category) {
+            var idx = $scope.formData.category.indexOf(category);
+
+            // is currently selected
+            if (idx > -1) {
+                $scope.formData.category.splice(idx, 1);
+            }
+
+            // is newly selected
+            else {
+                $scope.formData.category.push(category);
+            }
+        };
     }]);
 
 })();
