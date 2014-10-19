@@ -8,5 +8,7 @@ var getUser = function (username,callback) {
     db.query("SELECT * FROM RegisteredUser WHERE username=" + "'" + username + "'", [], callback);
 }
 
+var get
+
 exports.getCategories = getCategories;
 exports.getUser = getUser;

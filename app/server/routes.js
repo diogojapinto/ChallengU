@@ -12,6 +12,15 @@ exports.start = function (app) {
         res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
     });
 
+    app.get("/challenge/:id", function (req, res) {
+        var challengeID = req.params.id;
+
+
+
+
+        res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
+    });
+
     app.post("/get-categories", function (req, res) {
         db.getCategories(function (categories) {
             res.send(categories.rows);
