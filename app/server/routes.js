@@ -17,9 +17,9 @@ exports.start = function (app) {
             res.send(categories.rows);
         });
     });
-
     app.post("/create-challenge", function(req, res){
-    console.log('REQUEST = ' + req);
+    console.log('REQUEST == ' + req.body.difficulty);
+    //Insert into db here
     });
     app.get('*', function (req, res) {
         res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));

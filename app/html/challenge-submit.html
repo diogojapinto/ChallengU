@@ -21,33 +21,30 @@
                 <form method="get">
                     <h1>Create a challenge!</h1>
 
-                    <input class="form-control" ng-model="chalg.challenge.name" type="text"
-                           placeholder="Your challenge name" required>
+                    <input class="form-control" ng-model="formData.name" type="text"
+                           placeholder="Your challenge name" required >
 
                     <h3>Category</h3>
 
                     <span style="padding-left: 0.2em" ng-repeat="category in chalg.challengeCategories">
-                        <input class="chck" id="check" type="checkbox" value="category">
+                        <input class="chck" id="check" type="checkbox" value="category" ng-model="formData.category">
                         <label for="check">{{category}}</label>
                     </span>
 
                     <h3>Proof type</h3>
 
                     <div class="styled-select">
-                        <select>
-                            <option ng-repeat="challengeType in chalg.challengeTypes" value="challengeType">
-                                {{challengeType}}
-                            </option>
+                        <select ng-model="formData.challengeType" ng-options="option for option in chalg.challengeTypes">
                         </select>
                     </div>
 
                     <h3>Difficulty</h3>
-                    <input ng-model="chalg.challenge.difficulty" type="range" value="3" step="1" min="1" max="5"
+                    <input ng-model="formData.difficulty" type="range" value="3" step="1" min="1" max="5"
                            data-show-value="true" data-popup-enabled="true">
 
-                    <div style="text-align: center">{{chalg.challenge.difficulty}}</div>
+                    <div style="text-align: center">{{formData.difficulty}}</div>
 
-                    <textarea class="form-control" placeholder="Your description of the challenge" required></textarea>
+                    <textarea class="form-control" placeholder="Your description of the challenge" require ng-model="formData.description"></textarea>
                     <br/>
                     <button class="btn btn-success btn-block btn-lg" type="submit" ng-click="createChallenge()">Post your Challenge!</button>
 
