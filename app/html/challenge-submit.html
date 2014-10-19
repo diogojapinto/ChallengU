@@ -36,10 +36,9 @@
                     <h3>Proof type</h3>
 
                     <div class="styled-select">
-                        <select ng-model="formData.challengeType">
-                            <option ng-repeat="option in chalg.challengeTypes" selected="selected">
-                                {{option}}
-                            </option>
+                        <select ng-model="formData.challengeType"
+                                ng-options="option for option in chalg.challengeTypes">
+
                         </select>
                     </div>
 

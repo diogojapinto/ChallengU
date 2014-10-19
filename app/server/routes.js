@@ -29,7 +29,7 @@ exports.start = function (app) {
     });
 
     app.post("/create-challenge", function(req, res){
-    console.log('REQUEST == ' + req.body.difficulty);
+        console.log('REQUEST == ' + req.body);
     //Insert into db here
     });
     app.get('*', function (req, res) {

@@ -6,14 +6,16 @@
         $scope.formData = {
             name       : "",
             category   : [],
-            type       : "video",
-            difficulty : 3,
+            type      : 'video',
+            difficulty: "3",
             description: ""};
         $scope.loading = true;
 
         $scope.createChallenge = function () {
             $scope.loading = true;
+            console.log($scope.formData);
             if ($scope.formData.name != "" && $scope.formData.category.length >= 1) {
+                alert("create");
                 Challenges.create($scope.formData)
             }
         };
