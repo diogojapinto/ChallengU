@@ -35,22 +35,38 @@ exports.insertChallenge = function (name, difficulty, type, desc, categories, ca
       if(i != 0) queryText += " OR name = ";
       queryText += ("'" + categories[i] + "'");
     }
+
     client.query(queryText, function(err, result){
-      if(err) return console.error('error running query', err);
+
+      if(err) {
+        return console.error('error running query', err);
+      }
+
       var catIDs = result.rows;
+      
       var tx = new Transaction(client);
       tx.begin();
+      tx.savepoint('checkPoint');
       tx.query("INSERT INTO Challenge (userID, content, difficulty, target, type, targetUserID) VALUES ($1,$2,$3,$4,$5,$6) RETURNING challengeID",
       [1, desc, difficulty, 'community', type, 2], function(err, result){ //For testing, a challenge from user 1 to user 2
-        if(err) return console.error('error', err);
-        for(i = 0; i < catIDs.length; i++){
-          tx.query("INSERT INTO ChallengeCategory (challengeID, categoryID) VALUES ($1, $2)", [result.rows[0].challengeID, catIDs[i]]);
+        if(err) {
+          tx.rollback('checkPoint');
+          return console.error('error', err);
         }
+        for(i = 0; i < catIDs.length; i++){
+          tx.query("INSERT INTO ChallengeCategory (challengeID, categoryID) VALUES ($1, $2)", [result.rows[0].challengeID, catIDs[i]], function(err,result){
+            if(err){
+              tx.rollback('checkPoint');
+              return console.error('error', err);
+            }
+          });
+        }
+        tx.release('checkPoint');
         tx.commit();
       });
     });
 
-//Testar esta query, fiz tudo a 'olho'
+    //Testar esta query, fiz tudo a 'olho'
 
 
   });
