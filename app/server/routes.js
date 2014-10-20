@@ -18,17 +18,50 @@ exports.start = function (app) {
 
     app.get("/post-challenge", function (req, res) {
 
-
         if (req.session.user) {
             res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
         } else {
-
+            res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
         }
     });
 
     app.get("/challenge/:id", function (req, res) {
         var challengeID = req.params.id;
 
+        var assembleChallenge = function(results) {
+            var challenge;
+            challenge.id = challengeID;
+
+            // basic info
+            challenge.creator = results[0].rows[0].username;
+            challenge.content = results[0].rows[0].content;
+            challenge.difficulty = parseInt(results[0].rows[0].difficulty);
+            challenge.target = results[0].rows[0].target;
+            challenge.type = results[0].rows[0].type;
+
+            // categories
+            challenge.category = [];
+            results[1].rows.forEach(function(category) {
+                challenge.category.push(category);
+            });
+
+            // rating
+            var ratingsCount = 0;
+            var ratingsTotal = 0;
+            results[2].rows.forEach(function(rating) {
+                ratingsCount++;
+                ratingsTotal += rating;
+            });
+            challenge.rating = ratingsTotal / ratingsCount;
+
+            // comments
+            challenge.comments = [];
+            results[3].rows.forEach(function(entry) {
+                challenge.comments.push({username: entry.username, comment: entry.comment});
+            });
+        };
+
+        var challenge = db.getChallenge(challengeID);
 
     });
 

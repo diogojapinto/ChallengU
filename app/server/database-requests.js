@@ -20,35 +20,46 @@ var insertChallenge = function (data, callback) {
     }
 
     var categories = [];
-    for (i = 0; i < data.category.length; i++) {
+    for (var i = 0; i < data.category.length; i++) {
         categories[i] = data.category[i];
     }
 
     db.insertChallenge(name, difficulty, type, desc, categories, callback);
 };
 
-var getChallengeBasic = function(challengeID, callback) {
-    db.query("SELECT username, content, difficulty, target, type" +
-             "FROM Challenge INNER JOIN RegisteredUser" +
-             "WHERE challengeID = :challengeID", [challengeID], callback);
-}
+var getChallenge = function(challengeID, callback) {
+    var queries = [];
+    var     args = [];
 
-var getChallengeCategories = function(challengeID, callback) {
+    queries.push("SELECT username, content, difficulty, target, type" +
+        "FROM Challenge INNER JOIN RegisteredUser" +
+        "WHERE challengeID = $1::int");
+    args.push([challengeID]);
 
-}
+    queries.push("SELECT name" +
+        "FROM Category INNER JOIN ChallengeCategory" +
+        "WHERE challengeID = $1::int");
+    args.push([challengeID]);
 
-var getChallengeRatings = function(challengeID, callback) {
+    queries.push("SELECT rating" +
+        "FROM RateChallenge" +
+        "WHERE challengeID = $1::int");
+    args.push([challengeID]);
 
-}
+    queries.push("SELECT username, content" +
+        "FROM Comment INNER JOIN RegisteredUser" +
+        "WHERE challengeID = $1::string");
+    args.push([challengeID]);
 
-var getChallengeComments = function(challengeID, callback) {
+    queries.push("SELECT Category.name" +
+        "FROM ChallengeProof" +
+        "WHERE challengeID = $1::string");
+    args.push([challengeID]);
 
-}
-
-var getChallengeResponses = function(challengeID, callback) {
-
+    db.transaction(queries, args, callback);
 }
 
 exports.getCategories = getCategories;
 exports.getUser = getUser;
 exports.insertChallenge = insertChallenge;
+exports.getChallenge = getChallenge;

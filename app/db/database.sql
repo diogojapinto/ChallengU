@@ -1,7 +1,6 @@
 ﻿/***********************************
 *              Cleanup             *
 ************************************/
-DROP TABLE IF EXISTS RegisteredUser;
 DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
 DROP TABLE IF EXISTS RateChallengeProof;
@@ -26,7 +25,7 @@ DROP TYPE IF EXISTS ChallengeType;
 CREATE TYPE UserType AS ENUM ('user', 'moderator', 'admin');
 CREATE TYPE UserState AS ENUM ('ban', 'tempban', 'normal');
 CREATE TYPE ChallengeTarget AS ENUM ('private', 'community', 'friendly');
-CREATE TYPE ChallengeType AS ENUM ('Text', 'Audio', 'Video', 'Picture');
+CREATE TYPE ChallengeType AS ENUM ('text', 'audio', 'video', 'picture');
 
 
 /***********************************
@@ -38,7 +37,6 @@ CREATE TABLE RegisteredUser (
   pass           VARCHAR             NOT NULL,
   name           VARCHAR             NOT NULL,
   email          VARCHAR UNIQUE      NOT NULL,
-  photo          VARCHAR,
   work           VARCHAR,
   hometown       VARCHAR,
   lastFreePoints TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -172,14 +170,14 @@ INSERT INTO Category (name) VALUES
 /* Users */
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
+  (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
    'normal');
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'joao1', 'passjoao', 'Joao', 'joao@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
+  (DEFAULT,'joao1', 'passjoao', 'Joao', 'joao@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
    'normal');
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT,
+  (DEFAULT,'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT,
    'user', 'normal');
 
 
