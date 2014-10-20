@@ -1,6 +1,6 @@
 var pg = require('pg');
 var Transaction = require('pg-transaction');
-var conString = "postgres://fabio:admin@localhost/challengeu";
+var conString = "postgres://postgres:admin@localhost/challengeu";
 
 /*
 * receives a base query (string) and corresponding args
