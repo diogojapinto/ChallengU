@@ -21,7 +21,7 @@ exports.start = function (app) {
         if (req.session.user) {
             res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
         } else {
-            res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
+            res.redirect('/login');
         }
     });
 
@@ -70,6 +70,8 @@ exports.start = function (app) {
             db.getCategories(function (categories) {
                 res.send(categories.rows);
             });
+        } else {
+            res.redirect('/login');
         }
     });
 
