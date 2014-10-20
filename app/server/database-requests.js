@@ -27,7 +27,27 @@ var insertChallenge = function (data, callback) {
     db.insertChallenge(name, difficulty, type, desc, categories, callback);
 };
 
-var get
+var getChallengeBasic = function(challengeID, callback) {
+    db.query("SELECT username, content, difficulty, target, type" +
+             "FROM Challenge INNER JOIN RegisteredUser" +
+             "WHERE challengeID = :challengeID", [challengeID], callback);
+}
+
+var getChallengeCategories = function(challengeID, callback) {
+
+}
+
+var getChallengeRatings = function(challengeID, callback) {
+
+}
+
+var getChallengeComments = function(challengeID, callback) {
+
+}
+
+var getChallengeResponses = function(challengeID, callback) {
+
+}
 
 exports.getCategories = getCategories;
 exports.getUser = getUser;

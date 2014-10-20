@@ -16,9 +16,6 @@ exports.start = function (app) {
         var challengeID = req.params.id;
 
 
-
-
-        res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
     });
 
     app.post("/get-categories", function (req, res) {
