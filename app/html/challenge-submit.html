@@ -29,10 +29,10 @@
                     <span style="padding-left: 0.2em">
                         <label ng-repeat="category in chalg.challengeCategories">
                             <input ng-checked="formData.category.indexOf(category) > -1"
-                                   ng-click="toggleSelection(category)"
+                                   ng-click="toggleSelection(category.categoryid)"
                                    class="chck" id="category" type="checkbox"
-                                   value="{{category}}">
-                            {{category}}
+                                   value="{{category.name}}">
+                            {{category.name}}
                         </label>
                     </span>
 

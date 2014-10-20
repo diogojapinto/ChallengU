@@ -26,7 +26,7 @@ DROP TYPE IF EXISTS ChallengeType;
 CREATE TYPE UserType AS ENUM ('user', 'moderator', 'admin');
 CREATE TYPE UserState AS ENUM ('ban', 'tempban', 'normal');
 CREATE TYPE ChallengeTarget AS ENUM ('private', 'community', 'friendly');
-CREATE TYPE ChallengeType AS ENUM ('Text', 'Audio', 'Video', 'Picture');
+CREATE TYPE ChallengeType AS ENUM ('text', 'audio', 'video', 'photo');
 
 
 /***********************************
@@ -59,11 +59,12 @@ CREATE TABLE Category (
 
 CREATE TABLE Challenge (
   challengeID  SERIAL PRIMARY KEY,
-  userID       INTEGER,
+  name   VARCHAR                             NOT NULL,
+  userID INTEGER                             NOT NULL,
   content      VARCHAR NOT NULL,
   difficulty   INTEGER NOT NULL,
-  target       ChallengeTarget DEFAULT 'community',
-  type         challengeType,
+  target ChallengeTarget DEFAULT 'community' NOT NULL,
+  type   challengeType                       NOT NULL,
   targetUserID INTEGER,
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
@@ -172,14 +173,17 @@ INSERT INTO Category (name) VALUES
 /* Users */
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
+  (DEFAULT, 'modd1', 'passmod1', 'Mod', 'mod@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT,
+   'moderator',
    'normal');
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'joao1', 'passjoao', 'Joao', 'joao@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
+  (DEFAULT, 'joao1', 'passjoao', 'Joao', 'joao@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT,
+   'user',
    'normal');
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT, DEFAULT,
+  (DEFAULT, 'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', '/path/to/photo.jpg', 'job', 'hometown', DEFAULT,
+   DEFAULT,
    'user', 'normal');
 
 
