@@ -17,6 +17,8 @@ exports.start = function (app) {
     });
 
     app.get("/post-challenge", function (req, res) {
+
+
         if (req.session.user) {
             res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
         } else {
