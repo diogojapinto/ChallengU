@@ -1,7 +1,7 @@
 var db = require('./database-setup.js');
 
 var getCategories = function (callback) {
-    db.query("SELECT name FROM Category", [], callback);
+    db.query("SELECT * FROM Category", [], callback);
 };
 
 var getUser = function (username,callback) {

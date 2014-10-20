@@ -14,7 +14,7 @@
         $scope.createChallenge = function () {
             $scope.loading = true;
             if ($scope.formData.name != "" && $scope.formData.category.length >= 1) {
-                Challenges.create($scope.formData)
+                Challenges.create($scope.formData, $scope.loading);
             }
         };
 

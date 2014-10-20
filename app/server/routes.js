@@ -90,9 +90,9 @@ exports.start = function (app) {
     app.post("/create-challenge", function (req, res) {
         db.insertChallenge(req.body, function (isfine) {
             if (isfine && req.session.user) {
-                res.send("OK");
+                res.status(200).send(true);
             } else {
-                res.send("FAIL");
+                res.status(404).send(false);
             }
         });
     });
