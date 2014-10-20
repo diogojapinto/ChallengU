@@ -115,14 +115,13 @@ CREATE TABLE RateComment (
 
 
 CREATE TABLE ChallengeProof (
-  proofID     SERIAL PRIMARY KEY NOT NULL,
   userID      INTEGER,
   challengeID INTEGER,
-  content     VARCHAR            NOT NULL,
+  content     VARCHAR NOT NULL,
 
+  PRIMARY KEY (userID, challengeID),
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
   FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE,
-  CONSTRAINT un UNIQUE (userID, challengeID)
 );
 
 

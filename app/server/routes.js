@@ -33,6 +33,7 @@ exports.start = function (app) {
             challenge.id = challengeID;
 
             // basic info
+            challenge.name = results[0].rows[0].name;
             challenge.creator = results[0].rows[0].username;
             challenge.content = results[0].rows[0].content;
             challenge.difficulty = parseInt(results[0].rows[0].difficulty);
@@ -57,11 +58,18 @@ exports.start = function (app) {
             // comments
             challenge.comments = [];
             results[3].rows.forEach(function(entry) {
-                challenge.comments.push({username: entry.username, comment: entry.comment});
+                challenge.comments.push(entry);
+            });
+
+            // challenge proofs
+            challenge.responses = [];
+            results[4].rows.forEach(function(proof) {
+                proof.rating = parseInt(proof.rating);
+                challenge.responses.push(proof);
             });
         };
 
-        var challenge = db.getChallenge(challengeID);
+        var challenge = db.getChallenge(challengeID, assembleChallenge);
 
     });
 

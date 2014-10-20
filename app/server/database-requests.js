@@ -31,29 +31,30 @@ var getChallenge = function(challengeID, callback) {
     var queries = [];
     var     args = [];
 
-    queries.push("SELECT username, content, difficulty, target, type" +
-        "FROM Challenge INNER JOIN RegisteredUser" +
+    queries.push("SELECT name, username, content, difficulty, target, type" +
+        "FROM Challenge NATURAL JOIN RegisteredUser" +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
     queries.push("SELECT name" +
-        "FROM Category INNER JOIN ChallengeCategory" +
+        "FROM Category NATURAL JOIN ChallengeCategory" +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT rating" +
+    queries.push("SELECT AVG(rating)" +
         "FROM RateChallenge" +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
     queries.push("SELECT username, content" +
-        "FROM Comment INNER JOIN RegisteredUser" +
+        "FROM Comment NATURAL JOIN RegisteredUser" +
         "WHERE challengeID = $1::string");
     args.push([challengeID]);
 
-    queries.push("SELECT Category.name" +
-        "FROM ChallengeProof" +
-        "WHERE challengeID = $1::string");
+    queries.push("SELECT username, content, AVG(rating)" +
+        "FROM ChallengeProof NATURAL JOIN RegisteredUser NATURAL JOIN RateChallengeProof" +
+        "WHERE challengeID = $1::string" +
+        "GROUP BY proofID");
     args.push([challengeID]);
 
     db.transaction(queries, args, callback);
