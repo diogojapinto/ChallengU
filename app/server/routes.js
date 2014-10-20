@@ -21,7 +21,7 @@ exports.start = function (app) {
         if (req.session.user) {
             res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
         } else {
-            res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
+            res.sendfile(path.join(__dirname, '../html/landing.html'));
         }
     });
 
@@ -97,6 +97,6 @@ exports.start = function (app) {
         });
     });
     app.get('*', function (req, res) {
-        res.sendfile(path.join(__dirname, '../../landing/html/landing.html'));
+        res.sendfile(path.join(__dirname, '../html/landing.html'));
     });
 };

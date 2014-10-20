@@ -105,6 +105,4 @@ exports.insertChallenge = function (name, difficulty, type, desc, categories, ca
     });
 
     callback(true);
-
-    //Testar esta query, fiz tudo a 'olho'
 };
