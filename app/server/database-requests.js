@@ -32,7 +32,7 @@ var getChallenge = function(challengeID, callback) {
     var     args = [];
 
     queries.push("SELECT name, username, content, difficulty, target, type" +
-        "FROM Challenge NATURAL JOIN RegisteredUser" +
+        "FROM Challenge INNER JOIN RegisteredUser ON RegisteredUser.userID = Challenge.userID" +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
@@ -47,14 +47,16 @@ var getChallenge = function(challengeID, callback) {
     args.push([challengeID]);
 
     queries.push("SELECT username, content" +
-        "FROM Comment NATURAL JOIN RegisteredUser" +
+        "FROM Comment INNER JOIN RegisteredUser ON RegisteredUser.userID = Comment.userID" +
         "WHERE challengeID = $1::string");
     args.push([challengeID]);
 
-    queries.push("SELECT username, content, AVG(rating)" +
-        "FROM ChallengeProof NATURAL JOIN RegisteredUser NATURAL JOIN RateChallengeProof" +
+    queries.push("SELECT username, content, AVG(rating) AS average_rating" +
+        "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID" +
+        "INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID" +
         "WHERE challengeID = $1::string" +
-        "GROUP BY proofID");
+        "GROUP BY username" +
+        "ORDER BY average_rating");
     args.push([challengeID]);
 
     db.transaction(queries, args, callback);

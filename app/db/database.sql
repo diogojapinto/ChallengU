@@ -54,7 +54,6 @@ CREATE TABLE Category (
   name       VARCHAR
 );
 
-
 CREATE TABLE Challenge (
   challengeID  SERIAL PRIMARY KEY,
   name   VARCHAR                             NOT NULL,
@@ -83,9 +82,9 @@ CREATE TABLE ChallengeCategory (
 
 CREATE TABLE Comment (
   commentID   SERIAL PRIMARY KEY NOT NULL,
-  content     VARCHAR(150)       NOT NULL,
   userID      INTEGER,
   challengeID INTEGER,
+  content     VARCHAR(150)       NOT NULL,
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE
@@ -99,7 +98,7 @@ CREATE TABLE RateChallenge (
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (challengeID) REFERENCES Challenge,
-  CHECK (rating = -1 OR rating = 1)
+  CHECK (rating >= 0 AND rating <= 5)
 );
 
 
@@ -115,13 +114,14 @@ CREATE TABLE RateComment (
 
 
 CREATE TABLE ChallengeProof (
+  proofID     SERIAL PRIMARY KEY,
   userID      INTEGER,
   challengeID INTEGER,
   content     VARCHAR NOT NULL,
 
-  PRIMARY KEY (userID, challengeID),
+  UNIQUE (userID, challengeID),
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
-  FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE,
+  FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE
 );
 
 
@@ -132,7 +132,7 @@ CREATE TABLE RateChallengeProof (
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
   FOREIGN KEY (proofID) REFERENCES ChallengeProof,
-  CHECK (rating = -1 OR rating = 1)
+  CHECK (rating >= 0 AND rating <= 5)
 );
 
 
@@ -170,7 +170,6 @@ INSERT INTO Category (name) VALUES
 /* Users */
 
 INSERT INTO RegisteredUser VALUES
-<<<<<<< HEAD
   (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
    'normal');
 
@@ -208,3 +207,19 @@ CREATE TRIGGER assert_new_challenge_target_trigger
 BEFORE INSERT ON ProductCategory
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
 */
+
+INSERT INTO Challenge VALUES
+  (4, 'most awkward onomatopoeic', 1, 'be imaginative', 1, DEFAULT, 'text', NULL);
+
+INSERT INTO ChallengeCategory VALUES
+  (4, 8);
+
+INSERT INTO RateChallenge VALUES
+  (1, 4, 1),
+  (2, 4, 1);
+
+INSERT INTO Comment VALUES
+  (DEFAULT, 1, 4, 'oeih');
+
+INSERT INTO ChallengeProof VALUES
+  (DEFAULT, 1, 4, 'OFHWEOIHFO');
