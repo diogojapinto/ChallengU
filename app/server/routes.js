@@ -33,10 +33,11 @@ exports.start = function (app) {
         var challengeID = req.params.id;
 
         var assembleChallenge = function(results) {
-            var challenge;
+            var challenge = {};
             challenge.id = challengeID;
 
             // basic info
+            console.log(results);
             challenge.name = results[0].rows[0].name;
             challenge.creator = results[0].rows[0].username;
             challenge.content = results[0].rows[0].content;
@@ -71,9 +72,11 @@ exports.start = function (app) {
                 proof.rating = parseInt(proof.rating);
                 challenge.responses.push(proof);
             });
+
+            res.render('../challenge.ejs', challenge);
         };
 
-        var challenge = db.getChallenge(challengeID, assembleChallenge);
+        db.getChallenge(challengeID, assembleChallenge);
 
     });
 

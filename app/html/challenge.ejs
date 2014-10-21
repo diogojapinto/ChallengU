@@ -24,10 +24,16 @@
 </div>
 <div class="col-md-12 col-sm-6">
     <% challenge.comments.forEach(function(comment) { %>
-    <div class="col-md-1">
+    <div class="col-md-2">
         <a href="#"><%= comment.username %></a>
+    </div>
+    <div class="col-md-10">
         <p><%comment.content %></p>
     </div>
+    <form>
+        <label>my_username</label>
+        <textarea cols="2" placeholder="Enter here your comment"></textarea>
+    </form>
     <% }); %>
 </div>
 
