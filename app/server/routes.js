@@ -29,7 +29,7 @@ exports.start = function (app) {
         var challengeID = req.params.id;
 
         var assembleChallenge = function(results) {
-            var challenge;
+            var challenge = [];
             challenge.id = challengeID;
 
             // basic info
