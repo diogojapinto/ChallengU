@@ -1,17 +1,14 @@
-﻿/***********************************
-*              Cleanup             *
-************************************/
-DROP TABLE IF EXISTS UserAchievement;
+﻿DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
-DROP TABLE IF EXISTS RateChallengeProof;
-DROP TABLE IF EXISTS ChallengeProof;
+/*DROP TABLE IF EXISTS RateChallengeProof;*/
 DROP TABLE IF EXISTS RateComment;
 DROP TABLE IF EXISTS RateChallenge;
 DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS ChallengeCategory;
+DROP TABLE IF EXISTS ChallengeProof;
 DROP TABLE IF EXISTS Challenge;
-DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS RegisteredUser;
+DROP TABLE IF EXISTS Category;
 
 DROP TYPE IF EXISTS UserType;
 DROP TYPE IF EXISTS UserState;
@@ -56,12 +53,12 @@ CREATE TABLE Category (
 
 CREATE TABLE Challenge (
   challengeID  SERIAL PRIMARY KEY,
-  name   VARCHAR                             NOT NULL,
-  userID INTEGER                             NOT NULL,
-  content      VARCHAR NOT NULL,
-  difficulty   INTEGER NOT NULL,
-  target ChallengeTarget DEFAULT 'community' NOT NULL,
-  type   ChallengeType                       NOT NULL,
+  name         VARCHAR                             NOT NULL,
+  userID       INTEGER                             NOT NULL,
+  content      VARCHAR                             NOT NULL,
+  difficulty   INTEGER                             NOT NULL,
+  target       ChallengeTarget DEFAULT 'community' NOT NULL,
+  type         ChallengeType                       NOT NULL,
   targetUserID INTEGER,
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
@@ -124,17 +121,22 @@ CREATE TABLE ChallengeProof (
   FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE
 );
 
-
+/* NAO FUNCIONA
 CREATE TABLE RateChallengeProof (
   userID  INTEGER,
   proofID INTEGER,
   rating  INTEGER NOT NULL,
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
+<<<<<<< HEAD
   FOREIGN KEY (proofID) REFERENCES ChallengeProof,
   CHECK (rating >= 0 AND rating <= 5)
+=======
+  FOREIGN KEY (challengeID) REFERENCES ChallengeProof, /*ESTA MERDA NAO FUNCIONA*/
+  CHECK (rating = -1 OR rating = 1)
+>>>>>>> 1ef182c7cdd4f9e1160ed25e6a8b134c9f59c735
 );
-
+*/
 
 CREATE TABLE Achievement (
   achievementID SERIAL PRIMARY KEY,
@@ -170,14 +172,14 @@ INSERT INTO Category (name) VALUES
 /* Users */
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
+  (DEFAULT, 'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
    'normal');
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'joao1', 'passjoao', 'Joao', 'joao@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
+  (DEFAULT, 'joao1', 'passjoao', 'Joao', 'joao@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
    'normal');
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT,'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT,
+  (DEFAULT, 'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT,
    'user', 'normal');
 
 
