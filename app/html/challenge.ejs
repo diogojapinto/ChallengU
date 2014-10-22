@@ -43,19 +43,21 @@
     <div class="container">
         <table class="table table-striped">
             <% comments.forEach(function(comment) { %>
-            <div class="row">
-            <div class="col-md-2">
+            <tr>
+            <td>
                 <a href="#"><%= comment.username %></a>
-            </div>
-            <div class="col-md-10">
+            </td>
+            <td>
                 <p><%= comment.content %></p>
-            </div>
-            </div>
+            </td>
+            </tr>
             <% }); %>
-            <form>
-                <label>my_username</label>
-                <textarea rows="2" cols="50" placeholder="Enter here your comment"></textarea>
-            </form>
+            <tr>
+                <form>
+                    <td><label>my_username</label></td>
+                    <td><textarea style="width: 100%" rows="1" placeholder="Enter here your comment"></textarea></td>
+                </form>
+            </tr>
         </table>
     </div>
 </div>
