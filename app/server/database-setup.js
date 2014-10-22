@@ -41,6 +41,7 @@ exports.transaction = function (baseQueries, args, callback) {
         if (err) {
             console.error('error fetching client from pool', err);
             callback(null);
+            return;
         }
 
         // results store in an array the results of each query
@@ -50,23 +51,24 @@ exports.transaction = function (baseQueries, args, callback) {
         tx.begin();
         tx.savepoint('checkPoint');
 
-        for(var i = 0; i < baseQueries.length; i++) {
-            tx.query(baseQueries[i], args[i], function(err, result) {
+        for (var i = 0; i < baseQueries.length; i++) {
+            tx.query(baseQueries[i], args[i], function (err, result) {
+
                 if (err) {
                     tx.rollback('checkPoint');
                     console.error('error running query', err);
                     callback(null);
+                    return;
                 }
-
                 results.push(result);
+                if (results.length == baseQueries.length) {
+                    callback(results);
+                }
             });
         }
 
         tx.release('checkPoint');
         tx.commit();
-
-        callback(results);
-
     });
 };
 

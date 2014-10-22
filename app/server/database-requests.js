@@ -30,32 +30,31 @@ var insertChallenge = function (data, callback) {
 var getChallenge = function(challengeID, callback) {
     var queries = [];
     var     args = [];
-
-    queries.push("SELECT name, username, content, difficulty, target, type" +
-        "FROM Challenge INNER JOIN RegisteredUser ON RegisteredUser.userID = Challenge.userID" +
+    queries.push("SELECT Challenge.name, username, content, difficulty, target, type " +
+        "FROM Challenge INNER JOIN RegisteredUser ON RegisteredUser.userID = Challenge.userID " +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT name" +
-        "FROM Category NATURAL JOIN ChallengeCategory" +
+    queries.push("SELECT name " +
+        "FROM Category INNER JOIN ChallengeCategory ON Category.categoryID = ChallengeCategory.categoryID " +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT AVG(rating)" +
-        "FROM RateChallenge" +
+    queries.push("SELECT AVG(rating) " +
+        "FROM RateChallenge " +
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT username, content" +
-        "FROM Comment INNER JOIN RegisteredUser ON RegisteredUser.userID = Comment.userID" +
-        "WHERE challengeID = $1::string");
+    queries.push("SELECT username, content " +
+        "FROM Comment INNER JOIN RegisteredUser ON RegisteredUser.userID = Comment.userID " +
+        "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT username, content, AVG(rating) AS average_rating" +
-        "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID" +
-        "INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID" +
-        "WHERE challengeID = $1::string" +
-        "GROUP BY username" +
+    queries.push("SELECT username, content, AVG(rating) AS average_rating " +
+        "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID " +
+        "INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID " +
+        "WHERE challengeID = $1::int " +
+        "GROUP BY username, content " +
         "ORDER BY average_rating");
     args.push([challengeID]);
 

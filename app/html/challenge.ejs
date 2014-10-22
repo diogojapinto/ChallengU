@@ -1,41 +1,66 @@
 <link rel="stylesheet" type="text/css" href="../css/star-rating.min.css">
+<link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<div ng-app="challenge">
+    <div class="container" style="margin: 5em auto">
+        <h1><%= name %></h1>
 
-<h1><%= challenge.name %></h1>
-<div class="container">
-    <h6>Creator:</h6><a href="#"><%= challenge.creator></a>
-    <input type="number" class="rating" min=1 max=5 step=0.1 readonly="true" showClear="false"
-           value="<%= challenge.rating %>"/>
+        <div class="col-md-8 col-sm-12">
+            <hr>
+            <h4>
+                <%= description %>
+            </h4>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4">
+                    <table class="table">
+                        <tr>
+                            <td><h3><b>Creator:</b></h3></td>
+                            <td><h3><a href="#"><%= creator %></a></h3></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <input id="challenge-rating" type="number" class="rating" min=1 max=5 data-readonly="true"
+                       data-show-clear="false" value="<%= rating %>"/>
+            </div>
+        </div>
 
+        <div class="col-md-4 col-sm-6">
+            <% responses.forEach(function(response) { %>
+            <div class="container">
+                <a href="#"><%= response.username %></a>
+
+                <p><%= response.content %></p>
+                <input type="number" class="rating" size="xs" min=1 max=5 step=0.1 data-readonly="true"
+                       data-show-clear="false"
+                       value="<%= response.rating %>"/>
+            </div>
+            <% }); %>
+        </div>
+    </div>
     <div class="container">
-        <%= challenge.description %>
+        <table class="table table-striped">
+            <% comments.forEach(function(comment) { %>
+            <div class="row">
+            <div class="col-md-2">
+                <a href="#"><%= comment.username %></a>
+            </div>
+            <div class="col-md-10">
+                <p><%= comment.content %></p>
+            </div>
+            </div>
+            <% }); %>
+            <form>
+                <label>my_username</label>
+                <textarea rows="2" cols="50" placeholder="Enter here your comment"></textarea>
+            </form>
+        </table>
     </div>
 </div>
 
-<div class="col-md-4 col-sm-6">
-    <% challenge.responses.forEach(function(response) { %>
-    <div class="container">
-        <a href="#"><%= response.username %></a>
-
-        <p><%= response.content %></p>
-        <input type="number" class="rating" size="xs" min=1 max=5 step=0.1 data-readonly="true" data-show-clear="false"
-               value="<%= response.rating %>"/>
-    </div>
-    <% }); %>
-</div>
-<div class="col-md-12 col-sm-6">
-    <% challenge.comments.forEach(function(comment) { %>
-    <div class="col-md-2">
-        <a href="#"><%= comment.username %></a>
-    </div>
-    <div class="col-md-10">
-        <p><%comment.content %></p>
-    </div>
-    <form>
-        <label>my_username</label>
-        <textarea cols="2" placeholder="Enter here your comment"></textarea>
-    </form>
-    <% }); %>
-</div>
-
-<script type="text/javascript" src="../js/star-rating.min.js"></script>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/angular.min.js"></script>
+<script type="text/javascript" src="../js/star-rating.min.js"></script>
+<script type="text/javascript" src="../js/challenge.js"></script>

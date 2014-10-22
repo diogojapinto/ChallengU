@@ -9,6 +9,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 //configuration=====================
+app.set("views", __dirname + '/../html');
 app.use("/css", express.static(__dirname + '/../css'));
 app.use("/images", express.static(__dirname + '/../images'));
 app.use("/js", express.static(__dirname + '/../js'));

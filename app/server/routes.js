@@ -26,17 +26,21 @@ exports.start = function (app) {
     });
 
     app.get("/challenge/:id", function (req, res) {
-        var challengeID = req.params.id;
+        var challengeID = parseInt(req.params.id);
 
         var assembleChallenge = function(results) {
+
+            if (results == null) {
+                res.sendfile(path.join(__dirname, '../html/landing.html'));
+            }
+
             var challenge = {};
             challenge.id = challengeID;
 
             // basic info
-            console.log(results);
             challenge.name = results[0].rows[0].name;
             challenge.creator = results[0].rows[0].username;
-            challenge.content = results[0].rows[0].content;
+            challenge.description = results[0].rows[0].content;
             challenge.difficulty = parseInt(results[0].rows[0].difficulty);
             challenge.target = results[0].rows[0].target;
             challenge.type = results[0].rows[0].type;
@@ -48,13 +52,7 @@ exports.start = function (app) {
             });
 
             // rating
-            var ratingsCount = 0;
-            var ratingsTotal = 0;
-            results[2].rows.forEach(function(rating) {
-                ratingsCount++;
-                ratingsTotal += rating;
-            });
-            challenge.rating = ratingsTotal / ratingsCount;
+            challenge.rating = parseFloat(results[2].rows[0].avg);
 
             // comments
             challenge.comments = [];
@@ -69,7 +67,7 @@ exports.start = function (app) {
                 challenge.responses.push(proof);
             });
 
-            res.render('../challenge.ejs', challenge);
+            res.render('challenge.ejs', challenge);
         };
 
         db.getChallenge(challengeID, assembleChallenge);
