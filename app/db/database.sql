@@ -1,6 +1,6 @@
 ﻿DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
-/*DROP TABLE IF EXISTS RateChallengeProof;*/
+DROP TABLE IF EXISTS RateChallengeProof;
 DROP TABLE IF EXISTS RateComment;
 DROP TABLE IF EXISTS RateChallenge;
 DROP TABLE IF EXISTS Comment;
@@ -121,22 +121,15 @@ CREATE TABLE ChallengeProof (
   FOREIGN KEY (challengeID) REFERENCES Challenge ON DELETE CASCADE
 );
 
-/* NAO FUNCIONA
 CREATE TABLE RateChallengeProof (
   userID  INTEGER,
   proofID INTEGER,
   rating  INTEGER NOT NULL,
 
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE SET NULL,
-<<<<<<< HEAD
   FOREIGN KEY (proofID) REFERENCES ChallengeProof,
   CHECK (rating >= 0 AND rating <= 5)
-=======
-  FOREIGN KEY (challengeID) REFERENCES ChallengeProof, /*ESTA MERDA NAO FUNCIONA*/
-  CHECK (rating = -1 OR rating = 1)
->>>>>>> 1ef182c7cdd4f9e1160ed25e6a8b134c9f59c735
 );
-*/
 
 CREATE TABLE Achievement (
   achievementID SERIAL PRIMARY KEY,
@@ -209,19 +202,20 @@ CREATE TRIGGER assert_new_challenge_target_trigger
 BEFORE INSERT ON ProductCategory
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
 */
-
+/*
 INSERT INTO Challenge VALUES
-  (4, 'most awkward onomatopoeic', 1, 'be imaginative', 1, DEFAULT, 'text', NULL);
+  (DEFAULT, 'most awkward onomatopoeic', 1, 'be imaginative', 1, DEFAULT, 'text', NULL);
 
 INSERT INTO ChallengeCategory VALUES
-  (4, 8);
+  (1, 8);
 
 INSERT INTO RateChallenge VALUES
-  (1, 4, 1),
-  (2, 4, 1);
+  (1, 1, 1),
+  (2, 1, 1);
 
 INSERT INTO Comment VALUES
-  (DEFAULT, 1, 4, 'oeih');
+  (DEFAULT, 1, 1, 'oeih');
 
 INSERT INTO ChallengeProof VALUES
-  (DEFAULT, 1, 4, 'OFHWEOIHFO');
+  (DEFAULT, 1, 1, 'OFHWEOIHFO');
+*/

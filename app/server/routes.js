@@ -34,7 +34,7 @@ exports.start = function (app) {
 
         var assembleChallenge = function(results) {
 
-            if (results == null) {
+            if (!results) {
                 res.sendfile(path.join(__dirname, '../html/landing.html'));
             }
 
@@ -103,14 +103,15 @@ exports.start = function (app) {
     });
 
     app.post("/create-challenge", function (req, res) {
-        db.insertChallenge(req.body, function (isfine) {
-            if (isfine && req.session.user) {
-                res.status(200).send(true);
+        db.insertChallenge(req.body, function (challengeID) {
+            if (challengeID && req.session.user) {
+                res.status(200).send(challengeID.toString());
             } else {
                 res.status(404).send(false);
             }
         });
     });
+
     app.get('*', function (req, res) {
         res.sendfile(path.join(__dirname, '../html/landing.html'));
     });

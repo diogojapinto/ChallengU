@@ -24,7 +24,6 @@
 
         this.challengeTypes = ['sound', 'text', 'photo', 'video'];
 
-        // toggle selection for a given fruit by name
         $scope.toggleSelection = function toggleSelection(category) {
             var idx = $scope.formData.category.indexOf(category);
 

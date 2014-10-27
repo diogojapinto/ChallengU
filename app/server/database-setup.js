@@ -91,6 +91,8 @@ exports.insertChallenge = function (name, difficulty, type, desc, categories, ca
                     callback(false);
                     return;
                 }
+                var challengeID = result.rows[0].challengeid;
+
                 for (i = 0; i < categories.length; i++) {
                     tx.query("INSERT INTO ChallengeCategory (challengeID, categoryID) VALUES ($1, $2)", [result.rows[0].challengeid, categories[i]], function (err, result) {
                         if (err) {
@@ -99,6 +101,9 @@ exports.insertChallenge = function (name, difficulty, type, desc, categories, ca
                             callback(false);
                             return;
                         }
+
+                        callback(challengeID);
+
                     });
                 }
                 tx.release('checkPoint');
@@ -106,5 +111,5 @@ exports.insertChallenge = function (name, difficulty, type, desc, categories, ca
             });
     });
 
-    callback(true);
+    //callback(true);
 };
