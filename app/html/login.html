@@ -41,6 +41,12 @@
             </div>
         </div>
     </div>
+
+    <div class="alert alert-success" ng-show="loginCtrl.show">
+        <button type="button" class="close" data-ng-click="switchBool('loginCtrl.show')" >×</button>
+        <strong>{{loginCtrl.text}}</strong>
+    </div>
+
 </div>
 
 <script src="../js/angular.min.js"></script>

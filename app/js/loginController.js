@@ -3,9 +3,11 @@
 
     app.controller('LoginController', ['$scope', '$http', '$window', 'Login', function ($scope, $http, $window, Login) {
         /* Controller that manages the login of an user */
-        this.user = {};
+
         $scope.formData = {};
         $scope.loading = true;
+        $scope.text = null;
+        $scope.show = false;
 
         $scope.login = function () {
             $scope.loading = true;
@@ -14,26 +16,21 @@
                     .success(function (data) {
                         $scope.loading = false;
                         $scope.formData = {};
-                        alert("success");
+                        $scope.text = "GLORIOUS!";
+                        $scope.show = true;
                         $window.location.href = '/';
                     })
                     .error(function (data) {
+                        $scope.text = "DUMBBBBBBBBBBBBB";
+                        $scope.show = true;
                         alert("failed: " + data);
                     });
             }
         };
 
-        /*this.addUser = function (user) {
-         /* Submits the user information, in an attempt to login
-         //TODO: get new page
-         $http.post("/login-user", {user: this.user}).
-         success(function (data, status, headers, config) {
-         alert(data);
-         }).
-         error(function (data, status, headers, config) {
-         alert("fail");
-         });
-         };*/
+        $scope.switchBool = function(value) {
+            $scope[value] = !$scope[value];
+        };
 
         $scope.resetForm = function () {
             /* Cleans user input */
