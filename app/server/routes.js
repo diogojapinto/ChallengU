@@ -97,7 +97,7 @@ exports.start = function (app) {
                     res.status(200).send("OK");
                 });
             } else {
-                res.status(404).send("NOT OK");
+                res.status(400).send("NOT OK");
             }
         });
     });
@@ -107,7 +107,7 @@ exports.start = function (app) {
             if (challengeID && req.session.user) {
                 res.status(200).send(challengeID.toString());
             } else {
-                res.status(404).send(false);
+                res.status(400).send(false);
             }
         });
     });
