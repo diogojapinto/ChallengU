@@ -1,4 +1,0 @@
-angular.module('login-service', [])
-
-
-

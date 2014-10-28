@@ -1,6 +1,6 @@
 var path = require('path');
 var db = require('./database-requests.js');
-exports.start = function (app) {
+exports.listen = function (app) {
 
     //entry point
 
@@ -13,13 +13,13 @@ exports.start = function (app) {
     });
 
     app.get("/login", function (req, res) {
-        res.sendfile(path.join(__dirname, '../html', 'login.html'));
+        res.sendfile(path.join(__dirname, '../views', 'login.html'));
     });
 
     app.get("/post-challenge", function (req, res) {
 
         if (req.session.user) {
-            res.sendfile(path.join(__dirname, '../html', 'challenge-submit.html'));
+            res.sendfile(path.join(__dirname, '../views', 'challenge-submit.html'));
         } else {
             res.redirect('/login');
         }
@@ -31,7 +31,7 @@ exports.start = function (app) {
         var assembleChallenge = function(results) {
 
             if (!results) {
-                res.sendfile(path.join(__dirname, '../html/landing.html'));
+                res.sendfile(path.join(__dirname, '../views/landing.html'));
             }
 
             var challenge = {};
@@ -109,6 +109,6 @@ exports.start = function (app) {
     });
 
     app.get('*', function (req, res) {
-        res.sendfile(path.join(__dirname, '../html/landing.html'));
+        res.sendfile(path.join(__dirname, '../views', 'landing.html'));
     });
 };

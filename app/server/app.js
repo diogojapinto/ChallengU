@@ -9,7 +9,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 //configuration=====================
-app.set("views", __dirname + '/../html');
+app.set("views", __dirname + '/../views');
 app.use("/css", express.static(__dirname + '/../css'));
 app.use("/images", express.static(__dirname + '/../images'));
 app.use("/js", express.static(__dirname + '/../js'));
@@ -28,7 +28,7 @@ app.use(session({
 }));
 //routes============================
 var routes = require('./routes.js')
-routes.start(app);
+routes.listen(app);
 
 //listen============================
 var ipAddress = "127.0.0.1";
