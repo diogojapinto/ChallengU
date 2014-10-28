@@ -47,7 +47,7 @@ exports.listen = function (app) {
     });
 
     app.post("/login", function (req, res) {
-        if (req.session.user) {
+        if (!req.session.user) {
             userFn.getUser(req.body.username, req, res);
         } else {
             errors.push("You are already signed in. Please logout first");
