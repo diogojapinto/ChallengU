@@ -99,6 +99,7 @@ exports.start = function (app) {
             } else {
 
                 res.status(404).send("NOT OK");
+
             }
         });
     });
