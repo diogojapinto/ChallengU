@@ -60,7 +60,7 @@ exports.listen = function (app) {
     });
 
     app.post("/register", function (req, res) {
-        res.sendfile(path.join(__dirname, '../views', 'register.html'));
+
     });
 
     app.post("/create-challenge", function (req, res) {
