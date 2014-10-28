@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('challenge-service', []);
+    var app = angular.module('challenge-app', []);
 
     /**
      * Controller for challenge submitting

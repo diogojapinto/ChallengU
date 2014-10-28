@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('login', []);
+    var app = angular.module('login-app', []);
 
     /**
      * Controller that manages the login infrmation from user

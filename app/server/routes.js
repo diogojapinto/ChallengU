@@ -1,5 +1,6 @@
 var path = require('path');
-var db = require('./database-requests.js');
+var challengeFn = require('controller/challenges.js');
+var userFn = require('controller/users.js');
 exports.listen = function (app) {
 
     //entry point
@@ -28,55 +29,21 @@ exports.listen = function (app) {
     app.get("/challenge/:id", function (req, res) {
         var challengeID = parseInt(req.params.id);
 
-        var assembleChallenge = function(results) {
+        var challenge = challengeFn.getChallenge(challengeID);
 
-            if (!results) {
-                res.sendfile(path.join(__dirname, '../views/landing.html'));
-            }
-
-            var challenge = {};
-            challenge.id = challengeID;
-
-            // basic info
-            challenge.name = results[0].rows[0].name;
-            challenge.creator = results[0].rows[0].username;
-            challenge.description = results[0].rows[0].content;
-            challenge.difficulty = parseInt(results[0].rows[0].difficulty);
-            challenge.target = results[0].rows[0].target;
-            challenge.type = results[0].rows[0].type;
-
-            // categories
-            challenge.category = [];
-            results[1].rows.forEach(function(category) {
-                challenge.category.push(category);
-            });
-
-            // rating
-            challenge.rating = parseFloat(results[2].rows[0].avg);
-
-            // comments
-            challenge.comments = [];
-            results[3].rows.forEach(function(entry) {
-                challenge.comments.push(entry);
-            });
-
-            // challenge proofs
-            challenge.responses = [];
-            results[4].rows.forEach(function(proof) {
-                proof.rating = parseInt(proof.rating);
-                challenge.responses.push(proof);
-            });
-
+        if (challenge == null) {
+            res.sendfile(path.join(__dirname, '../views/landing.html'));
+            return;
+        } else {
             res.render('challenge.ejs', challenge);
-        };
-
-        db.getChallenge(challengeID, assembleChallenge);
+            return;
+        }
 
     });
 
     app.post("/get-categories", function (req, res) {
         if (req.session.user) {
-            db.getCategories(function (categories) {
+            challengeFn.getCategories(function (categories) {
                 res.send(categories.rows);
             });
         } else {
@@ -85,7 +52,7 @@ exports.listen = function (app) {
     });
 
     app.post("/login-user", function (req, res) {
-        db.getUser(req.body.username, function (user) {
+        userFn.getUser(req.body.username, function (user) {
             var user = user.rows[0];
             if (user && user.pass === req.body.password && user.username === req.body.username) {
                 req.session.regenerate(function () {
@@ -99,7 +66,7 @@ exports.listen = function (app) {
     });
 
     app.post("/create-challenge", function (req, res) {
-        db.insertChallenge(req.body, function (challengeID) {
+        challengeFn.insertChallenge(req.body, function (challengeID) {
             if (challengeID && req.session.user) {
                 res.status(200).send(challengeID.toString());
             } else {
