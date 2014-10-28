@@ -94,6 +94,7 @@ exports.start = function (app) {
             if (user && user.pass === req.body.password && user.username === req.body.username) {
                 req.session.regenerate(function () {
                     req.session.user = user;
+                    console.log(req.cookies);
                     res.status(200).send("OK");
                 });
             } else {
@@ -101,6 +102,14 @@ exports.start = function (app) {
                 res.status(400).send("NOT OK");
             }
         });
+    });
+
+    app.post("/register-user", function (req, res) {
+        res.status(200).send("OK");
+    });
+
+    app.get("/register", function (req, res) {
+        res.sendfile(path.join(__dirname, '../html', 'register.html'));
     });
 
     app.post("/create-challenge", function (req, res) {

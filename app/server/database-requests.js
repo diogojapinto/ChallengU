@@ -27,6 +27,8 @@ var insertChallenge = function (data, callback) {
     db.insertChallenge(name, difficulty, type, desc, categories, callback);
 };
 
+
+
 var getChallenge = function(challengeID, callback) {
     var queries = [];
     var     args = [];

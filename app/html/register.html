@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>Register</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body ng-app="register-main-controller">
+<navbar></navbar>
+
+<h2 style="text-align:center; margin-top:1.45em;"> Please <strong class="label label-success">Sign up</strong>, it's free and always will be.</h2>
+
+<div class="container" ng-controller="RegisterController as registerCtrl">
+
+    <div class="row vertical-offset-100">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row-fluid user-row">
+                        <img src="../images/register.png" style="width:30%;height:30%" class="img-responsive"
+                             alt="Console Admin"/>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form name="registerForm" >
+                        <input class="form-control" ng-model="formData.firstName" type="text" placeholder="Please enter your first name" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.lastName" type="text" placeholder="Please enter your last name" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.username" type="text" placeholder="Please enter your username" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.email" type="email" placeholder="Please enter your e-mail" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.work" type="text" placeholder="What do you do for a living?" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.local" type="text" placeholder="Where do you live?" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.password" type="password" placeholder="Please enter your password" required/>
+                        <br/>
+                        <input class="form-control" ng-model="formData.confirmPassword" type="password" placeholder="Please confirm your password" required/>
+                        By clicking <strong class="label label-success">Register</strong>, you agree to the <button type="button" class="btn-success" data-toggle="modal" data-target="#terms">Terms and Conditions</button> set out by this site, including our Cookie Use.
+                        <br/>
+                        <button class="btn btn-block btn-lg btn-success" ng-disabled="!registerForm.$valid" type="submit" ng-click="register()">
+                            Register now!
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" sg>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Terms and Conditions</h4>
+                </div>
+                <div class="modal-body">
+                    <p> Bla bla bla</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
+</div>
+
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script src="../js/angular.min.js"></script>
+<script src="../js/registerService.js"></script>
+<script src="../js/registerController.js"></script>
+<script src="../js/mainRegisterController.js"></script>
+
+</body>
+</html>
