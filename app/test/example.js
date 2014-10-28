@@ -2,6 +2,7 @@
 var test = require('unit.js');
 // just for example of tested value
 var example = 'hello';
+//var example = 1;
 // assert that example variable is a string
 test.string(example);
 // or with Must.js
