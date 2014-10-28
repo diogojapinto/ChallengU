@@ -1,8 +1,10 @@
 // load Unit.js module
-var test = require('unit.js');
+//var test = require('unit.js');
 var should  = require('should');
+var assert  = require('assert');
 var request = require('supertest');
 
+/*
 // just for example of tested value
 var example = 'hello';
 // assert that example variable is a string
@@ -10,7 +12,9 @@ test.string(example);
 // or with Must.js
 test.must(example).be.a.string();
 // or with assert
-test.assert(typeof example === 'string');
+test.assert(typeof example === 'string');*/
+
+var url = 'http://localhost:8080';
 
 describe('Account', function() {
     it('should return error because the user does not exist', function (done) {
@@ -31,7 +35,7 @@ describe('Account', function() {
                     throw err;
                 }
                 // this is should.js syntax, very clear
-                res.should.have.status(400);
+                res.statusCode.should.equal(400);
                 done();
             });
     });
@@ -49,13 +53,13 @@ describe('Account', function() {
             .post('/login-user')
             .send(user)
             // end handles the response
-            .end(function (err, res) {
+            .end(function (err, res, req) {
                 if (err) {
                     throw err;
                 }
                 // this is should.js syntax, very clear
-                res.should.have.status(200);
-                req.session.should.have.property(user);
+                res.statusCode.should.equal(200);
+                //req.session.should.equal(user);
                 done();
             });
     });
@@ -83,7 +87,7 @@ describe('Challenge', function() {
                     throw err;
                 }
                 // this is should.js syntax, very clear
-                res.should.have.status(400);
+                res.statusCode.should.equal(400);
                 done();
             });
     });
@@ -91,7 +95,7 @@ describe('Challenge', function() {
     it('should return success', function (done) {
         var challenge = {
             name: 'blablabla',
-            category: ["serious"],
+            category: [1],
             type: "video",
             difficulty: "3",
             description: "bla bla bla whiskas saquetas"
@@ -109,7 +113,7 @@ describe('Challenge', function() {
                     throw err;
                 }
                 // this is should.js syntax, very clear
-                res.should.have.status(200);
+                res.statusCode.should.equal(200);
                 done();
             });
     });
