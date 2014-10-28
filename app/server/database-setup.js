@@ -3,12 +3,6 @@ var Transaction = require('pg-transaction');
 var conString = "postgres://postgres:admin@localhost/challengeu";
 
 /*
- * how to do args properly
- * 'SELECT $1::int AS number', ['1']
- */
-
-
-/*
  * receives a base query (string) and corresponding args
  */
 exports.query = function (baseQuery, args, callback) {
@@ -37,7 +31,7 @@ exports.query = function (baseQuery, args, callback) {
  * @param callback function called on success
  */
 exports.transaction = function (baseQueries, args, callback) {
-    pg.connect(conString, function (err, client, done) {
+    pg.connect(conString, function (err, client) {
         if (err) {
             console.error('error fetching client from pool', err);
             callback(null);

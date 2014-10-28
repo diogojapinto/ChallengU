@@ -15,7 +15,7 @@
             $scope.loading = true;
             if ($scope.formData != undefined) {
                 Login.create($scope.formData)
-                    .success(function (data) {
+                    .success(function () {
                         $scope.loading = false;
                         $scope.formData = {};
                         $scope.text = "GLORIOUS!";
@@ -47,7 +47,7 @@
     app.factory('Login', ['$http', function ($http) {
         return{
             create: function (user) {
-                return $http.post('/login-user', user);
+                return $http.post('/login', user);
             }
         }
     }]);

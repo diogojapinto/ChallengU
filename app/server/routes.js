@@ -1,16 +1,21 @@
 var path = require('path');
-var challengeFn = require('controller/challenges.js');
-var userFn = require('controller/users.js');
+var challengeFn = require('./controller/challengesCtrl');
+var userFn = require('./controller/usersCtrl');
 exports.listen = function (app) {
 
-    //entry point
+    var errors = [];
 
     app.get('/logout', function (req, res) {
         // destroy the user's session to log them out
         // will be re-created next request
-        req.session.destroy(function () {
-            res.redirect('/');
-        });
+        if (req.session.user) {
+            req.session.destroy(function () {
+                res.redirect('/');
+            });
+        } else {
+            errors.push('Invalid action. Please login first');
+            req.redirect('/');
+        }
     });
 
     app.get("/login", function (req, res) {
@@ -27,52 +32,36 @@ exports.listen = function (app) {
     });
 
     app.get("/challenge/:id", function (req, res) {
-        var challengeID = parseInt(req.params.id);
-
-        var challenge = challengeFn.getChallenge(challengeID);
-
-        if (challenge == null) {
-            res.sendfile(path.join(__dirname, '../views/landing.html'));
-            return;
-        } else {
-            res.render('challenge.ejs', challenge);
-            return;
+        if (req.session.user) {
+            var challengeID = parseInt(req.params.id);
+            challengeFn.getChallenge(challengeID, res);
         }
-
     });
 
     app.post("/get-categories", function (req, res) {
         if (req.session.user) {
-            challengeFn.getCategories(function (categories) {
-                res.send(categories.rows);
-            });
+            challengeFn.getCategories(res);
         } else {
-            res.redirect('/login');
+            res.status(404).send(false);
         }
     });
 
-    app.post("/login-user", function (req, res) {
-        userFn.getUser(req.body.username, function (user) {
-            var user = user.rows[0];
-            if (user && user.pass === req.body.password && user.username === req.body.username) {
-                req.session.regenerate(function () {
-                    req.session.user = user;
-                    res.status(200).send("OK");
-                });
-            } else {
-                res.status(404).send("NOT OK");
-            }
-        });
+    app.post("/login", function (req, res) {
+        if (req.session.user) {
+            userFn.getUser(req.body.username, req, res);
+        } else {
+            errors.push("You are already signed in. Please logout first");
+            res.status(404).send(false);
+        }
     });
 
     app.post("/create-challenge", function (req, res) {
-        challengeFn.insertChallenge(req.body, function (challengeID) {
-            if (challengeID && req.session.user) {
-                res.status(200).send(challengeID.toString());
-            } else {
-                res.status(404).send(false);
-            }
-        });
+        if (req.session.user) {
+            challengeFn.insertChallenge(req.body, res);
+        } else {
+            errors.push("Please login in order to create a challenge");
+            res.status(404).send(false);
+        }
     });
 
     app.get('*', function (req, res) {

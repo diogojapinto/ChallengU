@@ -1,11 +1,16 @@
-var challengeDAO = require('../model/challenges')
+var challengeDAO = require('../model/challengesMdl');
 
 
-exports.getCategories = function (callback) {
-    return challengeDAO.getCategories;
+exports.getCategories = function (res) {
+
+    var sendCurrentCategories = function (categories) {
+        res.send(categories.rows);
+    };
+
+    challengeDAO.getCategories(sendCurrentCategories);
 };
 
-exports.insertChallenge = function (data, callback) {
+exports.insertChallenge = function (data, res) {
     var name = data.name;
     var difficulty = data.difficulty;
     var type = data.type;
@@ -21,14 +26,33 @@ exports.insertChallenge = function (data, callback) {
         categories[i] = data.category[i];
     }
 
-    challengeDAO.insertChallenge(name, difficulty, type, desc, categories, callback);
-};
-
-exports.getChallenge = function(challengeID) {
-    var assembleChallenge = function(results) {
+    var getInsertedChallengeID = function (results) {
 
         if (!results) {
-            return null;
+            res.status(404).send(false);
+            return;
+        }
+
+        // index of challengeID query based on the number of queries made
+        var challengeID = results[results.length - 1].rows[0].currval;
+
+        if (challengeID) {
+            res.status(200).send(challengeID.toString());
+        } else {
+            res.status(404).send(false);
+        }
+    };
+
+    challengeDAO.insertChallenge(name, difficulty, type, desc, categories, getInsertedChallengeID);
+};
+
+exports.getChallenge = function (challengeID, res) {
+
+    var assembleChallenge = function (results) {
+
+        if (!results) {
+            res.sendfile(path.join(__dirname, '../views/landing.html'));
+            return;
         }
 
         var challenge = {};
@@ -44,7 +68,7 @@ exports.getChallenge = function(challengeID) {
 
         // categories
         challenge.category = [];
-        results[1].rows.forEach(function(category) {
+        results[1].rows.forEach(function (category) {
             challenge.category.push(category);
         });
 
@@ -53,16 +77,18 @@ exports.getChallenge = function(challengeID) {
 
         // comments
         challenge.comments = [];
-        results[3].rows.forEach(function(entry) {
+        results[3].rows.forEach(function (entry) {
             challenge.comments.push(entry);
         });
 
         // challenge proofs
         challenge.responses = [];
-        results[4].rows.forEach(function(proof) {
+        results[4].rows.forEach(function (proof) {
             proof.rating = parseInt(proof.rating);
             challenge.responses.push(proof);
         });
+
+        res.render('challenge.ejs', challenge);
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
