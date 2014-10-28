@@ -60,7 +60,8 @@ exports.listen = function (app) {
     });
 
     app.post("/register", function (req, res) {
-
+        console.log(req.body);
+        userFn.registerUser(req.body,res);
     });
 
     app.post("/create-challenge", function (req, res) {
