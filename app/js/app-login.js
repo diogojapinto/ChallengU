@@ -2,7 +2,7 @@
     var app = angular.module('login-app', []);
 
     /**
-     * Controller that manages the login infrmation from user
+     * Controller that manages the login information of an user
      */
     app.controller('LoginController', ['$scope', '$http', '$window', 'Login', function ($scope, $http, $window, Login) {
 

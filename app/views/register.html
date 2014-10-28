@@ -3,18 +3,18 @@
 <head lang="en">
     <title>Register</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/login.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body ng-app="register-main-controller">
+<body ng-app="register-app">
 <navbar></navbar>
 
-<h2 style="text-align:center; margin-top:1.45em;"> Please <strong class="label label-success">Sign up</strong>, it's free and always will be.</h2>
+<h2 style="text-align:center; margin-top:1.45em;"> Please <strong class="label label-primary">Sign up</strong>, it's free and always will be.</h2>
 
 <div class="container" ng-controller="RegisterController as registerCtrl">
 
-    <div class="row vertical-offset-100">
+    <div style="padding-top:2em">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -40,9 +40,9 @@
                         <input class="form-control" ng-model="formData.password" type="password" placeholder="Please enter your password" required/>
                         <br/>
                         <input class="form-control" ng-model="formData.confirmPassword" type="password" placeholder="Please confirm your password" required/>
-                        By clicking <strong class="label label-success">Register</strong>, you agree to the <button type="button" class="btn-success" data-toggle="modal" data-target="#terms">Terms and Conditions</button> set out by this site, including our Cookie Use.
+                        By clicking <strong class="label label-primary">Register</strong>, you agree to the <button type="button" class="btn-primary" data-toggle="modal" data-target="#terms">Terms and Conditions</button> set out by this site, including our Cookie Use.
                         <br/>
-                        <button class="btn btn-block btn-lg btn-success" ng-disabled="!registerForm.$valid" type="submit" ng-click="register()">
+                        <button class="btn btn-block btn-lg btn-primary" ng-disabled="!registerForm.$valid" type="submit" ng-click="register()">
                             Register now!
                         </button>
                     </form>
@@ -77,9 +77,7 @@
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 <script src="../js/angular.min.js"></script>
-<script src="../js/registerService.js"></script>
-<script src="../js/registerController.js"></script>
-<script src="../js/mainRegisterController.js"></script>
+<script src="../js/app-register.js"></script>
 
 </body>
 </html>
