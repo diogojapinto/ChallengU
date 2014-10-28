@@ -1,8 +1,10 @@
 (function () {
-    var app = angular.module('login', []);
+    var app = angular.module('login-app', []);
 
+    /**
+     * Controller that manages the login infrmation from user
+     */
     app.controller('LoginController', ['$scope', '$http', '$window', 'Login', function ($scope, $http, $window, Login) {
-        /* Controller that manages the login of an user */
 
         $scope.formData = {};
         $scope.loading = true;
@@ -13,7 +15,7 @@
             $scope.loading = true;
             if ($scope.formData != undefined) {
                 Login.create($scope.formData)
-                    .success(function (data) {
+                    .success(function () {
                         $scope.loading = false;
                         $scope.formData = {};
                         $scope.text = "GLORIOUS!";
@@ -21,6 +23,7 @@
                         $window.location.href = '/';
                     })
                     .error(function (data) {
+                        // TODO: refactor redirect
                         $scope.text = "DUMBBBBBBBBBBBBB";
                         $scope.show = true;
                         alert("failed: " + data);
@@ -28,7 +31,7 @@
             }
         };
 
-        $scope.switchBool = function(value) {
+        $scope.switchBool = function (value) {
             $scope[value] = !$scope[value];
         };
 
@@ -38,4 +41,14 @@
         }
     }]);
 
+    /**
+     * Service that attempts to login with provided information
+     */
+    app.factory('Login', ['$http', function ($http) {
+        return{
+            create: function (user) {
+                return $http.post('/login', user);
+            }
+        }
+    }]);
 })();

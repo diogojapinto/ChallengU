@@ -1,35 +1,32 @@
-var db = require('./database-setup.js');
+var db = require('../database-setup.js');
 
-var getCategories = function (callback) {
+exports.getCategories = function (callback) {
+
     db.query("SELECT * FROM Category", [], callback);
 };
 
-var getUser = function (username,callback) {
-    db.query("SELECT * FROM RegisteredUser WHERE username=" + "'" + username + "'", [], callback);
-};
-
-var insertChallenge = function (data, callback) {
-    var name = data.name;
-    var difficulty = data.difficulty;
-    var type = data.type;
-    var desc;
-    if (data.description != "" && data.description != undefined) {
-        desc = data.description;
-    } else {
-        desc = "";
-    }
-
-    var categories = [];
-    for (var i = 0; i < data.category.length; i++) {
-        categories[i] = data.category[i];
-    }
-
-    db.insertChallenge(name, difficulty, type, desc, categories, callback);
-};
-
-var getChallenge = function(challengeID, callback) {
+exports.insertChallenge = function (name, difficulty, type, desc, categories, callback) {
     var queries = [];
-    var     args = [];
+    var args = [];
+
+    queries.push("INSERT INTO Challenge (challengeID, name, userID, content, difficulty, target, type, targetUserID) " +
+        "VALUES (DEFAULT, $1,$2,$3,$4::int,$5,$6, $7)");
+    args.push([name, 1, desc, parseInt(difficulty), 'community', type, null]);
+
+    for (var i = 0; i < categories.length; i++) {
+        queries.push("INSERT INTO ChallengeCategory (challengeID, categoryID) VALUES (CURRVAL('challenge_challengeid_seq'), $1)");
+        args.push([categories[i]]);
+    }
+
+    queries.push("SELECT CURRVAL('challenge_challengeid_seq')");
+    args.push([]);
+
+    db.transaction(queries, args, callback);
+};
+
+exports.getChallenge = function (challengeID, callback) {
+    var queries = [];
+    var args = [];
     queries.push("SELECT Challenge.name, username, content, difficulty, target, type " +
         "FROM Challenge INNER JOIN RegisteredUser ON RegisteredUser.userID = Challenge.userID " +
         "WHERE challengeID = $1::int");
@@ -59,9 +56,4 @@ var getChallenge = function(challengeID, callback) {
     args.push([challengeID]);
 
     db.transaction(queries, args, callback);
-}
-
-exports.getCategories = getCategories;
-exports.getUser = getUser;
-exports.insertChallenge = insertChallenge;
-exports.getChallenge = getChallenge;
+};
