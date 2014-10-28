@@ -1,9 +1,10 @@
 // load Unit.js module
 var test = require('unit.js');
-var test = require('should');
+var should  = require('should');
+var request = require('supertest');
+
 // just for example of tested value
 var example = 'hello';
-//var example = 1;
 // assert that example variable is a string
 test.string(example);
 // or with Must.js
@@ -19,7 +20,7 @@ describe('Account', function() {
         };
         // once we have specified the info we want to send to the server via POST verb,
         // we need to actually perform the action on the resource, in this case we want to
-        // POST on /api/profiles and we want to send some info
+        // POST on /login-user and we want to send some info
         // We do this using the request object, requiring supertest!
         request(url)
             .post('/login-user')
@@ -42,7 +43,7 @@ describe('Account', function() {
         };
         // once we have specified the info we want to send to the server via POST verb,
         // we need to actually perform the action on the resource, in this case we want to
-        // POST on /api/profiles and we want to send some info
+        // POST on /login-user and we want to send some info
         // We do this using the request object, requiring supertest!
         request(url)
             .post('/login-user')
@@ -71,7 +72,7 @@ describe('Challenge', function() {
         };
         // once we have specified the info we want to send to the server via POST verb,
         // we need to actually perform the action on the resource, in this case we want to
-        // POST on /api/profiles and we want to send some info
+        // POST on /create-challenge and we want to send some info
         // We do this using the request object, requiring supertest!
         request(url)
             .post('/create-challenge')
@@ -83,6 +84,32 @@ describe('Challenge', function() {
                 }
                 // this is should.js syntax, very clear
                 res.should.have.status(400);
+                done();
+            });
+    });
+
+    it('should return success', function (done) {
+        var challenge = {
+            name: 'blablabla',
+            category: ["serious"],
+            type: "video",
+            difficulty: "3",
+            description: "bla bla bla whiskas saquetas"
+        };
+        // once we have specified the info we want to send to the server via POST verb,
+        // we need to actually perform the action on the resource, in this case we want to
+        // POST on /create-challenge and we want to send some info
+        // We do this using the request object, requiring supertest!
+        request(url)
+            .post('/create-challenge')
+            .send(challenge)
+            // end handles the response
+            .end(function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                // this is should.js syntax, very clear
+                res.should.have.status(200);
                 done();
             });
     });
