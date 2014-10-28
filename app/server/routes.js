@@ -16,10 +16,6 @@ exports.start = function (app) {
         res.sendfile(path.join(__dirname, '../html', 'login.html'));
     });
 
-    app.get("/navbar", function (req, res) {
-        res.sendfile(path.join(__dirname, '../html', 'navbar.html'));
-    });
-
     app.get("/post-challenge", function (req, res) {
 
         if (req.session.user) {
