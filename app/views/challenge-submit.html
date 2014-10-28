@@ -3,13 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Submit your challenge</title>
-    <link rel="stylesheet" type="text/css" href="../css/superhero-bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
-<body ng-app="main-controller">
-<div ng-app="navbar-controller">
-<navbar></navbar></div>
+<body ng-app="challenge-app">
+</div>
 <div class="container" style="width:100%" ng-controller="ChallengeSubmit as chalg">
     <div class="row vertical-offset-100">
         <div class="col-md-4 col-md-offset-4">
@@ -64,9 +62,7 @@
                 </form>
 
                 <script src="../js/angular.min.js"></script>
-                <script src="../js/challengeService.js"></script>
-                <script src="../js/challenge-submit.js"></script>
-                <script src="../js/mainChallengeController.js"></script>
+                <script src="../js/app-post-challenge.js"></script>
             </div>
         </div>
     </div>
