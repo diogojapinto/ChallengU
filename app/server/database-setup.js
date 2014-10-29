@@ -1,13 +1,13 @@
 var pg = require('pg');
 var Transaction = require('pg-transaction');
-var conString = "postgres://postgres:admin@localhost/challengeu";
-
+var conString = "postgres://postgres:admin@localhost:5432/challengeu";
 /*
  * receives a base query (string) and corresponding args
  */
 exports.query = function (baseQuery, args, callback) {
 
     pg.connect(conString, function (err, client, done) {
+
         if (err) {
             return console.error('error fetching client from pool', err);
         }
