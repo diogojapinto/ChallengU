@@ -17,6 +17,7 @@ test.assert(typeof example === 'string');*/
 var url = 'http://http://178.62.101.158/';
 
 describe('Account', function() {
+
     it('should return error because the user does not exist', function (done) {
         var user = {
             username: 'blablabla',
