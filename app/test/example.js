@@ -14,7 +14,7 @@ test.must(example).be.a.string();
 // or with assert
 test.assert(typeof example === 'string');*/
 
-var url = 'http://localhost:8080';
+var url = 'http://http://178.62.101.158/';
 
 describe('Account', function() {
     it('should return error because the user does not exist', function (done) {
@@ -65,7 +65,8 @@ describe('Account', function() {
     });
 });
 
-describe('Challenge', function() {
+/*
+ describe('Challenge', function() {
     it('should return error because the the category field is empty', function (done) {
         var challenge = {
             name: 'blablabla',
@@ -117,4 +118,4 @@ describe('Challenge', function() {
                 done();
             });
     });
-});
+ });*/
