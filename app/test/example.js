@@ -14,7 +14,7 @@ var request = require('supertest');
  // or with assert
  test.assert(typeof example === 'string');*/
 
-var url = 'http://http://178.62.101.158:8081';
+var url = 'http://178.62.101.158:8081';
 
 describe('Account', function () {
 
