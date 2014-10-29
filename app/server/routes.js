@@ -44,7 +44,7 @@ exports.listen = function (app) {
         if (req.session.user) {
             challengeFn.getCategories(res);
         } else {
-            res.status(404).send(false);
+            res.status(400).send(false);
         }
     });
 
@@ -53,8 +53,17 @@ exports.listen = function (app) {
             userFn.getUser(req.body.username, req, res);
         } else {
             errors.push("You are already signed in. Please logout first");
-            res.status(404).send(false);
+            res.status(400).send(false);
         }
+    });
+
+    app.get("/register", function (req, res) {
+        res.sendfile(path.join(__dirname, '../views', 'register.html'));
+    });
+
+    app.post("/register", function (req, res) {
+        console.log(req.body);
+        userFn.registerUser(req.body,res);
     });
 
     app.post("/create-challenge", function (req, res) {
@@ -62,7 +71,7 @@ exports.listen = function (app) {
             challengeFn.insertChallenge(req.body, res);
         } else {
             errors.push("Please login in order to create a challenge");
-            res.status(404).send(false);
+            res.status(400).send(false);
         }
     });
 

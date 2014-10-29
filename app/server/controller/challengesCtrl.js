@@ -39,7 +39,7 @@ exports.insertChallenge = function (data, res) {
         if (challengeID) {
             res.status(200).send(challengeID.toString());
         } else {
-            res.status(404).send(false);
+            res.status(400).send(false);
         }
     };
 
