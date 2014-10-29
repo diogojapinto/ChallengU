@@ -25,7 +25,7 @@ exports.listen = function (app) {
     app.get("/post-challenge", function (req, res) {
 
         if (req.session.user) {
-            res.render('challenge-submit.html', {title: 'Submit your challenge'});
+            res.render('challenge-submit.ejs', {title: 'Submit your challenge'});
         } else {
             res.redirect('/login');
         }
