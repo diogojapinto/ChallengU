@@ -93,3 +93,18 @@ exports.getChallenge = function (challengeID, res) {
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
+
+exports.searchChallenges = function (searchValue,res) {
+
+    var sendSearchResults = function (challenges) {
+
+        if (!challenges) {
+            res.status(400).send(false);
+        } else {
+            console.log(challenges.rows);
+            res.status(200).send(challenges.rows);
+        }
+    };
+
+    challengeDAO.searchChallenge(searchValue,sendSearchResults);
+};

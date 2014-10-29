@@ -57,3 +57,7 @@ exports.getChallenge = function (challengeID, callback) {
 
     db.transaction(queries, args, callback);
 };
+
+exports.searchChallenge = function(searchValue, callback) {
+  db.query("SELECT * FROM Challenge WHERE name LIKE '%" + searchValue + "%'",[],callback);
+};
