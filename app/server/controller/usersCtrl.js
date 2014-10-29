@@ -1,11 +1,22 @@
 var userDAO = require('../model/usersMdl');
+var passwordManager = require('../managePasswords');
 
 exports.getUser = function (username, req, res) {
 
     var loginCallback = function (user) {
         user = user.rows[0];
-        if (user && user.pass === req.body.password && user.username === req.body.username) {
-            req.session.regenerate(function () {
+        if (user && user.pass === req.body.password && user.username === req.body.username) { // comentar segunda condicao para encriptacao
+           /* passwordManager.comparePassword(req.body.password, user.pass, function(err, passwordMatch){
+                if(passwordMatch){
+                    req.session.regenerate(function () {
+                        req.session.user = user;
+                        res.status(200).send("OK");
+                    });
+                }else{
+                    res.status(400).send("NOT OK");
+                }
+            });*/ //Descomentar aqui para encriptacao
+            req.session.regenerate(function () { //comentar aqui para encriptacao
                 req.session.user = user;
                 res.status(200).send("OK");
             });
@@ -27,6 +38,7 @@ exports.registerUser = function(data, res){
 
     if (data.password == data.confirmPassword) {
         password = data.password;
+        console.log("PASSWORD = ", password);
     } else {
         res.status(400).send("Passwords must match!");
         return;
@@ -49,6 +61,11 @@ exports.registerUser = function(data, res){
             res.status(200).send(true);
         }
     }
+  /*  passwordManager.cryptPassword(password, null, function(err, hash){
+        userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
+    });*/ //Descomentar para encriptacao
 
     userDAO.register(username,password,name,email,work,local,'user','normal',registerCallback);
+
+
 }
