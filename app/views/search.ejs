@@ -8,11 +8,38 @@
 <% include partials/header %>
 
 <% search.forEach(function(challenge) { %>
-<div>
-    <h2><%= challenge.name %></h2>
-    <br/>
+<div class="container">
+    <div class="well">
+        <div class="media">
+            <a class="pull-left" href="#">
+                <img class="media-object" src="http://placekitten.com/150/150">
+            </a>
+
+            <div class="media-body">
+                <h4 class="media-heading"><%= challenge.name %></h4>
+
+                <p class="text-right">By X</p>
+
+                <p><%= challenge.content %></p>
+                <ul class="list-inline list-unstyled">
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                    <li>|</li>
+                    <li>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </li>
+                    <li>|</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <% }); %>
+
 <% include partials/footer %>
 <% include partials/scripts %>
 <script type="text/javascript" src="../js/star-rating.min.js"></script>
