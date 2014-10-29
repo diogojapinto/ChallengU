@@ -37,8 +37,8 @@ exports.registerUser = function(data, res){
         return;
     }
 
-    if (data.username.length <= 6) {
-        res.status(400).send("Username length must be greater than 6!");
+    if (data.username.length <= 4) {
+        res.status(400).send("Username length must be greater than 4!");
         return;
     }
 

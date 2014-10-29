@@ -58,7 +58,7 @@ exports.listen = function (app) {
     });
 
     app.get("/register", function (req, res) {
-        res.sendfile(path.join(__dirname, '../views', 'register.html'));
+        res.render('register.ejs', {title: 'Register'});
     });
 
     app.post("/register", function (req, res) {
