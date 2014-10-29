@@ -1,5 +1,6 @@
 //setup=============================
 var express = require('express');
+//var engine = require('ejs-locals');
 var app = express();
 var fs = require('fs');
 var morgan = require('morgan');
@@ -10,10 +11,12 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 //configuration=====================
 app.set("views", __dirname + '/../views');
-app.use("/css", express.static(__dirname + '/../css'));
-app.use("/images", express.static(__dirname + '/../images'));
-app.use("/js", express.static(__dirname + '/../js'));
-app.use("/fonts", express.static(__dirname + '/../fonts'));
+//app.engine('ejs', engine);
+app.set('view engine', 'ejs');
+app.use("/css", express.static(path.join(__dirname, '../css')));
+app.use("/images", express.static(path.join(__dirname, '../images')));
+app.use("/js", express.static(path.join(__dirname, '/../js')));
+app.use("/fonts", express.static(path.join(__dirname, '../fonts')));
 app.use(morgan('dev')); // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json

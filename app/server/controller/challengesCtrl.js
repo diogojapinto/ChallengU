@@ -88,7 +88,7 @@ exports.getChallenge = function (challengeID, res) {
             challenge.responses.push(proof);
         });
 
-        res.render('challenge.ejs', challenge);
+        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge});
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);

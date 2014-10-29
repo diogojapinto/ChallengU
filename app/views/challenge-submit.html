@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>Submit your challenge</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <% include partials/head %>
 </head>
 <body ng-app="challenge-app">
+<% include partials/header %>
 </div>
 <div class="container" style="width:100%" ng-controller="ChallengeSubmit as chalg">
     <div class="row vertical-offset-100">
@@ -58,14 +56,13 @@
                     <button class="btn btn-success btn-block btn-lg" type="submit" ng-click="createChallenge()">Post
                         your Challenge!
                     </button>
-
                 </form>
-
-                <script src="../js/angular.min.js"></script>
-                <script src="../js/app-post-challenge.js"></script>
             </div>
         </div>
     </div>
 </div>
+<% include partials/footer %>
+<% include partials/scripts %>
+<script src="../js/app-post-challenge.js"></script>
 </body>
 </html>

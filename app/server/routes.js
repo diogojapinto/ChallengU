@@ -5,7 +5,7 @@ exports.listen = function (app) {
 
     var errors = [];
 
-    app.get('/logout', function (req, res) {
+    app.post('/logout', function (req, res) {
         // destroy the user's session to log them out
         // will be re-created next request
         if (req.session.user) {
@@ -19,13 +19,13 @@ exports.listen = function (app) {
     });
 
     app.get("/login", function (req, res) {
-        res.sendfile(path.join(__dirname, '../views', 'login.html'));
+        res.render('login.ejs', {title: 'Login'});
     });
 
     app.get("/post-challenge", function (req, res) {
 
         if (req.session.user) {
-            res.sendfile(path.join(__dirname, '../views', 'challenge-submit.html'));
+            res.render('challenge-submit.html', {title: 'Submit your challenge'});
         } else {
             res.redirect('/login');
         }
@@ -35,6 +35,8 @@ exports.listen = function (app) {
         if (req.session.user) {
             var challengeID = parseInt(req.params.id);
             challengeFn.getChallenge(challengeID, res);
+        } else {
+            res.redirect('/login');
         }
     });
 
