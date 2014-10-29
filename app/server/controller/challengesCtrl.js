@@ -102,7 +102,7 @@ exports.searchChallenges = function (searchValue,res) {
             res.status(400).send(false);
         } else {
             console.log(challenges.rows);
-            res.status(200).send(challenges.rows);
+            res.render('search.ejs', {title: 'Search Results', search:challenges.rows});
         }
     };
 

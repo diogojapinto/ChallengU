@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+<% include partials/header %>
+
+<% search.forEach(function(challenge) { %>
+<div>
+    <h2><%= challenge.name %></h2>
+    <br/>
+</div>
+<% }); %>
+<% include partials/footer %>
+<% include partials/scripts %>
+<script type="text/javascript" src="../js/star-rating.min.js"></script>
+<script type="text/javascript" src="../js/challenge.js"></script>
+
+</body>
+</html>

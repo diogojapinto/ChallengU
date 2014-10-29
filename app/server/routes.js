@@ -40,6 +40,11 @@ exports.listen = function (app) {
         }
     });
 
+    app.get("/search/:val", function (req, res) {
+        console.log("Val: " + req.params.val);
+        challengeFn.searchChallenges(req.params.val, res);
+    });
+
     app.post("/get-categories", function (req, res) {
         if (req.session.user) {
             challengeFn.getCategories(res);
