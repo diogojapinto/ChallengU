@@ -7,7 +7,7 @@
 <body>
 <% include partials/header %>
 
-<% search.forEach(function(challenge) { %>
+<% search.forEach(function(value) { %>
 <div class="container">
     <div class="well">
         <div class="media">
@@ -16,11 +16,11 @@
             </a>
 
             <div class="media-body">
-                <h4 class="media-heading"><%= challenge.name %></h4>
+                <h4 class="media-heading"><%= value.challenge.name %></h4>
 
-                <p class="text-right">By X</p>
+                <p class="text-right">By <%= value.user.username %></p>
 
-                <p><%= challenge.content %></p>
+                <p><%= value.challenge.content %></p>
                 <ul class="list-inline list-unstyled">
                     <li>|</li>
                     <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>

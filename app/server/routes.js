@@ -70,10 +70,6 @@ exports.listen = function (app) {
         res.render('dummy-search.ejs', {title: 'Search challenge'});
     });
 
-    app.post("/search-challenge", function (req, res) {
-        challengeFn.searchChallenges(req.body.searchValue,res);
-    });
-
     app.post("/register", function (req, res) {
         console.log(req.body);
         userFn.registerUser(req.body,res);
