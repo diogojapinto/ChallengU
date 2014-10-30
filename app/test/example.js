@@ -65,8 +65,8 @@ describe('Account', function () {
             });
     });
 });
-
-describe('Challenge', function () {
+/*
+ describe('Challenge', function () {
     it('should return error because the the category field is empty', function (done) {
         var challenge = {
             name       : 'blablabla',
@@ -119,4 +119,4 @@ describe('Challenge', function () {
             });
 
     });
-});
+ });*/
