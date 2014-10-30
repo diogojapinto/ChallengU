@@ -117,5 +117,6 @@ describe('Challenge', function () {
                 res.statusCode.should.equal(200);
                 done();
             });
+
     });
 });
