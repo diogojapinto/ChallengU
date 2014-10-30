@@ -124,8 +124,6 @@ exports.searchChallenges = function (searchValue, res) {
 
      var getLastUser = function(user) {
          users.push({username: user.rows[0].username});
-         console.log(users);
-         console.log(chal[0].name);
          for (var j = 0; j<i; j++) {
              chalz.push( {challenge: chal[j], user: users[j]});
          }
