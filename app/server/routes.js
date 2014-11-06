@@ -8,7 +8,7 @@ exports.listen = function (app) {
 
     var messages = {
         success: [],
-        info: [],
+        info  : [],
         warning: [],
         danger: []
     };
@@ -18,7 +18,7 @@ exports.listen = function (app) {
         // will be re-created next request
         if (req.session.user) {
             req.session.destroy(function () {
-                res.redirect('/');
+                res.redirect('/loggedout');
             });
         } else {
             messages.danger.push({title: "Sign in first", content: "You are not logged in"});
@@ -26,8 +26,8 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/login", function (req, res) {
-        res.render('login.ejs', {messages: messages, title: 'Login'});
+    app.get("/connect", function (req, res) {
+        res.render('connect.ejs', {messages: messages, title: 'Connect'});
     });
 
     app.get("/post-challenge", function (req, res) {
@@ -95,8 +95,19 @@ exports.listen = function (app) {
         res.redirect('/');
     });
 
+    app.get("/:val", function (req, res) {
+        if (req.params.val == "loggedin") {
+            messages.success.push({title: "Logged In", content: "You are now logged in!"});
+            res.render("landing.ejs", {messages: messages});
+        }
+        if (req.params.val == "loggedout") {
+            messages.success.push({title: "Logged Out", content: "You are now logged out!"});
+            res.render("landing.ejs", {messages: messages});
+        }
+    });
+
     app.get('*', function (req, res) {
-        res.sendfile(path.join(__dirname, '../views', 'landing.html'));
+        res.render("landing.ejs", {messages: messages});
     });
 }
 ;
