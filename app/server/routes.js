@@ -3,9 +3,13 @@ var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
 exports.listen = function (app) {
 
-    var errors = [];
-    var warnings = [];
-    var infos = [];
+
+    var messages = {
+        success: [],
+        info: [],
+        warning: [],
+        danger: []
+    };
 
     app.post('/logout', function (req, res) {
         // destroy the user's session to log them out
@@ -15,19 +19,18 @@ exports.listen = function (app) {
                 res.redirect('/');
             });
         } else {
-            errors.push('Invalid action. Please login first');
+            messages.danger.push({title: "Sign in first", content: "You are not logged in"});
             req.redirect('/');
         }
     });
 
     app.get("/login", function (req, res) {
-        res.render('login.ejs', {infos: infos, warnings: warnings, errors: errors, title: 'Login'});
+        res.render('login.ejs', {messages: messages, title: 'Login'});
     });
 
     app.get("/post-challenge", function (req, res) {
-
         if (req.session.user) {
-            res.render('challenge-submit.ejs', {infos: infos, warnings: warnings, errors: errors, title: 'Submit your challenge'});
+            res.render('challenge-submit.ejs', {messages: messages, title: 'Submit your challenge'});
         } else {
             res.redirect('/login');
         }
@@ -59,22 +62,21 @@ exports.listen = function (app) {
         if (!req.session.user) {
             userFn.getUser(req.body.username, req, res);
         } else {
-            errors.push("You are already signed in. Please logout first");
-            res.status(400).send(false);
+            res.status(400).send("You are already signed in. Please logout first");
         }
     });
 
     app.get("/register", function (req, res) {
-        res.render('register.ejs', {title: 'Register'});
+        res.render('register.ejs', {messages: messages, title: 'Register'});
     });
 
     app.get("/search-challenge", function (req, res) {
-        res.render('dummy-search.ejs', {title: 'Search challenge'});
+        res.render('dummy-search.ejs', {messages: messages, title: 'Search challenge'});
     });
 
     app.post("/register", function (req, res) {
         console.log(req.body);
-        userFn.registerUser(req.body,res);
+        userFn.registerUser(req.body, res);
     });
 
     app.post("/create-challenge", function (req, res) {
@@ -89,4 +91,5 @@ exports.listen = function (app) {
     app.get('*', function (req, res) {
         res.sendfile(path.join(__dirname, '../views', 'landing.html'));
     });
-};
+}
+;
