@@ -57,3 +57,8 @@ exports.getChallenge = function (challengeID, callback) {
 
     db.transaction(queries, args, callback);
 };
+
+exports.searchChallenge = function(searchValue, callback) {
+  db.query("SELECT * FROM Challenge WHERE name SIMILAR TO '%" + searchValue + "%'",[],callback);
+  /*SELECT challenge.name, COUNT(*) FROM challenge,comment WHERE comment.challengeID = challenge.challengeID AND challenge.name SIMILAR TO '%sdada' GROUP BY challenge.challengeID ORDER BY o_que_quiseres DESC*/
+};

@@ -13,15 +13,26 @@
         $scope.register = function () {
             $scope.loading = true;
             if ($scope.formData != undefined) {
-                Register.create($scope.formData)
-                    .success(function (data) {
-                        $scope.loading = false;
-                        $scope.formData = {};
-                        $window.location.href = '/login';
-                    })
-                    .error(function (data) {
-                        alert("failed: " + data);
-                    });
+                if ($scope.formData.username.length <= 4) {
+                    alert("Username length must be greater than 4!");
+                    return;
+                } else if ($scope.formData.password.length <= 6) {
+                    alert("Password length must be greater than 6!");
+                    return;
+                } else if ($scope.formData.password != $scope.formData.confirmPassword) {
+                    alert("Passwords must match!");
+                    return;
+                } else {
+                    Register.create($scope.formData)
+                        .success(function (data) {
+                            $scope.loading = false;
+                            $scope.formData = {};
+                            $window.location.href = '/login';
+                        })
+                        .error(function (data) {
+                            alert("failed: " + data);
+                        });
+                }
             }
         };
     }]);

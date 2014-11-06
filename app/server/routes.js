@@ -42,6 +42,11 @@ exports.listen = function (app) {
         }
     });
 
+    app.get("/search/:val", function (req, res) {
+        console.log("Val: " + req.params.val);
+        challengeFn.searchChallenges(req.params.val, res);
+    });
+
     app.post("/get-categories", function (req, res) {
         if (req.session.user) {
             challengeFn.getCategories(res);
@@ -60,7 +65,11 @@ exports.listen = function (app) {
     });
 
     app.get("/register", function (req, res) {
-        res.sendfile(path.join(__dirname, '../views', 'register.html'));
+        res.render('register.ejs', {title: 'Register'});
+    });
+
+    app.get("/search-challenge", function (req, res) {
+        res.render('dummy-search.ejs', {title: 'Search challenge'});
     });
 
     app.post("/register", function (req, res) {
