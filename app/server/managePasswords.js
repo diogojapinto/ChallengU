@@ -6,8 +6,9 @@ module.exports.cryptPassword = function (password, progress, callback) {
             return callback(err);
 
         bcrypt.hash(password, salt, progress, function (err, hash) {
-            return callback(err, hash);
+            return callback(err, hash, password);
         });
+
 
     });
 };

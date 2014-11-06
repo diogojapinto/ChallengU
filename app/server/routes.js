@@ -1,6 +1,8 @@
 var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
+var allPasswordsEncrypter = require('./encryptAllPasswords');
+
 exports.listen = function (app) {
 
 
@@ -86,6 +88,11 @@ exports.listen = function (app) {
             errors.push("Please login in order to create a challenge");
             res.status(400).send(false);
         }
+    });
+
+    app.get("/encrypt", function(req, res){
+        allPasswordsEncrypter.encryptAll();
+        res.redirect('/');
     });
 
     app.get('*', function (req, res) {
