@@ -3,7 +3,6 @@ var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
 exports.listen = function (app) {
 
-
     var messages = {
         success: [],
         info: [],
@@ -24,8 +23,8 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/login", function (req, res) {
-        res.render('login.ejs', {messages: messages, title: 'Login'});
+    app.get("/connect", function (req, res) {
+        res.render('connect.ejs', {messages: messages, title: 'Connect'});
     });
 
     app.get("/post-challenge", function (req, res) {
