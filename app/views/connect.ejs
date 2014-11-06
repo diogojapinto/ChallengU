@@ -3,55 +3,66 @@
 <head>
     <% include partials/head %>
     <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/tabs.css">
 </head>
 <body ng-app="login-app">
 <% include partials/header %>
 
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="board">
-                <div class="board-inner">
-                    <ul class="nav nav-tabs" id="myTab">
-                        <div class="liner"></div>
-                        <li class="active">
-                            <a href="#login" data-toggle="tab" title="Login">
+<div class="container">
+    <section>
+        <div class="container vertical-offset-100">
+            <div class="row">
+                <div class="board">
+                    <div class="board-inner">
+                        <div class="col-md-6 col-md-offset-3 col-sm-12">
+                            <ul class="nav nav-tabs" id="myTab">
+                                <div class="liner"></div>
+                                <li class="active">
+                                    <a href="#login" data-toggle="tab" title="Login">
                       <span class="round-tabs one">
-                              <i class="fa fa-spin fa-key"></i>
+                              <i class="fa fa-key"></i>
                       </span>
-                            </a></li>
+                                    </a></li>
 
-                        <li><a href="#register" data-toggle="tab" title="Register">
+                                <li><a href="#register" data-toggle="tab" title="Register">
                      <span class="round-tabs two">
-                         <i class="fa fa-spin fa-edit"></i>
+                         <i class="fa fa-edit"></i>
                      </span>
-                        </a>
-                        </li>
+                                    </a>
+                                </li>
 
-                        <li><a href="#facebook" data-toggle="tab" title="Connect With Facebook">
+                                <li><a href="#facebook" data-toggle="tab" title="Connect With Facebook">
                      <span class="round-tabs three">
-                          <i class="glyphicon glyphicon-gift"></i>
+                          <i class="fa fa-facebook"></i>
                      </span> </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="login">
-                        <% include login %>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="clearfix"></div>
-                </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="login">
+                            <% include login %>
+                        </div>
 
+                        <div class="tab-pane fade in" id="register">
+                            <!--% include register %-->
+                        </div>
+
+                        <div class="tab-pane fade in" id="facebook">
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 <% include partials/footer %>
 <% include partials/scripts %>
-<script src="../js/loginService.js"></script>
 <script src="../js/app-login.js"></script>
 </body>
 </html>
