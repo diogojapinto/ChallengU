@@ -4,6 +4,8 @@ var userFn = require('./controller/usersCtrl');
 exports.listen = function (app) {
 
     var errors = [];
+    var warnings = [];
+    var infos = [];
 
     app.post('/logout', function (req, res) {
         // destroy the user's session to log them out
@@ -19,13 +21,13 @@ exports.listen = function (app) {
     });
 
     app.get("/login", function (req, res) {
-        res.render('login.ejs', {title: 'Login'});
+        res.render('login.ejs', {infos: infos, warnings: warnings, errors: errors, title: 'Login'});
     });
 
     app.get("/post-challenge", function (req, res) {
 
         if (req.session.user) {
-            res.render('challenge-submit.ejs', {title: 'Submit your challenge'});
+            res.render('challenge-submit.ejs', {infos: infos, warnings: warnings, errors: errors, title: 'Submit your challenge'});
         } else {
             res.redirect('/login');
         }
