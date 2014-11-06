@@ -1,7 +1,6 @@
 var challengeDAO = require('../model/challengesMdl');
 var userDAO = require('../model/usersMdl');
 
-
 exports.getCategories = function (res) {
 
     var sendCurrentCategories = function (categories) {
@@ -52,7 +51,7 @@ exports.getChallenge = function (challengeID, res) {
     var assembleChallenge = function (results) {
 
         if (!results) {
-            res.sendfile(path.join(__dirname, '../views/landing.html'));
+            res.sendfile(path.join(__dirname, '../views/landing.ejs')); //TODO FIX
             return;
         }
 
@@ -109,7 +108,7 @@ exports.searchChallenges = function (searchValue, res) {
         } else {
             chal = challenges.rows;
             for (i; i < challenges.rows.length; i++) {
-                if (i<challenges.rows.length-1) {
+                if (i < challenges.rows.length - 1) {
                     userDAO.getUserByID(challenges.rows[i].userid, getUser);
                 } else {
                     userDAO.getUserByID(challenges.rows[i].userid, getLastUser);
@@ -122,14 +121,14 @@ exports.searchChallenges = function (searchValue, res) {
         users.push({username: user.rows[0].username});
     };
 
-     var getLastUser = function(user) {
-         users.push({username: user.rows[0].username});
-         for (var j = 0; j<i; j++) {
-             chalz.push( {challenge: chal[j], user: users[j]});
-         }
-         console.log(chalz);
-         res.render('search.ejs', {title: 'Search Results', search: chalz});
-     }
+    var getLastUser = function (user) {
+        users.push({username: user.rows[0].username});
+        for (var j = 0; j < i; j++) {
+            chalz.push({challenge: chal[j], user: users[j]});
+        }
+        console.log(chalz);
+        res.render('search.ejs', {title: 'Search Results', search: chalz});
+    }
 
     challengeDAO.searchChallenge(searchValue, sendSearchResults);
 };

@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module('login-app', []);
 
-    $('a[title]').tooltip();
+    //    $('a[title]').tooltip();
 
     /**
      * Controller that manages the login information of an user
@@ -18,7 +18,7 @@
                     .success(function () {
                         $scope.loading = false;
                         $scope.formData = {};
-                        $window.location.href = '/';
+                        $window.location.href = '/loggedin';
                     })
                     .error(function (data) {
                         // TODO: refactor redirect

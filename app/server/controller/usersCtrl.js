@@ -6,16 +6,16 @@ exports.getUser = function (username, req, res) {
     var loginCallback = function (user) {
         user = user.rows[0];
         if (user && user.pass === req.body.password && user.username === req.body.username) { // comentar segunda condicao para encriptacao
-           /* passwordManager.comparePassword(req.body.password, user.pass, function(err, passwordMatch){
-                if(passwordMatch){
-                    req.session.regenerate(function () {
-                        req.session.user = user;
-                        res.status(200).send("OK");
-                    });
-                }else{
-                    res.status(400).send("NOT OK");
-                }
-            });*/ //Descomentar aqui para encriptacao
+            /* passwordManager.comparePassword(req.body.password, user.pass, function(err, passwordMatch){
+             if(passwordMatch){
+             req.session.regenerate(function () {
+             req.session.user = user;
+             res.status(200).send("OK");
+             });
+             }else{
+             res.status(400).send("NOT OK");
+             }
+             });*/ //Descomentar aqui para encriptacao
             req.session.regenerate(function () { //comentar aqui para encriptacao
                 req.session.user = user;
                 res.status(200).send("OK");
@@ -28,7 +28,7 @@ exports.getUser = function (username, req, res) {
     userDAO.getUser(username, loginCallback);
 };
 
-exports.registerUser = function(data, res){
+exports.registerUser = function (data, res) {
     var username = data.username;
     var password;
     var name = data.firstName + " " + data.lastName;
@@ -55,17 +55,16 @@ exports.registerUser = function(data, res){
     }
 
     var registerCallback = function (results) {
-        if(!results) {
+        if (!results) {
             res.status(400).send(false);
         } else {
             res.status(200).send(true);
         }
     }
-  /*  passwordManager.cryptPassword(password, null, function(err, hash){
-        userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
-    });*/ //Descomentar para encriptacao
+    /*  passwordManager.cryptPassword(password, null, function(err, hash){
+     userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
+     });*/ //Descomentar para encriptacao
 
-    userDAO.register(username,password,name,email,work,local,'user','normal',registerCallback);
-
+    userDAO.register(username, password, name, email, work, local, 'user', 'normal', registerCallback);
 
 }
