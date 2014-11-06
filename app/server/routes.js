@@ -95,6 +95,7 @@ exports.listen = function (app) {
         res.redirect('/');
     });
 
+
     app.get("/:val", function (req, res) {
         if (req.params.val == "loggedin") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});

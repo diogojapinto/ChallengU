@@ -6,7 +6,7 @@ exports.getUser = function (username, req, res) {
 
     var loginCallback = function (user) {
         user = user.rows[0];
-        if (user /*&& user.pass === req.body.password*/ && user.username === req.body.username) { // comentar segunda condicao para encriptacao
+        if (user && user.username === req.body.username) { // comentar segunda condicao para encriptacao
             passwordManager.comparePassword(req.body.password, user.pass, function(err, passwordMatch){
                 if(passwordMatch){
                     req.session.regenerate(function () {
@@ -16,10 +16,6 @@ exports.getUser = function (username, req, res) {
                 }else{
                     res.status(400).send("NOT OK");
                 }
-            }); //Descomentar aqui para encriptacao
-           /* req.session.regenerate(function () { //comentar aqui para encriptacao
-                req.session.user = user;
-                res.status(200).send("OK");
             });
         } else {
             res.status(400).send("NOT OK");
@@ -68,7 +64,6 @@ exports.registerUser = function (data, res) {
         userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
     });//Descomentar para encriptacao
 
-    //userDAO.register(username,password,name,email,work,local,'user','normal',registerCallback);
 
 
 }
