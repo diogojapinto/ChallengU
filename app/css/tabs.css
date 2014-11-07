@@ -222,9 +222,3 @@ li.active:after {
         padding:12px 20px;
     }
 }
-
-.alert-group {
-    padding-top: 5em;
-    position: absolute;
-    z-index: 100;
-}

@@ -1,36 +1,36 @@
-<div class="alert-group push-right">
+<div class="alert-group">
     <% if(messages.success.length > 0) { %>
-    <div class="alert alert-success alert-dismissable">
         <% messages.success.forEach(function(msg) { %>
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <div class="alert alert-success">
+        <button type="button" class="close" aria-hidden="true">×</button>
         <strong><%= msg.title %></strong> <%= msg.content %>
-        <% }); %>
     </div>
+        <% }); %>
     <% } %>
 
     <% if(messages.info.length > 0) { %>
-    <div class="alert alert-info">
         <% messages.info.forEach(function(msg) { %>
+        <div class="alert alert-info">
         <strong><%= msg.title %></strong> <%= msg.content %>
+        </div>
         <% }); %>
-    </div>
     <% } %>
 
     <% if(messages.warning.length > 0) { %>
-    <div class="alert alert-warning alert-dismissable">
         <% messages.warning.forEach(function(msg) { %>
+        <div class="alert alert-warning alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <strong><%= msg.title %></strong> <%= msg.content %>
+        </div>
         <% }); %>
-    </div>
     <% } %>
 
     <% if(messages.danger.length > 0) { %>
-    <div class="alert alert-danger alert-dismissable">
         <% messages.danger.forEach(function(msg) { %>
+        <div class="alert alert-danger alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <strong><%= msg.title %></strong> <%= msg.content %>
+        </div>
         <% }); %>
-    </div>
     <% } %>
 </div>
