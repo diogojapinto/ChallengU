@@ -59,6 +59,5 @@ exports.getChallenge = function (challengeID, callback) {
 };
 
 exports.searchChallenge = function(searchValue, callback) {
-  db.query("SELECT * FROM Challenge WHERE name SIMILAR TO '%" + searchValue + "%'",[],callback);
-  /*SELECT challenge.name, COUNT(*) FROM challenge,comment WHERE comment.challengeID = challenge.challengeID AND challenge.name SIMILAR TO '%sdada' GROUP BY challenge.challengeID ORDER BY o_que_quiseres DESC*/
+  db.query("SELECT challenge.name, challenge.content, challenge.difficulty, registeredUser.username, COUNT(*) AS nComments FROM challenge,comment,registeredUser WHERE comment.challengeID = challenge.challengeID AND challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%" + searchValue + "%' GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC",[],callback);
 };
