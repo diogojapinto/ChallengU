@@ -1,7 +1,6 @@
 (function () {
-    var app = angular.module('login-app', []);
 
-    //    $('a[title]').tooltip();
+    var app = angular.module('login-app', []);
 
     /**
      * Controller that manages the login information of an user
@@ -39,3 +38,8 @@
         }
     }]);
 })();
+
+
+$(document).ready(function () {
+    $('a[title]').tooltip();
+});

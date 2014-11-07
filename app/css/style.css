@@ -5,3 +5,18 @@
 .ng-valid.ng-dirty {
     border-color: #78FA89;
 }
+
+
+/***************Back to top btn********************/
+.back-to-top {
+    position: fixed;
+    bottom: 15px;
+    right: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 0.25em 0.5em;
+    display: none;
+}
+
+.back-to-top:hover {
+}
