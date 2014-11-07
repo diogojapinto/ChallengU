@@ -1,6 +1,8 @@
 var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
+var allPasswordsEncrypter = require('./encryptAllPasswords');
+
 exports.listen = function (app) {
 
     app.post('/logout', function (req, res) {
@@ -91,9 +93,13 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/landing/:val", function (req, res) {
-        var messages = generateMessageBlock();
-        console.log(req.params.val);
+    app.get("/encrypt", function(req, res){
+        allPasswordsEncrypter.encryptAll();
+        res.redirect('/');
+    });
+
+
+    app.get("/:val", function (req, res) {
         if (req.params.val == "loggedin") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
         }
