@@ -96,12 +96,25 @@ exports.getChallenge = function (challengeID, res) {
 
 exports.searchChallenges = function (searchValue, res) {
 
+    var stars = [];
+
     var sendSearchResults = function (challenges) {
 
         if (!challenges) {
             res.status(400).send(false);
         } else {
             console.log(challenges.rows);
+            for (var i = 0; i <challenges.rows.length; i++) {
+                var st = [];
+                for (var j = 0; j <5; j++) {
+                    if (j < challenges.rows[i]['difficulty']) {
+                        st.push(1);
+                    } else {
+                        st.push(0);
+                    }
+                }
+                challenges.rows[i]['stars'] = st;
+            }
             res.render('search.ejs', {title: 'Search Results', search: challenges.rows});
         }
     }

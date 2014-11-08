@@ -26,11 +26,13 @@
                     <span><i class="glyphicon glyphicon-comment"></i> <%= value.ncomments %></span>
                     <li>|</li>
                     <li>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <% (value.stars).forEach(function(s) { %>
+                            <% if (s == 1) { %>
+                                <span class="glyphicon glyphicon-star"></span>
+                            <% } else { %>
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                            <% } %>
+                        <% }); %>
                     </li>
                     <li>|</li>
                 </ul>
