@@ -38,6 +38,16 @@ exports.listen = function (app) {
         }
     });
 
+    app.get("/profile/:id", function (req, res) {
+        var messages = generateMessageBlock();
+        var userID = parseInt(req.params.id);
+        //if (req.session.user) {
+            userFn.getProfile(userID, res, messages);
+        //} else {
+            //res.redirect('/login');
+        //}
+    });
+
     app.get("/challenge/:id", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
@@ -51,7 +61,7 @@ exports.listen = function (app) {
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
         console.log("Val: " + req.params.val);
-        challengeFn.searchChallenges(req.params.val, res);
+        challengeFn.searchChallenges(req.params.val, res, messages);
     });
 
     app.post("/get-categories", function (req, res) {

@@ -94,7 +94,7 @@ exports.getChallenge = function (challengeID, res) {
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
 
-exports.searchChallenges = function (searchValue, res) {
+exports.searchChallenges = function (searchValue, res, messages) {
 
     var stars = [];
 
@@ -115,7 +115,7 @@ exports.searchChallenges = function (searchValue, res) {
                 }
                 challenges.rows[i]['stars'] = st;
             }
-            res.render('search.ejs', {title: 'Search Results', search: challenges.rows});
+            res.render('search.ejs', {title: 'Search Results', search: challenges.rows, messages: messages});
         }
     }
 
