@@ -10,7 +10,7 @@ exports.getCategories = function (res) {
     challengeDAO.getCategories(sendCurrentCategories);
 };
 
-exports.insertChallenge = function (data, res) {
+exports.insertChallenge = function (userid, data, res) {
     var name = data.name;
     var difficulty = data.difficulty;
     var type = data.type;
@@ -43,9 +43,8 @@ exports.insertChallenge = function (data, res) {
         }
     };
 
-    //TODO: ADD current user info to challenge
     //TODO: save user in cookies
-    challengeDAO.insertChallenge(name, difficulty, type, desc, categories, getInsertedChallengeID);
+    challengeDAO.insertChallenge(userid, name, difficulty, type, desc, categories, getInsertedChallengeID);
 };
 
 exports.getChallenge = function (challengeID, res, messages) {
