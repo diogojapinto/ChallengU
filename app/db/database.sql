@@ -163,7 +163,7 @@ INSERT INTO Category (name) VALUES
   ('Idiotic');
 
 /* Users */
-
+/*
 INSERT INTO RegisteredUser VALUES
   (DEFAULT, 'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
    'normal');
