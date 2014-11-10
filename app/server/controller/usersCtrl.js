@@ -67,3 +67,16 @@ exports.registerUser = function (data, res) {
 
 
 }
+
+exports.getProfile = function (data,res,messages) {
+
+    var user;
+
+    var loginCallback = function(results) {
+        user = results.rows[0];
+        console.log(results.rows);
+        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages})
+    }
+
+    userDAO.getUserByID(data, loginCallback);
+};

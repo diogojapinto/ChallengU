@@ -33,6 +33,16 @@ exports.listen = function (app) {
         }
     });
 
+    app.get("/profile/:id", function (req, res) {
+        var messages = generateMessageBlock();
+        var userID = parseInt(req.params.id);
+        //if (req.session.user) {
+            userFn.getProfile(userID, res, messages);
+        //} else {
+            //res.redirect('/login');
+        //}
+    });
+
     app.get("/challenge/:id", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
