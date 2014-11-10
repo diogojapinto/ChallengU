@@ -28,7 +28,7 @@ describe('Account', function () {
         // POST on /login-user and we want to send some info
         // We do this using the request object, requiring supertest!
         request(url)
-            .post('/login-user')
+            .post('/login')
             .send(user)
             // end handles the response
             .end(function (err, res) {
@@ -51,7 +51,7 @@ describe('Account', function () {
         // POST on /login-user and we want to send some info
         // We do this using the request object, requiring supertest!
         request(url)
-            .post('/login-user')
+            .post('/login')
             .send(user)
             // end handles the response
             .end(function (err, res, req) {
