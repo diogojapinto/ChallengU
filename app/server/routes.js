@@ -46,7 +46,7 @@ exports.listen = function (app) {
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
         console.log("Val: " + req.params.val);
-        challengeFn.searchChallenges(req.params.val, res);
+        challengeFn.searchChallenges(req.params.val, res, messages);
     });
 
     app.post("/get-categories", function (req, res) {
