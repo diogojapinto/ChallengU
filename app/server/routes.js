@@ -1,7 +1,7 @@
 var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
-var allPasswordsEncrypter = require('./encryptAllPasswords');
+//var allPasswordsEncrypter = require('./encryptAllPasswords');
 
 exports.listen = function (app) {
 
@@ -93,10 +93,10 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/encrypt", function(req, res){
+    /*app.get("/encrypt", function(req, res){
         allPasswordsEncrypter.encryptAll();
         res.redirect('/');
-    });
+    });*/
 
 
     app.get("/:val", function (req, res) {

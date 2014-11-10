@@ -13,7 +13,7 @@ var request = require('supertest');
  test.must(example).be.a.string();
  // or with assert
  test.assert(typeof example === 'string');*/
-/*
+
 var url = 'http://178.62.101.158:8081';
 
 describe('Account', function () {
