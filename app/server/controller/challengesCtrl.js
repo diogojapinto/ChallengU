@@ -43,15 +43,17 @@ exports.insertChallenge = function (data, res) {
         }
     };
 
+    //TODO: ADD current user info to challenge
+    //TODO: save user in cookies
     challengeDAO.insertChallenge(name, difficulty, type, desc, categories, getInsertedChallengeID);
 };
 
-exports.getChallenge = function (challengeID, res) {
+exports.getChallenge = function (challengeID, res, messages) {
 
     var assembleChallenge = function (results) {
 
         if (!results) {
-            res.sendfile(path.join(__dirname, '../views/landing.ejs')); //TODO FIX
+            res.render("landing.ejs", {messages: messages, title: 'Landing'});
             return;
         }
 
@@ -88,7 +90,7 @@ exports.getChallenge = function (challengeID, res) {
             challenge.responses.push(proof);
         });
 
-        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge});
+        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge, messages: messages});
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);

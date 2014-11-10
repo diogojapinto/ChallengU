@@ -52,7 +52,7 @@ exports.listen = function (app) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var challengeID = parseInt(req.params.id);
-            challengeFn.getChallenge(challengeID, res);
+            challengeFn.getChallenge(challengeID, res, messages);
         } else {
             res.redirect('/connect');
         }
