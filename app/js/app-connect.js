@@ -5,3 +5,4 @@
         angular.element('a[title]').tooltip();
     });
 })();
+
