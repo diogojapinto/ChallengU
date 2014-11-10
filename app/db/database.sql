@@ -163,7 +163,7 @@ INSERT INTO Category (name) VALUES
   ('Idiotic');
 
 /* Users */
-/*
+
 INSERT INTO RegisteredUser VALUES
   (DEFAULT, 'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
    'normal');
@@ -202,7 +202,7 @@ CREATE TRIGGER assert_new_challenge_target_trigger
 BEFORE INSERT ON ProductCategory
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
 */
-/*
+
 INSERT INTO Challenge VALUES
   (DEFAULT, 'most awkward onomatopoeic', 1, 'be imaginative', 1, DEFAULT, 'text', NULL);
 
@@ -218,4 +218,3 @@ INSERT INTO Comment VALUES
 
 INSERT INTO ChallengeProof VALUES
   (DEFAULT, 1, 1, 'OFHWEOIHFO');
-*/
