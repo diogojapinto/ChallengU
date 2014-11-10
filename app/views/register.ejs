@@ -1,7 +1,3 @@
-<!--h2 style="text-align:center; margin-top:1.45em; clear:both"> Please <strong class="label label-primary">Sign
-        up</strong>, it's
-    free and always will be.
-</h2-->
 <div ng-controller="RegisterController as registerCtrl">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -41,7 +37,8 @@
                                pattern=".{7,}"
                                placeholder="Please confirm your password (must be greater than 6 chars)" required/>
                         By clicking <strong class="label label-primary">Register</strong>,
-                        you agree to the <span id="termsLink" data-toggle="modal" data-target="#terms"><strong class="label label-primary">Terms and
+                        you agree to the <span id="termsLink" data-toggle="modal" data-target="#terms"><strong
+                                    class="label label-primary">Terms and
                                 Conditions</strong></span> set out by this site, including our Cookie Use.
                         <br/>
                         <button class="btn btn-block btn-lg btn-primary" type="submit" ng-click="register()">
@@ -55,7 +52,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="terms" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" sg>

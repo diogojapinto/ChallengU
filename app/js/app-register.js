@@ -27,7 +27,7 @@
                         .success(function (data) {
                             $scope.loading = false;
                             $scope.formData = {};
-                            $window.location.href = '/login';
+                            $window.location.href = '/connect';
                         })
                         .error(function (data) {
                             alert("failed: " + data);
@@ -43,6 +43,7 @@
     app.factory('Register', ['$http', function($http){
         return{
             create:function(user){
+                console.log(user);
                 return $http.post('/register', user);
             }
         }

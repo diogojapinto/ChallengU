@@ -1,5 +1,4 @@
 (function () {
-
     var app = angular.module('login-app', []);
 
     /**
@@ -38,8 +37,3 @@
         }
     }]);
 })();
-
-
-$(document).ready(function () {
-    $('a[title]').tooltip();
-});
