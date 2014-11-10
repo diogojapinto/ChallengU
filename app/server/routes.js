@@ -95,7 +95,7 @@ exports.listen = function (app) {
     app.post("/create-challenge", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
-            challengeFn.insertChallenge(req.body, res);
+            challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {
             messages.errors.push("Please login in order to create a challenge");
             res.status(400).send(false);
