@@ -46,7 +46,7 @@ exports.insertChallenge = function (data, res) {
     challengeDAO.insertChallenge(name, difficulty, type, desc, categories, getInsertedChallengeID);
 };
 
-exports.getChallenge = function (challengeID, res) {
+exports.getChallenge = function (challengeID, res, messages) {
 
     var assembleChallenge = function (results) {
 
@@ -88,7 +88,7 @@ exports.getChallenge = function (challengeID, res) {
             challenge.responses.push(proof);
         });
 
-        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge});
+        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge, messages: messages});
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
