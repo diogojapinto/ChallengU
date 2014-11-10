@@ -3,6 +3,13 @@
 <head>
     <% include partials/head %>
     <link rel="stylesheet" type="text/css" href="../css/tabs.css">
+    <% include partials/scripts %>
+
+    <script type="text/javascript">
+        var app = angular.module('connect-app', ['login-app', 'register-app']);
+    </script>
+    <script type="text/javascript" src="/js/app-register.js"></script>
+    <script type="text/javascript" src="/js/app-login.js"></script>
 </head>
 <body ng-app="connect-app">
 <% include partials/header %>
@@ -61,9 +68,5 @@
 </div>
 
 <% include partials/footer %>
-<% include partials/scripts %>
-<script src="../js/app-connect.js"></script>
-<script src="../js/app-register.js"></script>
-<script src="../js/app-login.js"></script>
 </body>
 </html>
