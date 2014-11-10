@@ -1,26 +1,30 @@
 var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
-var allPasswordsEncrypter = require('./encryptAllPasswords');
+//var allPasswordsEncrypter = require('./encryptAllPasswords');
 
 exports.listen = function (app) {
 
-    app.post('/logout', function (req, res) {
+    app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
         // destroy the user's session to log them out
         // will be re-created next request
         if (req.session.user) {
             req.session.destroy(function () {
-                res.redirect('/loggedout');
+                messages.success.push({title: "Logged Out", content: "You are now logged out!"});
+                res.render("landing.ejs", {messages: messages, title:'Landing'});
             });
         } else {
-            messages.danger.push({title: "Sign in first", content: "You are not logged in"});
-            req.redirect('/');
+            messages.success.push({title: "Sign in first", content: "You are not logged in"});
+            res.render("landing.ejs", {messages: messages, title:'Landing'});
         }
     });
 
     app.get("/connect", function (req, res) {
         var messages = generateMessageBlock();
+        if(req.session.user) {
+            res.redirect('/invalid');
+        }
         res.render('connect.ejs', {messages: messages, title: 'Connect'});
     });
 
@@ -29,7 +33,8 @@ exports.listen = function (app) {
         if (req.session.user) {
             res.render('challenge-submit.ejs', {messages: messages, title: 'Submit your challenge'});
         } else {
-            res.redirect('/login');
+            messages.warning.push("You must first login")
+            res.redirect('/connect');
         }
     });
 
@@ -39,7 +44,7 @@ exports.listen = function (app) {
             var challengeID = parseInt(req.params.id);
             challengeFn.getChallenge(challengeID, res);
         } else {
-            res.redirect('/login');
+            res.redirect('/connect');
         }
     });
 
@@ -67,11 +72,6 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/register", function (req, res) {
-        var messages = generateMessageBlock();
-        res.render('register.ejs', {messages: messages, title: 'Register'});
-    });
-
     app.get("/search-challenge", function (req, res) {
         var messages = generateMessageBlock();
         res.render('dummy-search.ejs', {messages: messages, title: 'Search challenge'});
@@ -88,25 +88,25 @@ exports.listen = function (app) {
         if (req.session.user) {
             challengeFn.insertChallenge(req.body, res);
         } else {
-            errors.push("Please login in order to create a challenge");
+            messages.errors.push("Please login in order to create a challenge");
             res.status(400).send(false);
         }
     });
 
-    app.get("/encrypt", function(req, res){
+    /*app.get("/encrypt", function(req, res){
         allPasswordsEncrypter.encryptAll();
         res.redirect('/');
-    });
+    });*/
 
 
     app.get("/:val", function (req, res) {
-        if (req.params.val == "loggedin") {
+        var messages = generateMessageBlock();
+        if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
+        } else if (req.params.val == "invalid") {
+            messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
         }
-        if (req.params.val == "loggedout") {
-            messages.success.push({title: "Logged Out", content: "You are now logged out!"});
-        }
-        res.render("landing.ejs", {messages: messages, title:'Landing'});
+        res.render("landing.ejs", {messages: messages, title: 'Landing'});
     });
 
     app.get('*', function (req, res) {

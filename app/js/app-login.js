@@ -17,7 +17,7 @@
                     .success(function () {
                         $scope.loading = false;
                         $scope.formData = {};
-                        $window.location.href = '/loggedin';
+                        $window.location.href = '/logged-in';
                     })
                     .error(function (data) {
                         // TODO: refactor redirect

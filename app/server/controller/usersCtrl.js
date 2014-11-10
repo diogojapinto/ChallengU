@@ -62,7 +62,7 @@ exports.registerUser = function (data, res) {
 
     passwordManager.cryptPassword(password, null, function(err, hash, password){
         userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
-    });//Descomentar para encriptacao
+    });
 
 
 
