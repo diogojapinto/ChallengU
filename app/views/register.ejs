@@ -9,140 +9,125 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form name="registerForm">
-                        <fieldset>
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
-                                        <span class="input-group-addon">
+                    <form class="form-horizontal" name="registerForm">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                        <span class="input-group-addon push-right">
                                             First Name
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.firstName" type="text"
-                                             placeholder="Please enter your first name" required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.firstName" type="text"
+                                       placeholder="Please enter your first name" required/>
+                            </div>
+                        </div>
+                        <br/>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             Last Name
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control col-md-10" ng-model="formData.lastName" type="text"
-                                               placeholder="Please enter your last name" required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                            <div class="col-md-10">
+                                <input class="form-control col-md-10" ng-model="formData.lastName" type="text"
+                                       placeholder="Please enter your last name" required/>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             Username
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                    <input class="form-control" ng-model="formData.username" type="text" pattern=".{5,}"
-                                           placeholder="Please enter your username (must be greater than 4 chars)"
-                                           required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.username" type="text"
+                                       pattern=".{5,}"
+                                       placeholder="Please enter your username (must be greater than 4 chars)"
+                                       required/>
+                            </div>
+                        </div>
+                        <br/>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             E-mail
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.email" type="text"
-                                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                               placeholder="Please enter your e-mail"
-                                               required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.email" type="text"
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                       placeholder="Please enter your e-mail"
+                                       required/>
+                            </div>
+                        </div>
+                        <br/>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
-                                        <span class="input-group-addon">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                        <span class="input-group-addon push-left">
                                             Job
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.work" type="text"
-                                               placeholder="What do you do for a living?" required/>
-                                     </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.work" type="text"
+                                       placeholder="What do you do for a living?" required/>
+                            </div>
+                        </div>
+                        <br>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             Location
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.local" type="text"
-                                           placeholder="Where do you live?" required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.local" type="text"
+                                       placeholder="Where do you live?" required/>
+                            </div>
+                        </div>
+                        <br/>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             Password
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.password" type="password" pattern=".{7,}"
-                                               placeholder="Please enter your password (must be greater than 6 chars)"
-                                               required/>
-                                    </div>
-                                </div>
                             </div>
-                            <br/>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.password" type="password"
+                                       pattern=".{7,}"
+                                       placeholder="Please enter your password (must be greater than 6 chars)"
+                                       required/>
+                            </div>
+                        </div>
+                        <br/>
 
-                            <div class="row">
-                                <div class="form-group input-group">
-                                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="col-md-2">
                                         <span class="input-group-addon">
                                             Confirm
                                         </span>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input class="form-control" ng-model="formData.confirmPassword" type="password"
-                                               pattern=".{7,}"
-                                               placeholder="Please confirm your password (must be greater than 6 chars)"
-                                               required/>
-                                    </div>
-                                </div>
                             </div>
-                            By clicking <strong class="label label-primary">Register</strong>,
-                            you agree to the <span id="termsLink" data-toggle="modal" data-target="#terms"><strong
-                                        class="label label-primary">Terms and
-                                    Conditions</strong></span> set out by this site, including our Cookie Use.
-                            <br/>
-                            <button class="btn btn-block btn-lg btn-primary" type="submit" ng-click="register()">
-                                Register now!
-                            </button>
-                        </fieldset>
+                            <div class="col-md-10">
+                                <input class="form-control" ng-model="formData.confirmPassword" type="password"
+                                       pattern=".{7,}"
+                                       placeholder="Please confirm your password (must be greater than 6 chars)"
+                                       required/>
+                            </div>
+                        </div>
+                        By clicking <strong class="label label-primary">Register</strong>,
+                        you agree to the <span id="termsLink" data-toggle="modal" data-target="#terms"><strong
+                                    class="label label-primary">Terms and
+                                Conditions</strong></span> set out by this site, including our Cookie Use.
+                        <br/>
+                        <button class="btn btn-block btn-lg btn-primary" type="submit" ng-click="register()">
+                            Register now!
+                        </button>
                     </form>
                 </div>
             </div>

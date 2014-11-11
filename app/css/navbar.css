@@ -107,25 +107,207 @@ body {
 .navbar {
     background-image: none !important;
 }
-.navbar-purple {
+.navbar-black {
     background-color: #222222;
     border-color: #333333;
 }
-.navbar-purple .navbar-brand,
-.navbar-purple .navbar-nav > li > a,
-.navbar-purple .navbar-brand:hover,
-.navbar-purple .navbar-nav > li > a:hover,
-.navbar-purple .navbar-brand:focus,
-.navbar-purple .navbar-nav > li > a:focus {
+.navbar-black .navbar-brand,
+.navbar-black .navbar-nav > li > a,
+.navbar-black .navbar-brand:hover,
+.navbar-black .navbar-nav > li > a:hover,
+.navbar-black .navbar-brand:focus,
+.navbar-black .navbar-nav > li > a:focus {
     color: #AAAAAA;
 }
-.navbar-purple .navbar-brand:hover,
-.navbar-purple .navbar-nav > li > a:hover,
-.navbar-purple .navbar-brand:focus,
-.navbar-purple .navbar-nav > li > a:focus,
-.navbar-purple .navbar-nav > .active > a,
-.navbar-purple .navbar-nav > .active > a:hover,
-.navbar-purple .navbar-nav > .active > a:focus {
-    background-color: rgb(205, 191, 227);
+.navbar-black .navbar-brand:hover,
+.navbar-black .navbar-nav > li > a:hover,
+.navbar-black .navbar-brand:focus,
+.navbar-black .navbar-nav > li > a:focus,
+.navbar-black .navbar-nav > .active > a,
+.navbar-black .navbar-nav > .active > a:hover,
+.navbar-black .navbar-nav > .active > a:focus {
+    background-color: rgb(191, 191, 191);
     color: rgb(255, 255, 255);
+}
+
+/*************Material Design**************/
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+.wrapper {
+    height: 100%;
+    transition: all 300ms ease-in-out;
+    margin: 1em 0;
+    padding: 0;
+}
+
+.background--blur {
+    background: #004d40;
+}
+
+.menu {
+    font-size:2em;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.menu div {
+    margin: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #3367d6;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+.menu div:last-child {
+    border: 0;
+}
+
+.menu--off {
+    position: absolute;
+    left: -50%;
+    width: 50%;
+    display: block;
+    background: #eee;
+    min-height: 600px;
+    height: 125%;
+    margin-top: 1em;
+    transition: all 300ms;
+}
+
+.menu--on {
+    left: 0;
+    box-shadow: 8px 8px 20px 0 rgba(0, 0, 0, 0.2);
+    transition: all 300ms;
+}
+
+.material-design-hamburger button {
+    display: block;
+    border: none;
+    background: none;
+    outline: 0;
+}
+
+.material-design-hamburger__icon {
+    padding: 3rem 1rem;
+    cursor: pointer;
+}
+
+.material-design-hamburger__layer {
+    display: block;
+    width: 50px;
+    height: 5px;
+    background: #eee;
+    position: relative;
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+}
+
+.material-design-hamburger__layer:before, .material-design-hamburger__layer:after {
+    display: block;
+    width: inherit;
+    height: 5px;
+    position: absolute;
+    background: inherit;
+    left: 0;
+    content: '';
+    animation-duration: 300ms;
+    animation-timing-function: ease-in-out;
+}
+
+.material-design-hamburger__layer:before {
+    bottom: 200%;
+}
+
+.material-design-hamburger__layer:after {
+    top: 200%;
+}
+
+.material-design-hamburger__icon--to-arrow {
+    animation-name: material-design-hamburger__icon--slide;
+    animation-fill-mode: forwards;
+}
+
+.material-design-hamburger__icon--to-arrow:before {
+    animation-name: material-design-hamburger__icon--slide-before;
+    animation-fill-mode: forwards;
+}
+
+.material-design-hamburger__icon--to-arrow:after {
+    animation-name: material-design-hamburger__icon--slide-after;
+    animation-fill-mode: forwards;
+}
+
+.material-design-hamburger__icon--from-arrow {
+    animation-name: material-design-hamburger__icon--slide-from;
+}
+
+.material-design-hamburger__icon--from-arrow:before {
+    animation-name: material-design-hamburger__icon--slide-before-from;
+}
+
+.material-design-hamburger__icon--from-arrow:after {
+    animation-name: material-design-hamburger__icon--slide-after-from;
+}
+
+@keyframes material-design-hamburger__icon--slide {
+    0% {
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes material-design-hamburger__icon--slide-before {
+    0% {
+    }
+    100% {
+        transform: rotate(45deg);
+        margin: 3% 37%;
+        width: 75%;
+    }
+}
+
+@keyframes material-design-hamburger__icon--slide-after {
+    0% {
+    }
+    100% {
+        transform: rotate(-45deg);
+        margin: 3% 37%;
+        width: 75%;
+    }
+}
+
+@keyframes material-design-hamburger__icon--slide-from {
+    0% {
+        transform: rotate(-180deg);
+    }
+    100% {
+    }
+}
+
+@keyframes material-design-hamburger__icon--slide-before-from {
+    0% {
+        transform: rotate(45deg);
+        margin: 3% 37%;
+        width: 75%;
+    }
+    100% {
+    }
+}
+
+@keyframes material-design-hamburger__icon--slide-after-from {
+    0% {
+        transform: rotate(-45deg);
+        margin: 3% 37%;
+        width: 75%;
+    }
+    100% {
+    }
 }
