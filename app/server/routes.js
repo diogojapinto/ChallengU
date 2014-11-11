@@ -20,12 +20,28 @@ exports.listen = function (app) {
         }
     });
 
+    app.get("/connect/:val", function (req, res) {
+        var messages = generateMessageBlock();
+        if (req.params.val == "error-login") {
+            messages.danger.push({title: "Error", content: "There was an error logging you in!"});
+        }
+        res.render('connect.ejs', {messages: messages, title: 'Connect'});
+    });
+
     app.get("/connect", function (req, res) {
         var messages = generateMessageBlock();
         if(req.session.user) {
             res.redirect('/invalid');
         }
         res.render('connect.ejs', {messages: messages, title: 'Connect'});
+    });
+
+    app.get("/post-challenge/:val", function (req, res) {
+        var messages = generateMessageBlock();
+        if (req.params.val == "error-challenge") {
+            messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
+        }
+        res.render('challenge-submit.ejs', {messages: messages, title: 'Submit your challenge'});
     });
 
     app.get("/post-challenge", function (req, res) {
@@ -111,6 +127,8 @@ exports.listen = function (app) {
         var messages = generateMessageBlock();
         if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
+            res.render("home.ejs", {messages: messages, title: 'Home'});
+            return;
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
         }
@@ -119,6 +137,10 @@ exports.listen = function (app) {
 
     app.get('*', function (req, res) {
         var messages = generateMessageBlock();
+        if (req.session.user) {
+            res.render("home.ejs", {messages: messages, title: 'Home'});
+            return;
+        }
         res.render("landing.ejs", {messages: messages, title:'Landing'});
     });
 };

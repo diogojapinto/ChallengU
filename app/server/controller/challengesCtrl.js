@@ -43,7 +43,6 @@ exports.insertChallenge = function (userid, data, res) {
         }
     };
 
-    //TODO: save user in cookies
     challengeDAO.insertChallenge(userid, name, difficulty, type, desc, categories, getInsertedChallengeID);
 };
 
@@ -104,9 +103,9 @@ exports.searchChallenges = function (searchValue, res, messages) {
         if (!challenges) {
             res.status(400).send(false);
         } else {
-            for (var i = 0; i <challenges.rows.length; i++) {
+            for (var i = 0; i < challenges.rows.length; i++) {
                 var st = [];
-                for (var j = 0; j <5; j++) {
+                for (var j = 0; j < 5; j++) {
                     if (j < challenges.rows[i]['difficulty']) {
                         st.push(1);
                     } else {
