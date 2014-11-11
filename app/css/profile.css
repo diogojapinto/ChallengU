@@ -140,7 +140,7 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .user-image {
-    max-height:200px;
+    height:16em;
     overflow:hidden;
 }
 
@@ -148,6 +148,11 @@ div.user-menu div.user-menu-content:not(.active){
     font-weight: 300;
     margin-top: 15px;
     margin: 10px 0 0 0;
+}
+
+.coiso {
+    width:100%;
+    height:100%;
 }
 
 .overview h4 {
