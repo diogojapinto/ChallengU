@@ -1,0 +1,4 @@
+btn-hot->orange
+btn-sunny->yellow
+btn-fresh->green
+btn-sky->blue
