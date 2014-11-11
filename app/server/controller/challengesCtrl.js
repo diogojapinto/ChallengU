@@ -104,7 +104,6 @@ exports.searchChallenges = function (searchValue, res, messages) {
         if (!challenges) {
             res.status(400).send(false);
         } else {
-            console.log(challenges.rows);
             for (var i = 0; i <challenges.rows.length; i++) {
                 var st = [];
                 for (var j = 0; j <5; j++) {
