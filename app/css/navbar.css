@@ -104,28 +104,12 @@ body {
     display: inline-block;
 }
 
-
-.btn-purple,
-.btn-purple:hover,
-.btn-purple:focus,
-.btn-purple:Active {
-    color: rgb(255, 255, 255);
-    background-color: rgb(86, 61, 124);
-    border-color: rgb(111, 84, 153);
-}
-.btn-purple:hover,
-.btn-purple:focus,
-.btn-purple:Active {
-    background-color: rgb(111, 84, 153);
-    border-color: rgb(86, 61, 124);
-}
-
 .navbar {
     background-image: none !important;
 }
 .navbar-purple {
-    background-color: rgb(86, 61, 124);
-    border-color: rgb(111, 84, 153);
+    background-color: #222222;
+    border-color: #333333;
 }
 .navbar-purple .navbar-brand,
 .navbar-purple .navbar-nav > li > a,
@@ -133,7 +117,7 @@ body {
 .navbar-purple .navbar-nav > li > a:hover,
 .navbar-purple .navbar-brand:focus,
 .navbar-purple .navbar-nav > li > a:focus {
-    color: rgb(205, 191, 227);;
+    color: #AAAAAA;
 }
 .navbar-purple .navbar-brand:hover,
 .navbar-purple .navbar-nav > li > a:hover,
@@ -142,6 +126,6 @@ body {
 .navbar-purple .navbar-nav > .active > a,
 .navbar-purple .navbar-nav > .active > a:hover,
 .navbar-purple .navbar-nav > .active > a:focus {
-    background-color: rgb(111, 84, 153);
+    background-color: rgb(205, 191, 227);
     color: rgb(255, 255, 255);
 }
