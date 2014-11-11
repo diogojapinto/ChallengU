@@ -54,14 +54,14 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/profile/:id", function (req, res) {
+    app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         var userID = parseInt(req.params.id);
-        //if (req.session.user) {
-            userFn.getProfile(userID, res, messages);
-        //} else {
-            //res.redirect('/login');
-        //}
+        if (req.session.user) {
+            userFn.getProfile(req.session.user.userid, res, messages);
+        } else {
+            res.redirect('/connect');
+        }
     });
 
     app.get("/challenge/:id", function (req, res) {
