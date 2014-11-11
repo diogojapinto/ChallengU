@@ -5,13 +5,13 @@ exports.getCategories = function (callback) {
     db.query("SELECT * FROM Category", [], callback);
 };
 
-exports.insertChallenge = function (name, difficulty, type, desc, categories, callback) {
+exports.insertChallenge = function (userid, name, difficulty, type, desc, categories, callback) {
     var queries = [];
     var args = [];
 
     queries.push("INSERT INTO Challenge (challengeID, name, userID, content, difficulty, target, type, targetUserID) " +
         "VALUES (DEFAULT, $1,$2,$3,$4::int,$5,$6, $7)");
-    args.push([name, 1, desc, parseInt(difficulty), 'community', type, null]);
+    args.push([name, userid, desc, parseInt(difficulty), 'community', type, null]);
 
     for (var i = 0; i < categories.length; i++) {
         queries.push("INSERT INTO ChallengeCategory (challengeID, categoryID) VALUES (CURRVAL('challenge_challengeid_seq'), $1)");
@@ -59,5 +59,5 @@ exports.getChallenge = function (challengeID, callback) {
 };
 
 exports.searchChallenge = function(searchValue, callback) {
-  db.query("SELECT challenge.name, challenge.content, challenge.difficulty, registeredUser.username, COUNT(*) AS nComments FROM challenge,comment,registeredUser WHERE comment.challengeID = challenge.challengeID AND challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%" + searchValue + "%' GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC",[],callback);
+  db.query("SELECT challenge.name, challenge.content, challenge.difficulty, registeredUser.username,coalesce((SELECT COUNT(*) FROM comment WHERE challenge.challengeID = comment.challengeID GROUP BY challenge.challengeID), 0) AS nComments FROM challenge, registeredUser WHERE challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%"+searchValue+"%'GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC",[],callback);
 };
