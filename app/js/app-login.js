@@ -19,8 +19,7 @@
                         $window.location.href = '/logged-in';
                     })
                     .error(function (data) {
-                        // TODO: refactor redirect
-                        alert("failed: " + data);
+                        $window.location.href = '/connect/error-login';
                     });
             }
         };

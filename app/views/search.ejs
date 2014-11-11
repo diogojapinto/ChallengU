@@ -6,48 +6,47 @@
 </head>
 
 <body>
-<!-- TODO: include header file -->
 <% include partials/header %>
 
 <div class="container">
     <section>
         <div class="container vertical-offset-100">
-                <div class="board">
-                    <div class="board-inner">
-                        <% search.forEach(function(value) { %>
-                        <div class="well">
-                            <div class="media">
-                                <a class="pull-left" href="#">
-                                    <img class="media-object" src="http://placekitten.com/150/150">
-                                </a>
+            <div class="board">
+                <div class="board-inner">
+                    <% search.forEach(function(value) { %>
+                    <div class="well">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" src="http://placekitten.com/150/150">
+                            </a>
 
-                                <div class="media-body">
-                                    <h4 class="media-heading"><%= value.name %></h4>
+                            <div class="media-body">
+                                <h4 class="media-heading"><%= value.name %></h4>
 
-                                    <p class="text-right">By <%= value.username %></p>
+                                <p class="text-right">By <%= value.username %></p>
 
-                                    <p><%= value.content %></p>
-                                    <ul class="list-inline list-unstyled">
-                                        <li>|</li>
-                                        <span><i class="glyphicon glyphicon-comment"></i> <%= value.ncomments %></span>
-                                        <li>|</li>
-                                        <li>
-                                            <% (value.stars).forEach(function(s) { %>
-                                            <% if (s == 1) { %>
-                                            <span class="glyphicon glyphicon-star"></span>
-                                            <% } else { %>
-                                            <span class="glyphicon glyphicon-star-empty"></span>
-                                            <% } %>
-                                            <% }); %>
-                                        </li>
-                                        <li>|</li>
-                                    </ul>
-                                </div>
+                                <p><%= value.content %></p>
+                                <ul class="list-inline list-unstyled">
+                                    <li>|</li>
+                                    <span><i class="glyphicon glyphicon-comment"></i> <%= value.ncomments %></span>
+                                    <li>|</li>
+                                    <li>
+                                        <% (value.stars).forEach(function(s) { %>
+                                        <% if (s == 1) { %>
+                                        <span class="glyphicon glyphicon-star"></span>
+                                        <% } else { %>
+                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <% } %>
+                                        <% }); %>
+                                    </li>
+                                    <li>|</li>
+                                </ul>
                             </div>
                         </div>
-                        <% }); %>
                     </div>
+                    <% }); %>
                 </div>
+            </div>
         </div>
     </section>
 </div>

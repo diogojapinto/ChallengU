@@ -60,8 +60,7 @@
 
                     })
                     .error(function (data) {
-                        // TODO: refactor -> redirect instead of javascript alert
-                        alert("failed: " + data);
+                        $window.location.href = '/post-challenge/error-challenge';
                     });
             },
             /**
