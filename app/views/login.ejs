@@ -32,16 +32,10 @@
                         <br/>
                         <a href="">Forgot your password?</a>
                         <br/>
-                        <button class="btn btn-block btn-lg btn-success" ng-disabled="!loginForm.$valid"
+                        <button style="width: 100%" class="btn btn-sky btn-lg text-uppercase" ng-disabled="!loginForm.$valid"
                                 type="submit"
                                 ng-click="login()">
                             Submit
-                        </button>
-                        <button class="btn btn-block btn-lg btn-danger"
-                                ng-show="formData.username || formData.password"
-                                type="button"
-                                ng-click="resetForm()">
-                            Reset
                         </button>
                     </form>
                 </div>

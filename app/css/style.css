@@ -25,14 +25,12 @@ input[type="range"] {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     width: 100%;
-    height: 20px;
+    height: 1.5em;
     margin: 0;
     border: none;
     padding: 1px 2px;
     border-radius: 14px;
-    background: #232528;
-    box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
-    -webkit-box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
+    background: #2b3e60;
     outline: none; /* no focus outline */
 }
 
