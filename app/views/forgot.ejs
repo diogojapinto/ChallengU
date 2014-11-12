@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <% include partials/head %>
+</head>
+<base href="/reset">
+<body ng-app="forgot-app">
+<% include partials/header %>
+<div ng-controller="forgotPasswordController as forgot">
+<form method="get">
+<h1>Forgot Password</h1>
+    <input class="form-control" ng-model="formData.email" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Insert your email" required>
+    <button class="btn btn-success btn-block btl-lg" type="submit" ng-click="sendReset()">
+        Send mail with password reset
+    </button>
+</form>
+</div>
+<% include partials/footer %>
+<% include partials/scripts %>
+<script src="../js/app-forgot.js"></script>
+</body>
+</html>

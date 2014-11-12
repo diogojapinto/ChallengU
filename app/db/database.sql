@@ -40,6 +40,7 @@ CREATE TABLE RegisteredUser (
   xp             INTEGER             NOT NULL DEFAULT 0,
   userType       UserType,
   userState      UserState,
+  passwordToken  VARCHAR(255)        DEFAULT 'null',
 
   CHECK (char_length(pass) > 6),
   CHECK (char_length(Username) > 4)
