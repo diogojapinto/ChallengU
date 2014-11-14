@@ -122,6 +122,16 @@ exports.listen = function (app) {
         }
     });
 
+    app.post("/create-challenge-response", function (req, res) {
+        var messages = generateMessageBlock();
+        if (req.session.user) {
+            challengeFn.insertChallengeProof(req.session.user.userid, req.body, res);
+        } else {
+            messages.errors.push("Please login in order to post a challenge proof");
+            res.status(400).send(false);
+        }
+    });
+
     app.get("/encrypt", function(req, res){
         allPasswordsEncrypter.encryptAll();
         res.redirect('/');

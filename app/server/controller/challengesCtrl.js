@@ -121,3 +121,33 @@ exports.searchChallenges = function (searchValue, res, messages) {
 
     challengeDAO.searchChallenge(searchValue, sendSearchResults);
 };
+
+/**
+ * Insert a challenge proof
+ * @param userID
+ * @param data
+ * @param res
+ */
+exports.insertChallengeProof = function(userID, data, res) {
+    var challengeID = data.challengeID;
+    var content = data.content;
+
+    var getInsertedChallengeProofID = function (results) {
+
+        if (!results) {
+            res.status(404).send(false);
+            return;
+        }
+
+        // index of challengeProofID query based on the number of queries made
+        var challengeProofID = results[results.length - 1].rows[0].currval;
+
+        if (challengeProofID) {
+            res.status(200).send(challengeProofID.toString());
+        } else {
+            res.status(400).send(false);
+        }
+    };
+
+    challengeDAO.insertChallengeProof(userID, challengeID, content, getInsertedChallengeProofID);
+}
