@@ -1,44 +1,80 @@
 <!--------Alerts Group-------------->
 <div class="alert-group">
     <% if(messages.success.length > 0) { %>
-        <% messages.success.forEach(function(msg) { %>
+    <% messages.success.forEach(function(msg) { %>
     <div class="alert alert-success">
         <button type="button" class="close" aria-hidden="true">×</button>
         <strong><%= msg.title %></strong> <%= msg.content %>
     </div>
-        <% }); %>
+    <% }); %>
     <% } %>
 
     <% if(messages.info.length > 0) { %>
-        <% messages.info.forEach(function(msg) { %>
-        <div class="alert alert-info">
+    <% messages.info.forEach(function(msg) { %>
+    <div class="alert alert-info">
         <strong><%= msg.title %></strong> <%= msg.content %>
-        </div>
-        <% }); %>
+    </div>
+    <% }); %>
     <% } %>
 
     <% if(messages.warning.length > 0) { %>
-        <% messages.warning.forEach(function(msg) { %>
-        <div class="alert alert-warning alert-dismissable">
-            <button type="button" class="close" aria-hidden="true">×</button>
-            <strong><%= msg.title %></strong> <%= msg.content %>
-        </div>
-        <% }); %>
+    <% messages.warning.forEach(function(msg) { %>
+    <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" aria-hidden="true">×</button>
+        <strong><%= msg.title %></strong> <%= msg.content %>
+    </div>
+    <% }); %>
     <% } %>
 
     <% if(messages.danger.length > 0) { %>
-        <% messages.danger.forEach(function(msg) { %>
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" aria-hidden="true">×</button>
-            <strong><%= msg.title %></strong> <%= msg.content %>
-        </div>
-        <% }); %>
+    <% messages.danger.forEach(function(msg) { %>
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" aria-hidden="true">×</button>
+        <strong><%= msg.title %></strong> <%= msg.content %>
+    </div>
+    <% }); %>
     <% } %>
 </div>
 
 
 <!--------Side Bar-------------->
-<div class="navbar navbar-black navbar-twitch" role="navigation">
+
+
+<section class="wrapper">
+
+    <section class="material-design-hamburger">
+        <button class="material-design-hamburger__icon">
+            <span class="material-design-hamburger__layer"></span>
+        </button>
+    </section>
+
+    <section class="menu menu--off">
+        <a href="#">
+            <div class="row">
+                <div class="col-md-8">
+                    Friends
+                </div>
+                <div class="col-md-2">
+                    <span class="fa fa-users"></span>
+                </div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="row">
+                <div class="col-md-8">
+                    Home
+                </div>
+                <div class="col-md-2">
+                    <span class="fa fa-home"></span>
+                </div>
+            </div>
+        </a>
+    </section>
+
+</section>
+
+
+<!--div class="navbar navbar-black navbar-twitch" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
@@ -73,12 +109,12 @@
                     </a>
                 </li>
             </ul>
-        </div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse>
     </div>
 </div>
 <section class="material-design-hamburger">
-    <button class="material-design-hamburger__icon navbar-twitch-toggle">
-        <span class="material-design-hamburger__layer nav-open"></span>
+    <button style="position: fixed; left: 500px" class="material-design-hamburger__icon navbar-twitch-toggle">
+        <span class="material-design-hamburger__layer"></span>
     </button>
 </section>
 <button type="button" class="btn btn-default btn-xs navbar-twitch-toggle">

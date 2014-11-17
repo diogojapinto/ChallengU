@@ -1,137 +1,5 @@
-body {
-    padding-top: 15px;
-    padding-left: 65px;
-}
-.navbar-twitch {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 50px;
-    height: 100%;
-    border-radius: 0px;
-    border: 0px;
-    z-index: 1030;
-}
-.navbar-twitch.open {
-    width: 240px;
-}
-.navbar-twitch > .container {
-    padding: 0px;
-    width: 100%;
-}
-.navbar-twitch .navbar-header,
-.navbar-twitch .navbar-brand {
-    float: none;
-    display: block;
-    width: 100%;
-    margin: 0px;
-}
-.navbar-twitch .navbar-brand {
-    height: 50px;
-}
-.navbar-twitch > .container .navbar-brand {
-    padding: 0px;
-    margin: 0px;
-}
-.navbar-twitch > .container .navbar-brand > .small-nav {
-    display: block;
-}
-.navbar-twitch > .container .navbar-brand > .small-nav > span.logo,
-.navbar-twitch.open > .container .navbar-brand > .full-nav {
-    display: block;
-    font-weight: bold;
-    padding: 15px 2px 15px 3px;
-    font-size: 18pt;
-}
-.navbar-twitch.open > .container .navbar-brand {
-    width: 100%;
-    padding: 15px 15px 60px;
-    text-align: center;
-}
-.navbar-twitch.navbar-inverse > .container .navbar-brand > .small-nav > span.logo {
-    /*color: rgb(255, 255, 255);*/
-}
-.navbar-twitch .navbar-nav > li {
-    float: none;
-}
-.navbar-twitch > .container .full-nav {
-    display: none;
-}
-.navbar-twitch.open > .container .full-nav {
-    display: block;
-}
-.navbar-twitch.open > .container .small-nav {
-    display: none;
-}
-.navbar-twitch .navbar-collapse {
-    padding: 0px;
-}
-.navbar-twitch .navbar-nav {
-    float: none;
-    margin: 0px;
-}
-.navbar-twitch .navbar-nav > li > a {
-    padding: 0px;
-}
-.navbar-twitch .navbar-nav > li > a > span {
-    display: block;
-    font-size: 16pt;
-    padding: 13px 15px 13px 12px;
-}
-.navbar-twitch .tooltip,
-.navbar-twitch .tooltip .tooltip-inner {
-    max-width: auto;
-    white-space:nowrap;
-}
-.navbar-twitch-toggle {
-    position: fixed;
-    top: 5px;
-    left: 55px;
-}
-.navbar-twitch ~ .navbar-twitch-toggle > .nav-open {
-    display: inline-block;
-}
-.navbar-twitch ~ .navbar-twitch-toggle > .nav-close {
-    display: none;
-}
-.navbar-twitch.open ~ .navbar-twitch-toggle {
-    left: 245px;
-}
-.navbar-twitch.open ~ .navbar-twitch-toggle > .nav-open {
-    display: none;
-}
-.navbar-twitch.open ~ .navbar-twitch-toggle > .nav-close {
-    display: inline-block;
-}
-
-.navbar {
-    background-image: none !important;
-}
-.navbar-black {
-    background-color: #222222;
-    border-color: #333333;
-}
-.navbar-black .navbar-brand,
-.navbar-black .navbar-nav > li > a,
-.navbar-black .navbar-brand:hover,
-.navbar-black .navbar-nav > li > a:hover,
-.navbar-black .navbar-brand:focus,
-.navbar-black .navbar-nav > li > a:focus {
-    color: #AAAAAA;
-}
-.navbar-black .navbar-brand:hover,
-.navbar-black .navbar-nav > li > a:hover,
-.navbar-black .navbar-brand:focus,
-.navbar-black .navbar-nav > li > a:focus,
-.navbar-black .navbar-nav > .active > a,
-.navbar-black .navbar-nav > .active > a:hover,
-.navbar-black .navbar-nav > .active > a:focus {
-    background-color: rgb(191, 191, 191);
-    color: rgb(255, 255, 255);
-}
-
 /*************Material Design**************/
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+/*@import url(http://fonts.googleapis.com/css?family=Roboto);*/
 
 .wrapper {
     height: 100%;
@@ -145,15 +13,25 @@ body {
 }
 
 .menu {
-    font-size:2em;
+    font-size:1em;
     font-family: 'Roboto', sans-serif;
     color: #333;
+    width: 15em !important;
 }
 
-.menu div {
-    margin: 1em;
+.menu .row {
+    margin: 1em 2px;
     padding-bottom: 1em;
     border-bottom: 1px solid #ccc;
+}
+
+.menu .row .div {
+    bottom: 0px;
+}
+
+.menu span {
+    font-size: 2em;
+    padding-left: 10px;
 }
 
 .menu a {
@@ -171,7 +49,7 @@ body {
 
 .menu--off {
     position: absolute;
-    left: -50%;
+    left: -12%;
     width: 50%;
     display: block;
     background: #eee;
