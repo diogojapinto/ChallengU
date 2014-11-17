@@ -2,6 +2,11 @@ var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
 var allPasswordsEncrypter = require('./encryptAllPasswords');
+var bcrypt = require('bcrypt');
+var async = require('async');
+var userDAO = require('./model/usersMdl');
+var nodemailer = require('nodemailer');
+var passwordManager = require('./managePasswords');
 
 exports.listen = function (app) {
 
@@ -54,14 +59,14 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/profile/:id", function (req, res) {
+    app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         var userID = parseInt(req.params.id);
-        //if (req.session.user) {
-            userFn.getProfile(userID, res, messages);
-        //} else {
-            //res.redirect('/login');
-        //}
+        if (req.session.user) {
+            userFn.getProfile(req.session.user.userid, res, messages);
+        } else {
+            res.redirect('/connect');
+        }
     });
 
     app.get("/challenge/:id", function (req, res) {
@@ -122,7 +127,95 @@ exports.listen = function (app) {
         res.redirect('/');
     });
 
+    app.post("/forgotPassword", function(req, res){
+       async.waterfall([
+          function(done){
+            bcrypt.genSalt(10, function(err, buff){
+                var token = buff.toString('hex');
+                done(err, token);
+            });
+          },
+            function(token, done){
+                userDAO.getUserByMail(req.body.email, function(user){
+                    if(user.rows[0] == undefined){
+                        console.log("NO MAIL");
+                        res.status(400).send("Email not registered");
+                        return;
+                    }
+                    userDAO.setTokenForUser(user.rows[0].username, token, function(result){
 
+                    });
+                    var smtpTransport = nodemailer.createTransport('SMTP',{
+                        service: 'Mailgun',
+                        auth:{
+                            user: 'postmaster@challengeu.com',
+                            pass: '4e6cf06c34e9dcc98fa530ba5f8dc5c7'
+                        }
+                    });
+
+                    var mailOptions = {
+                        to: user.rows[0].email,
+                        from: 'postmaster@challengeu.com',
+                        subject: 'ChallengeU Password Reset',
+                        text: 'You are receiving this mail because someone have requested the reset of the password.\n\n'+
+                            'Please click on the following link, or paste it into your browser to complete the process:\n\n'+
+                            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                            'If you did not request this, please ignore this email.\n'
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(err, info){
+                        if(err){
+                            res.status(400).send("Error sending email:"+err);
+                            return;
+                        }
+                        else{
+                            res.send(200);
+                        }
+                    });
+                });
+            }
+        ])
+    });
+
+    app.get('/forgotPassword', function(req, res){
+        var messages = generateMessageBlock();
+        res.render("forgot.ejs",{messages: messages, title: 'Forgot Password'} );
+    });
+
+    app.get('/reset/:token', function(req,res){
+        var messages = generateMessageBlock();
+        userDAO.getUserByToken(req.params.token, function(user){
+          if(user.rows[0] === undefined){
+              res.status(400).send("No such token");
+              return;
+          }
+
+           res.render("reset.ejs", {messages: messages, title: 'Reset Password'});
+        })
+    });
+
+    app.post('/reset', function(req, res){
+        console.log("TOKEN = " + req.body.token);
+        userDAO.getUserByToken(req.body.token, function(user){
+            if(user.rows[0] === undefined){
+                res.status(400).send("No such token");
+                return;
+            }
+            console.log("PASSWORD " + user.rows[0].username);
+            passwordManager.cryptPassword(req.body.password, null, function(err, hash, password){
+                userDAO.updatePasswordByToken(req.body.token, hash, function(result){
+                    if(!result){
+                        res.status(400).send("Error updating password");
+                        return;
+                    }
+                    else{
+                        res.send(200);
+                    }
+                });
+            });
+
+        });
+    });
     app.get("/:val", function (req, res) {
         var messages = generateMessageBlock();
         if (req.params.val == "logged-in") {
@@ -143,6 +236,7 @@ exports.listen = function (app) {
         }
         res.render("landing.ejs", {messages: messages, title:'Landing'});
     });
+
 };
 
 var generateMessageBlock = function() {

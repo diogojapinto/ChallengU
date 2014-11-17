@@ -114,7 +114,8 @@ exports.searchChallenges = function (searchValue, res, messages) {
                 }
                 challenges.rows[i]['stars'] = st;
             }
-            res.render('search.ejs', {title: 'Search Results', search: challenges.rows, messages: messages});
+            console.log(searchValue);
+            res.render('search.ejs', {title: 'Search Results', search: challenges.rows, messages: messages, val: searchValue});
         }
     }
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <% include partials/head %>
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/search.css">
 </head>
 
 <body>
@@ -13,38 +13,48 @@
         <div class="container vertical-offset-100">
             <div class="board">
                 <div class="board-inner">
-                    <% search.forEach(function(value) { %>
-                    <div class="well">
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placekitten.com/150/150">
-                            </a>
 
-                            <div class="media-body">
-                                <h4 class="media-heading"><%= value.name %></h4>
+                    <hgroup class="mb20">
+                        <h1 style="color: black">Search Results</h1>
 
-                                <p class="text-right">By <%= value.username %></p>
+                        <h2 class="lead" style="color: black"><strong class="text-primary">3</strong> results were found for the search
+                            <strong class="label label-primary" style="border-radius: 0px">'<%= val %>'</strong></h2>
+                    </hgroup>
 
-                                <p><%= value.content %></p>
-                                <ul class="list-inline list-unstyled">
-                                    <li>|</li>
-                                    <span><i class="glyphicon glyphicon-comment"></i> <%= value.ncomments %></span>
-                                    <li>|</li>
+                    <section class="col-xs-12 col-sm-6 col-md-12">
+                        <% search.forEach(function(value) { %>
+                        <article class="search-result row" style="background-color: #2b3e50">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <a href="#" title="Lorem ipsum" class="thumbnail"><img
+                                        src="http://lorempixel.com/400/200/" alt="Lorem ipsum"/></a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                <ul class="meta-search">
+                                    <li><i class="glyphicon glyphicon-calendar"></i> <span>02/15/2014</span></li>
+                                    <li><i class="glyphicon glyphicon-time"></i> <span>4:28 pm</span></li>
+                                    <li><i class="glyphicon glyphicon-tags"></i> <span>People</span></li>
                                     <li>
                                         <% (value.stars).forEach(function(s) { %>
                                         <% if (s == 1) { %>
-                                        <span class="glyphicon glyphicon-star"></span>
+                                        <span class="fa fa-star"></span>
                                         <% } else { %>
-                                        <span class="glyphicon glyphicon-star-empty"></span>
+                                        <span class="fa fa-star-o"></span>
                                         <% } %>
                                         <% }); %>
                                     </li>
-                                    <li>|</li>
+                                    <li><i class="fa fa-comment"></i> <%= value.ncomments %></li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                    <% }); %>
+                            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                                <h3><a href="#" title=""><%= value.name %></a></h3>
+
+                                <p><%= value.content %></p>
+                            </div>
+                            <span class="clearfix borda"></span>
+                        </article>
+                        <% }); %>
+
+                    </section>
                 </div>
             </div>
         </div>

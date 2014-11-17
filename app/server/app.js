@@ -9,6 +9,7 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var flash = require('express-flash');
 //configuration=====================
 app.set("views", __dirname + '/../views');
 //app.engine('ejs', engine);
@@ -23,6 +24,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 app.use(express.static(path.join(__dirname, '../../landing/')));
+app.use(flash());
 app.use(cookieParser('shhhh, very very very secretzzzzz'));
 app.use(session({
     secret: 'shhhh, very very very secretzzzzz',

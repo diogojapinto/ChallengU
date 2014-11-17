@@ -17,7 +17,7 @@
                 <h4 class="white"><i class="fa fa-dot-circle-o"></i> <%= user.hometown %></h4>
                 <h4 class="white"><i class="fa fa-at"></i> <%= user.email %></h4>
                 <button type="button" class="btn btn-sky btn-md text-uppercase" href="">
-                    <span class="btn-label"><i class="fa fa-pencil"></i></span>Update
+                    <i class="fa fa-pencil"></i> Update
                 </button>
             </div>
         </div>
@@ -82,9 +82,11 @@
                 <h4><i class="fa fa-paper-plane-o coral"></i> Gracie Jenkins followed you.</h4>
             </li>
             <li>
-                <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
-                    <span class="btn-label"><i class="fa fa-bell-o"></i></span>View all activity
-                </button>
+                <a href="#activity" data-toggle="tab">
+                    <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
+                        <i class="fa fa-bell-o"></i> View all activity
+                    </button>
+                </a>
             </li>
         </ul>
     </div>
@@ -109,9 +111,11 @@
                 </h4>
             </li>
             <li>
-                <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
-                    <span class="btn-label"><i class="fa fa-envelope-o"></i></span>View All Messages
-                </button>
+                <a href="#messages" data-toggle="tab">
+                    <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
+                        <i class="fa fa-envelope-o"></i> View All Messages
+                    </button>
+                </a>
             </li>
         </ul>
     </div>
@@ -206,9 +210,11 @@
             </li>
 
             <li>
-                <button type="button" class="btn btn-sky btn-md text-uppercase" href="">
-                    <span class="btn-label"><i class="fa fa-users"></i></span>View All Friends
-                </button>
+                <a href="#friends" data-toggle="tab">
+                    <button type="button" class="btn btn-sky btn-md text-uppercase" href="">
+                        <i class="fa fa-users"></i> View All Friends
+                    </button>
+                </a>
             </li>
         </ul>
 
@@ -216,9 +222,23 @@
 </div>
 </div>
 
-<div class="container" style="width:80%">
+<div class="container" style="width:90%">
     <div class="row user-menu-container square">
-
+        <div class="row">
+            <div class="board">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="activity">
+                        Activity
+                    </div>
+                    <div class="tab-pane fade" id="messages">
+                        Messages
+                    </div>
+                    <div class="tab-pane fade" id="friends">
+                        Friends
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
