@@ -72,8 +72,11 @@ exports.searchChallenge = function(searchValue, callback) {
 exports.insertChallengeProof = function(userID, challengeID, content, callback){
     var queries = [];
     var args = [];
-    queries.push("INSERT INTO ChallengeProof (proofID, userID, challengeID, content) VALUES (DEFAULT, $1, $2, $3)");
+    queries.push("INSERT INTO ChallengeProof (proofID, userID, challengeID, content) VALUES (DEFAULT, $1::int, $2::int, $3)");
     args.push([userID, challengeID, content]);
+
+    queries.push("SELECT CURRVAL('challengeproof_proofid_seq')");
+    args.push([]);
 
     db.transaction(queries, args, callback);
 }

@@ -1,10 +1,18 @@
-<form ng-controller="ProofSubmit as prf">
-    <input class="form-control" ng-model="formData.content" type="hidden"
-           value="<%= challenge.challengeID %>">
-    <input class="form-control" ng-model="formData.content" type="text"
-           placeholder="Your challenge proof" required>
+<form ng-controller="ProofSubmit as prf" class="form-horizontal">
 
-    <button style="width:95%" class="btn btn-sky btn-lg text-uppercase" type="submit" ng-click="postChallengeProof()">
-        Challenge accepted!
-    </button>
+    <input class="form-control" ng-model="formData.challengeID" type="hidden" ng-init="formData.challengeID = <%= challenge.id %>">
+    <fieldset>
+        <legend>Respond</legend>
+        <div class="form-group">
+            <div class="col-md-12">
+                <textarea class="form-control" ng-model="formData.content" placeholder="Your challenge proof" required></textarea>
+            </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-8">
+            <button style="width:95%" class="btn btn-sky btn-lg text-uppercase" type="submit" ng-click="postChallengeProof()">
+                Challenge accepted!
+            </button>
+        </div>
+    </fieldset>
+    <br>
 </form>

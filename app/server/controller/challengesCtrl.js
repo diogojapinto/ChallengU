@@ -129,9 +129,8 @@ exports.searchChallenges = function (searchValue, res, messages) {
  * @param res
  */
 exports.insertChallengeProof = function(userID, data, res) {
-    var challengeID = data.challengeID;
+    var challengeID = data.challengeID ;
     var content = data.content;
-
     var getInsertedChallengeProofID = function (results) {
 
         if (!results) {
@@ -143,7 +142,7 @@ exports.insertChallengeProof = function(userID, data, res) {
         var challengeProofID = results[results.length - 1].rows[0].currval;
 
         if (challengeProofID) {
-            res.status(200).send(challengeProofID.toString());
+            res.status(200).send(challengeID.toString());
         } else {
             res.status(400).send(false);
         }
