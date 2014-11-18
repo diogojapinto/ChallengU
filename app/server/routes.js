@@ -195,7 +195,7 @@ exports.listen = function (app) {
     app.get('/reset/:token', function(req,res){
         var messages = generateMessageBlock();
         userDAO.getUserByToken(req.params.token, function(user){
-          if(user.rows[0] === undefined){
+          if(user.rows[0] === undefined || user.rows[0] === 'null' || user.rows[0] === null || user.rows[0] === "null"){
               res.status(400).send("No such token");
               return;
           }
