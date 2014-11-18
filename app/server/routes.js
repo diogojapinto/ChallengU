@@ -122,6 +122,16 @@ exports.listen = function (app) {
         }
     });
 
+    app.post("/create-challenge-response", function (req, res) {
+        var messages = generateMessageBlock();
+        if (req.session.user) {
+            challengeFn.insertChallengeProof(req.session.user.userid, req.body, res);
+        } else {
+            messages.errors.push("Please login in order to post a challenge proof");
+            res.status(400).send(false);
+        }
+    });
+
     app.get("/encrypt", function(req, res){
         allPasswordsEncrypter.encryptAll();
         res.redirect('/');
@@ -185,7 +195,7 @@ exports.listen = function (app) {
     app.get('/reset/:token', function(req,res){
         var messages = generateMessageBlock();
         userDAO.getUserByToken(req.params.token, function(user){
-          if(user.rows[0] === undefined){
+          if(user.rows[0] === undefined || user.rows[0] === 'null' || user.rows[0] === null || user.rows[0] === "null"){
               res.status(400).send("No such token");
               return;
           }

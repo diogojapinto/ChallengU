@@ -2,7 +2,6 @@
 <html>
 <head>
     <% include partials/head %>
-    <link rel="stylesheet" type="text/css" href="../css/star-rating.min.css">
 </head>
 
 <body>
@@ -46,6 +45,17 @@
             <% }); %>
         </div>
     </div>
+    <div class="container bs-component">
+        <!-- Button trigger response modal -->
+        <div class="row">
+            <div class="col-md-offset-8 col-md-4">
+                <button type="button" class="btn btn-sky btn-lg pull-right" data-toggle="modal" data-target="#responseModal">
+                    Take this Challenge
+                </button>
+            </div>
+        </div>
+        <% include partials/challenge-proof-form %>
+    </div>
     <div class="container">
         <table class="table table-striped">
             <% challenge.comments.forEach(function(comment) { %>
@@ -61,7 +71,7 @@
             <tr>
                 <form>
                     <td><label>my_username</label></td>
-                    <td><textarea style="width: 100%" rows="1" placeholder="Enter here your comment"></textarea></td>
+                    <td><textarea style="width: 100%" rows="1" placeholder="Enter your comment here"></textarea></td>
                 </form>
             </tr>
         </table>
@@ -69,7 +79,6 @@
 </div>
 <% include partials/footer %>
 <% include partials/scripts %>
-<script type="text/javascript" src="../js/star-rating.min.js"></script>
 <script type="text/javascript" src="../js/challenge.js"></script>
 
 </body>

@@ -47,9 +47,8 @@ exports.getChallenge = function (challengeID, callback) {
         "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT username, content, AVG(rating) AS average_rating " +
+    queries.push("SELECT username, content, coalesce((SELECT AVG(rating) FROM ChallengeProof INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID), 0) AS average_rating " +
         "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID " +
-        "INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID " +
         "WHERE challengeID = $1::int " +
         "GROUP BY username, content " +
         "ORDER BY average_rating");
@@ -61,3 +60,22 @@ exports.getChallenge = function (challengeID, callback) {
 exports.searchChallenge = function(searchValue, callback) {
   db.query("SELECT challenge.name, challenge.content, challenge.difficulty, registeredUser.username,coalesce((SELECT COUNT(*) FROM comment WHERE challenge.challengeID = comment.challengeID GROUP BY challenge.challengeID), 0) AS nComments FROM challenge, registeredUser WHERE challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%"+searchValue+"%'GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC",[],callback);
 };
+
+/**
+ * Insert a challenge response
+ * @param userID
+ * @param challengeID
+ * @param content
+ * @param callback
+ */
+exports.insertChallengeProof = function(userID, challengeID, content, callback){
+    var queries = [];
+    var args = [];
+    queries.push("INSERT INTO ChallengeProof (proofID, userID, challengeID, content) VALUES (DEFAULT, $1::int, $2::int, $3)");
+    args.push([userID, challengeID, content]);
+
+    queries.push("SELECT CURRVAL('challengeproof_proofid_seq')");
+    args.push([]);
+
+    db.transaction(queries, args, callback);
+}
