@@ -235,7 +235,7 @@ exports.listen = function (app) {
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
         }
-        res.render("landing.ejs", {messages: messages, title: 'Landing'});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
     });
 
     app.get('*', function (req, res) {
@@ -244,7 +244,7 @@ exports.listen = function (app) {
             res.render("home.ejs", {messages: messages, title: 'Home'});
             return;
         }
-        res.render("landing.ejs", {messages: messages, title:'Landing'});
+        res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
     });
 
 };

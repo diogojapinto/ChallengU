@@ -12,7 +12,6 @@ var path = require('path');
 var flash = require('express-flash');
 //configuration=====================
 app.set("views", __dirname + '/../views');
-//app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.use("/css", express.static(path.join(__dirname, '../css')));
 app.use("/images", express.static(path.join(__dirname, '../images')));

@@ -10,7 +10,6 @@
 
             document.body.classList.toggle('background--blur');
             this.parentNode.nextElementSibling.classList.toggle('menu--on');
-            //$('.menu .row span').fadeOut();
 
             child = this.childNodes[1].classList;
 
