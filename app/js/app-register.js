@@ -13,8 +13,8 @@
         $scope.register = function () {
             $scope.loading = true;
             if ($scope.formData != undefined) {
-                if ($scope.formData.username.length <= 4) {
-                    alert("Username length must be greater than 4!");
+                if ($scope.formData.username.length <= 4 || $scope.formData.username.length > 15) {
+                    alert("Username length must be greater than 4 and lower than 15!");
                     return;
                 } else if ($scope.formData.password.length <= 6) {
                     alert("Password length must be greater than 6!");

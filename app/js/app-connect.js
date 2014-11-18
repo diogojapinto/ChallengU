@@ -1,4 +1,4 @@
 (function () {
-    var app = angular.module('connect-app', ['login-app', 'register-app']);
+    var app = angular.module('connect-app', ['login-app', 'register-app', 'forgot-app']);
 })();
 
