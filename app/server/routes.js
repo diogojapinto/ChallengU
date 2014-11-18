@@ -230,7 +230,7 @@ exports.listen = function (app) {
         var messages = generateMessageBlock();
         if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
-            res.render("home.ejs", {messages: messages, title: 'Home'});
+            challengeFn.getChallengesHome(res, messages);
             return;
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
@@ -241,7 +241,7 @@ exports.listen = function (app) {
     app.get('*', function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
-            res.render("home.ejs", {messages: messages, title: 'Home'});
+            challengeFn.getChallengesHome(res, messages);
             return;
         }
         res.render("landing.ejs", {messages: messages, title:'Landing'});

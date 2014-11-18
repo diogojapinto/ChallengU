@@ -88,7 +88,11 @@ exports.getChallenge = function (challengeID, res, messages) {
             challenge.responses.push(proof);
         });
 
-        res.render('challenge.ejs', {title: 'ChallengeU - Challenge ' + challenge.name, challenge: challenge, messages: messages});
+        res.render('challenge.ejs', {
+            title    : 'ChallengeU - Challenge ' + challenge.name,
+            challenge: challenge,
+            messages : messages
+        });
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
@@ -115,11 +119,30 @@ exports.searchChallenges = function (searchValue, res, messages) {
                 challenges.rows[i]['stars'] = st;
             }
             console.log(searchValue);
-            res.render('search.ejs', {title: 'Search Results', search: challenges.rows, messages: messages, val: searchValue});
+            res.render('search.ejs', {
+                title   : 'Search Results',
+                search  : challenges.rows,
+                messages: messages,
+                val     : searchValue
+            });
         }
     }
 
     challengeDAO.searchChallenge(searchValue, sendSearchResults);
+};
+
+exports.getChallengesHome = function (res, messages) {
+
+    var sendHomepage = function (challenges) {
+
+        if (!challenges) {
+            messages.warning.push({title: "No Challenges", content: "No challenges available"});
+            challenges.rows = null;
+        }
+        res.render("home.ejs", {challenges: challenges.rows, messages: messages, title: 'Home'});
+    };
+
+    challengeDAO.getChallengesHome(sendHomepage);
 };
 
 /**
@@ -128,8 +151,8 @@ exports.searchChallenges = function (searchValue, res, messages) {
  * @param data
  * @param res
  */
-exports.insertChallengeProof = function(userID, data, res) {
-    var challengeID = data.challengeID ;
+exports.insertChallengeProof = function (userID, data, res) {
+    var challengeID = data.challengeID;
     var content = data.content;
     var getInsertedChallengeProofID = function (results) {
 
