@@ -1,42 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <% include partials/head %>
-</head>
 <base href="/reset">
-<body ng-app="forgot-app">
-<% include partials/header %>
 <div ng-controller="forgotPasswordController as forgot">
     <div class="row">
         <h1 style="text-align: center" class="text-primary">Forgot Password? No problem, it happens.</h1>
-        <div class="col-sm-4 col-sm-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row-fluid user-row">
-                        <img src="../images/password_reset.png" style="width:30%;height:30%" class="img-responsive"
-                             alt="Console Admin"/>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <form method="get">
-                        <input class="form-control" ng-model="formData.email" type="text"
-                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Insert your email"
-                               required>
 
+        <div class="panel-body">
+            <form method="get">
+                <input class="form-control" ng-model="formData.email" type="text"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="Insert your email"
+                       required>
 
-                        <div style="text-align: center">
-                            <button class="btn btn-sky btn-lg text-uppercase" type="submit" ng-click="sendReset()">
-                                Send mail with password reset
-                            </button>
-                        </div>
-                    </form>
+                <div style="text-align: center">
+                    <button class="btn btn-sky btn-lg text-uppercase" type="submit" ng-click="sendReset()">
+                        Send mail with password reset
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-<% include partials/footer %>
-<% include partials/scripts %>
-<script src="../js/app-forgot.js"></script>
-</body>
-</html>
