@@ -5,7 +5,7 @@
 
     document.querySelector('.material-design-hamburger__icon').addEventListener(
         'click',
-        function (event) {
+        function() {
             var child;
 
             document.body.classList.toggle('background--blur');
