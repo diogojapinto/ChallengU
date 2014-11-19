@@ -1,5 +1,5 @@
 /*************Material Design**************/
-/*@import url(http://fonts.googleapis.com/css?family=Roboto);*/
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 
 .wrapper {
     height: 100%;
@@ -29,6 +29,10 @@
 
 .menu .row .div {
     bottom: 0px;
+}
+
+.menu .navElem {
+    min-height: 2em;
 }
 
 .menu span {

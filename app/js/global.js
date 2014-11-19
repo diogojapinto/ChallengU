@@ -11,6 +11,8 @@
             document.body.classList.toggle('background--blur');
             this.parentNode.nextElementSibling.classList.toggle('menu--on');
 
+            angular.element('.menu span').fadeToggle();
+
             child = this.childNodes[1].classList;
 
             if (child.contains('material-design-hamburger__icon--to-arrow')) {
