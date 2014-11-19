@@ -7,7 +7,7 @@
             document.body.classList.toggle('background--blur');
             this.parentNode.nextElementSibling.classList.toggle('menu--on');
 
-            if (angular.element(window).width >= 768) {
+            if (angular.element(window).width() >= 768) {
                 angular.element('.menu span').fadeToggle();
             }
 

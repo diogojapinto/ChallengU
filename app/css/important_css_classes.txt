@@ -13,3 +13,38 @@ btn-sky->blue
 #              Links             #
 ##################################
 
+// generic
+
+http://bootsnipp.com/snippets/featured/bootstrap-button-dropdowns
+
+// to be used
+http://timschlechter.github.io/bootstrap-tagsinput/examples/===================> tags
+http://bootsnipp.com/snippets/featured/change-password-form-with-validation====> proper password validation (could also add the "see password")
+http://bootsnipp.com/snippets/featured/font-awesome-star-ratings===============> ratings everywhere
+http://bootsnipp.com/snippets/featured/full-screen-search======================> upper bar ???
+http://bootsnipp.com/snippets/featured/show-dropdown-hover-amp-caret-up========> simplier upper bar
+http://bootsnipp.com/snippets/featured/expandable-search-input=================> search
+http://bootsnipp.com/snippets/featured/dropdown-menu-ui========================> user in upper bar
+http://bootsnipp.com/snippets/featured/collapse-filters-panel==================> advanced search
+http://bootsnipp.com/snippets/featured/caption-hover-effect-text===============> COOL for challenges
+http://bootsnipp.com/snippets/featured/list-group-with-hidden-sub-menu=========> vote on messages
+http://bootsnipp.com/snippets/featured/flat-user-profile-interface-ui==========> user page (already in use)
+http://bootsnipp.com/snippets/featured/status-boxes============================> status boxes
+http://bootsnipp.com/snippets/featured/two-column-timeline-not-responsive======> awesome timeline
+http://bootsnipp.com/snippets/featured/single-column-timeline-dotted===========> timeline
+http://bootsnipp.com/snippets/featured/video-list-thumbnails===================> video tumbnails
+
+// maybe
+http://bootsnipp.com/snippets/featured/carousel-reviews-with-rating ===========> for displaying responses
+http://bootsnipp.com/snippets/featured/bootstrap-drag-and-drop-upload==========> files upload
+http://bootsnipp.com/snippets/featured/input-file-popover-preview-image========> another one
+http://bootsnipp.com/snippets/featured/long-inline-form========================> just because it's different
+http://bootsnipp.com/snippets/featured/filtered-attendees-list=================> for friends search
+http://bootsnipp.com/snippets/featured/colorful-input-groups===================> for prettier inputs
+http://bootsnipp.com/snippets/featured/form-process-steps======================> steps
+http://bootsnipp.com/snippets/featured/contact-list============================> possible contacts list
+http://bootsnipp.com/snippets/featured/responsive-breadcrumbs==================> responsive breadcrumbs
+http://bootsnipp.com/snippets/featured/ui-kit-metro-like-nav===================> pretty tabs
+http://bootsnipp.com/snippets/featured/like-hangout-chat=======================> CHAT CHAT CHAT
+http://bootsnipp.com/snippets/featured/social-icons-font-awesome-with-hover====> social icons
+http://bootsnipp.com/snippets/featured/bootstrap-pricing-slider-donations======> proper sliders
