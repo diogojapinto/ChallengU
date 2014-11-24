@@ -122,7 +122,7 @@ exports.listen = function (app) {
         if (req.session.user) {
             challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {
-            messages.errors.push("Please login in order to create a challenge");
+            messages.danger.push("Please login in order to create a challenge");
             res.status(400).send(false);
         }
     });
@@ -132,7 +132,7 @@ exports.listen = function (app) {
         if (req.session.user) {
             challengeFn.insertChallengeProof(req.session.user.userid, req.body, res);
         } else {
-            messages.errors.push("Please login in order to post a challenge proof");
+            messages.danger.push("Please login in order to post a challenge proof");
             res.status(400).send(false);
         }
     });
