@@ -230,6 +230,7 @@ exports.listen = function (app) {
     app.get("/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
+        console.log(globals);
         if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
             challengeFn.getChallengesHome(res, messages, globals);
