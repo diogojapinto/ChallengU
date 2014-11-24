@@ -17,11 +17,11 @@ exports.listen = function (app) {
         if (req.session.user) {
             req.session.destroy(function () {
                 messages.success.push({title: "Logged Out", content: "You are now logged out!"});
-                res.render("landing.ejs", {messages: messages, title:'Landing'});
+                res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
             });
         } else {
-            messages.success.push({title: "Sign in first", content: "You are not logged in"});
-            res.render("landing.ejs", {messages: messages, title:'Landing'});
+            messages.warning.push({title: "Sign in first", content: "You are not logged in"});
+            res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
         }
     });
 
@@ -43,16 +43,18 @@ exports.listen = function (app) {
 
     app.get("/post-challenge/:val", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.params.val == "error-challenge") {
             messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
         }
-        res.render('challenge-submit.ejs', {messages: messages, title: 'Submit your challenge'});
+        res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge'});
     });
 
     app.get("/post-challenge", function (req, res) {
+        var globals = generateGlobals(req);
         var messages = generateMessageBlock();
         if (req.session.user) {
-            res.render('challenge-submit.ejs', {messages: messages, title: 'Submit your challenge'});
+            res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge'});
         } else {
             messages.warning.push("You must first login")
             res.redirect('/connect');
@@ -61,6 +63,7 @@ exports.listen = function (app) {
 
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         var userID = parseInt(req.params.id);
         if (req.session.user) {
             userFn.getProfile(req.session.user.userid, res, messages);
@@ -71,9 +74,10 @@ exports.listen = function (app) {
 
     app.get("/challenge/:id", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.session.user) {
             var challengeID = parseInt(req.params.id);
-            challengeFn.getChallenge(challengeID, res, messages);
+            challengeFn.getChallenge(challengeID, res, messages, globals);
         } else {
             res.redirect('/connect');
         }
@@ -81,11 +85,11 @@ exports.listen = function (app) {
 
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
-        challengeFn.searchChallenges(req.params.val, res, messages);
+        var globals = generateGlobals(req);
+        challengeFn.searchChallenges(req.params.val, res, messages, globals);
     });
 
     app.post("/get-categories", function (req, res) {
-        var messages = generateMessageBlock();
         if (req.session.user) {
             challengeFn.getCategories(res);
         } else {
@@ -96,7 +100,7 @@ exports.listen = function (app) {
     app.post("/login", function (req, res) {
         var messages = generateMessageBlock();
         if (!req.session.user) {
-            userFn.getUser(req.body.username, req, res);
+            userFn.getUser(req.body.username, req, res, messages);
         } else {
             res.status(400).send("You are already signed in. Please logout first");
         }
@@ -104,16 +108,17 @@ exports.listen = function (app) {
 
     app.get("/search-challenge", function (req, res) {
         var messages = generateMessageBlock();
-        res.render('dummy-search.ejs', {messages: messages, title: 'Search challenge'});
+        var globals = generateGlobals(req);
+        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge'});
     });
 
     app.post("/register", function (req, res) {
-        var messages = generateMessageBlock();
         userFn.registerUser(req.body, res);
     });
 
     app.post("/create-challenge", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.session.user) {
             challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {
@@ -187,11 +192,6 @@ exports.listen = function (app) {
         ])
     });
 
-    app.get('/forgotPassword', function(req, res){
-        var messages = generateMessageBlock();
-        res.render("forgot.ejs",{messages: messages, title: 'Forgot Password'} );
-    });
-
     app.get('/reset/:token', function(req,res){
         var messages = generateMessageBlock();
         userDAO.getUserByToken(req.params.token, function(user){
@@ -226,11 +226,13 @@ exports.listen = function (app) {
 
         });
     });
+
     app.get("/:val", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
-            challengeFn.getChallengesHome(res, messages);
+            challengeFn.getChallengesHome(res, messages, globals);
             return;
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
@@ -256,4 +258,10 @@ var generateMessageBlock = function() {
         warning: [],
         danger: []
     };
+}
+
+var generateGlobals = function(req) {
+    return {
+        username: req.session.user.username
+    }
 }

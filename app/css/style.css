@@ -8,6 +8,10 @@
     border-width: 3px;
 }
 
+.board {
+    margin-top: 0 !important;
+}
+
 /************From login.css************************/
 input[type=checkbox] + label {
     display: inline-block;

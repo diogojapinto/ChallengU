@@ -1,0 +1,5 @@
+security:
+    test sql injection
+    prevent xss
+
+improve forms validation through angular

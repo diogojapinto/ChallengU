@@ -46,12 +46,12 @@ exports.insertChallenge = function (userid, data, res) {
     challengeDAO.insertChallenge(userid, name, difficulty, type, desc, categories, getInsertedChallengeID);
 };
 
-exports.getChallenge = function (challengeID, res, messages) {
+exports.getChallenge = function (challengeID, res, messages, globals) {
 
     var assembleChallenge = function (results) {
 
         if (!results) {
-            res.render("landing.ejs", {messages: messages, title: 'Landing'});
+            res.render("landing.ejs", {messages: messages, globals: globals, title: 'Landing'});
             return;
         }
 
@@ -91,14 +91,15 @@ exports.getChallenge = function (challengeID, res, messages) {
         res.render('challenge.ejs', {
             title    : 'ChallengeU - Challenge ' + challenge.name,
             challenge: challenge,
-            messages : messages
+            messages : messages,
+            globals: globals
         });
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
 
-exports.searchChallenges = function (searchValue, res, messages) {
+exports.searchChallenges = function (searchValue, res, messages, globals) {
 
     var stars = [];
 
@@ -123,6 +124,7 @@ exports.searchChallenges = function (searchValue, res, messages) {
                 title   : 'Search Results',
                 search  : challenges.rows,
                 messages: messages,
+                globals : globals,
                 val     : searchValue
             });
         }
@@ -131,7 +133,7 @@ exports.searchChallenges = function (searchValue, res, messages) {
     challengeDAO.searchChallenge(searchValue, sendSearchResults);
 };
 
-exports.getChallengesHome = function (res, messages) {
+exports.getChallengesHome = function (res, messages, globals) {
 
     var sendHomepage = function (challenges) {
 
@@ -139,7 +141,7 @@ exports.getChallengesHome = function (res, messages) {
             messages.warning.push({title: "No Challenges", content: "No challenges available"});
             challenges.rows = null;
         }
-        res.render("home.ejs", {challenges: challenges.rows, messages: messages, title: 'Home'});
+        res.render("home.ejs", {challenges: challenges.rows, messages: messages, globals: globals, title: 'Home'});
     };
 
     challengeDAO.getChallengesHome(sendHomepage);

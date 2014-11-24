@@ -2,7 +2,7 @@ var userDAO = require('../model/usersMdl');
 var passwordManager = require('../managePasswords');
 var allPasswordsEncrypter = require('../encryptAllPasswords');
 
-exports.getUser = function (username, req, res) {
+exports.getUser = function (username, req, res, messages) {
 
     var loginCallback = function (user) {
         user = user.rows[0];
@@ -68,14 +68,14 @@ exports.registerUser = function (data, res) {
 
 }
 
-exports.getProfile = function (data,res,messages) {
+exports.getProfile = function (data,res,messages, globals) {
 
     var user;
 
     var loginCallback = function(results) {
         user = results.rows[0];
         console.log(results.rows);
-        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages})
+        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages, globals: globals})
     }
 
     userDAO.getUserByID(data, loginCallback);

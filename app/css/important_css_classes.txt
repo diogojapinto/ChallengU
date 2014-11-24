@@ -15,13 +15,10 @@ btn-sky->blue
 
 // generic
 
-http://bootsnipp.com/snippets/featured/bootstrap-button-dropdowns
-
 // to be used
 http://timschlechter.github.io/bootstrap-tagsinput/examples/===================> tags
 http://bootsnipp.com/snippets/featured/change-password-form-with-validation====> proper password validation (could also add the "see password")
 http://bootsnipp.com/snippets/featured/font-awesome-star-ratings===============> ratings everywhere
-http://bootsnipp.com/snippets/featured/full-screen-search======================> upper bar ???
 http://bootsnipp.com/snippets/featured/show-dropdown-hover-amp-caret-up========> simplier upper bar
 http://bootsnipp.com/snippets/featured/expandable-search-input=================> search
 http://bootsnipp.com/snippets/featured/dropdown-menu-ui========================> user in upper bar
@@ -48,3 +45,5 @@ http://bootsnipp.com/snippets/featured/ui-kit-metro-like-nav===================>
 http://bootsnipp.com/snippets/featured/like-hangout-chat=======================> CHAT CHAT CHAT
 http://bootsnipp.com/snippets/featured/social-icons-font-awesome-with-hover====> social icons
 http://bootsnipp.com/snippets/featured/bootstrap-pricing-slider-donations======> proper sliders
+http://bootsnipp.com/snippets/featured/multi-level-navbar-menu=================> multilevel menus
+http://bootsnipp.com/snippets/featured/bootstrap-button-dropdowns

@@ -1,11 +1,10 @@
 (function () {
     document.querySelector('.material-design-hamburger__icon').addEventListener(
         'click',
-        function() {
+        function () {
             var child;
 
-            document.body.classList.toggle('background--blur');
-            this.parentNode.nextElementSibling.classList.toggle('menu--on');
+            angular.element('.menu').toggleClass('menu--on');
 
             if (angular.element(window).width() >= 768) {
                 angular.element('.menu span').fadeToggle();
@@ -20,5 +19,17 @@
                 child.remove('material-design-hamburger__icon--from-arrow');
                 child.add('material-design-hamburger__icon--to-arrow');
             }
+        });
+
+    angular.element(".dropdown").hover(
+        function () {
+            angular.element('.dropdown-menu', this).stop(true, true).fadeIn("fast");
+            angular.element(this).toggleClass('open');
+            angular.element('b', this).toggleClass("caret caret-up");
+        },
+        function () {
+            angular.element('.dropdown-menu', this).stop(true, true).fadeOut("fast");
+            angular.element(this).toggleClass('open');
+            angular.element('b', this).toggleClass("caret caret-up");
         });
 })();
