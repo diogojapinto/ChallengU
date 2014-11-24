@@ -35,7 +35,7 @@ var routes = require('./routes.js')
 routes.listen(app);
 
 //listen============================
-var ipAddress = "178.62.101.158";
+var ipAddress = "0.0.0.0";
 var port = 8081;
 app.listen(port, ipAddress, function(){
   console.log((new Date()) + ' Server is listening on port ' + port);
