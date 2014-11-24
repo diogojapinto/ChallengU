@@ -23,19 +23,13 @@ describe('Account', function () {
             username: 'blablabla',
             password: 'testblabla'
         };
-        // once we have specified the info we want to send to the server via POST verb,
-        // we need to actually perform the action on the resource, in this case we want to
-        // POST on /login-user and we want to send some info
-        // We do this using the request object, requiring supertest!
         request(url)
             .post('/login')
             .send(user)
-            // end handles the response
             .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
-                // this is should.js syntax, very clear
                 res.statusCode.should.equal(400);
                 done();
             });
@@ -46,77 +40,147 @@ describe('Account', function () {
             username: 'modd1',
             password: 'passmod1'
         };
-        // once we have specified the info we want to send to the server via POST verb,
-        // we need to actually perform the action on the resource, in this case we want to
-        // POST on /login-user and we want to send some info
-        // We do this using the request object, requiring supertest!
         request(url)
             .post('/login')
             .send(user)
-            // end handles the response
             .end(function (err, res, req) {
                 if (err) {
                     throw err;
                 }
-                // this is should.js syntax, very clear
                 res.statusCode.should.equal(200);
-                //req.session.should.equal(user);
                 done();
             });
     });
 });
-/*
+
  describe('Challenge', function () {
     it('should return error because the the category field is empty', function (done) {
-        var challenge = {
-            name       : 'blablabla',
-            category   : [],
-            type       : "video",
-            difficulty : "3",
-            description: "bla bla bla whiskas saquetas"
+        var user = {
+            username: 'modd1',
+            password: 'passmod1'
         };
-        // once we have specified the info we want to send to the server via POST verb,
-        // we need to actually perform the action on the resource, in this case we want to
-        // POST on /create-challenge and we want to send some info
-        // We do this using the request object, requiring supertest!
         request(url)
-            .post('/create-challenge')
-            .send(challenge)
-            // end handles the response
-            .end(function (err, res) {
+            .post('/login')
+            .send(user)
+            .end(function (err, res, req) {
                 if (err) {
                     throw err;
                 }
-                // this is should.js syntax, very clear
-                res.statusCode.should.equal(400);
-                done();
+                res.statusCode.should.equal(200);
+
+                var challenge = {
+                    name       : 'blablabla',
+                    category   : [],
+                    type       : "video",
+                    difficulty : "3",
+                    description: "bla bla bla whiskas saquetas"
+                };
+                request(url)
+                    .post('/create-challenge')
+                    .send(challenge)
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.statusCode.should.equal(400);
+                        done();
+                    });
             });
+
+
     });
 
     it('should return success', function (done) {
-        var challenge = {
-            name       : 'blablabla',
-            category   : [1],
-            type       : "video",
-            difficulty : "3",
-            description: "bla bla bla whiskas saquetas"
+        var user = {
+            username: 'modd1',
+            password: 'passmod1'
         };
-        // once we have specified the info we want to send to the server via POST verb,
-        // we need to actually perform the action on the resource, in this case we want to
-        // POST on /create-challenge and we want to send some info
-        // We do this using the request object, requiring supertest!
         request(url)
-            .post('/create-challenge')
-            .send(challenge)
-            // end handles the response
-            .end(function (err, res) {
+            .post('/login')
+            .send(user)
+            .end(function (err, res, req) {
                 if (err) {
                     throw err;
                 }
-                // this is should.js syntax, very clear
                 res.statusCode.should.equal(200);
-                done();
+
+                var challenge = {
+                    name       : 'blablabla',
+                    category   : [2,3],
+                    type       : "video",
+                    difficulty : "3",
+                    description: "bla bla bla whiskas saquetas"
+                };
+                request(url)
+                    .post('/create-challenge')
+                    .send(challenge)
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.statusCode.should.equal(400);
+                        done();
+                    });
             });
 
     });
- });*/
+ });
+
+describe('Search', function () {
+    it('should return nothing', function (done) {
+        var user = {
+            username: 'modd1',
+            password: 'passmod1'
+        };
+        request(url)
+            .post('/login')
+            .send(user)
+            .end(function (err, res, req) {
+                if (err) {
+                    throw err;
+                }
+                res.statusCode.should.equal(200);
+
+                var value = 'random';
+                request(url)
+                    .get('/search/'+value)
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.statusCode.should.equal(400);
+                        done();
+                    });
+            });
+
+
+    });
+
+    it('should return results', function (done) {
+        var user = {
+            username: 'modd1',
+            password: 'passmod1'
+        };
+        request(url)
+            .post('/login')
+            .send(user)
+            .end(function (err, res, req) {
+                if (err) {
+                    throw err;
+                }
+                res.statusCode.should.equal(200);
+
+                var value = 'most';
+                request(url)
+                    .get('/search/'+value)
+                    .end(function (err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.statusCode.should.equal(200);
+                        done();
+                    });
+            });
+
+    });
+});

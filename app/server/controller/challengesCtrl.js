@@ -29,7 +29,7 @@ exports.insertChallenge = function (userid, data, res) {
     var getInsertedChallengeID = function (results) {
 
         if (!results) {
-            res.status(404).send(false);
+            res.status(400).send(false);
             return;
         }
 
@@ -119,12 +119,23 @@ exports.searchChallenges = function (searchValue, res, messages) {
                 challenges.rows[i]['stars'] = st;
             }
             console.log(searchValue);
-            res.render('search.ejs', {
-                title   : 'Search Results',
-                search  : challenges.rows,
-                messages: messages,
-                val     : searchValue
-            });
+            if (challenges.rows.length <= 0) {
+
+                res.status(400).render('search.ejs', {
+                    title   : 'Search Results',
+                    search  : challenges.rows,
+                    messages: messages,
+                    val     : searchValue
+                });
+            } else {
+
+                res.status(200).render('search.ejs', {
+                    title   : 'Search Results',
+                    search  : challenges.rows,
+                    messages: messages,
+                    val     : searchValue
+                });
+            }
         }
     }
 
