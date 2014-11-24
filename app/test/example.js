@@ -59,7 +59,6 @@ describe('Account', function () {
             username: 'modd1',
             password: 'passmod1'
         };
-
         request(url)
             .post('/login')
             .send(user)
