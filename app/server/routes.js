@@ -117,8 +117,6 @@ exports.listen = function (app) {
     });
 
     app.post("/create-challenge", function (req, res) {
-        var messages = generateMessageBlock();
-        var globals = generateGlobals(req);
         if (req.session.user) {
             challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {

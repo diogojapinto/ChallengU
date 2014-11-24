@@ -99,7 +99,7 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
 
-exports.searchChallenges = function (searchValue, res, messages, globals) {
+exports.searchChallenges = function (searchValue, res, messages) {
 
     var stars = [];
 
@@ -126,7 +126,6 @@ exports.searchChallenges = function (searchValue, res, messages, globals) {
                     title   : 'Search Results',
                     search  : challenges.rows,
                     messages: messages,
-                    globals : globals,
                     val     : searchValue
                 });
             } else {
@@ -135,7 +134,6 @@ exports.searchChallenges = function (searchValue, res, messages, globals) {
                     title   : 'Search Results',
                     search  : challenges.rows,
                     messages: messages,
-                    globals : globals,
                     val     : searchValue
                 });
             }
