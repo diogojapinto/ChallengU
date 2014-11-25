@@ -95,8 +95,8 @@ exports.listen = function (app) {
 
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
-        var globals = generateGlobals(req);
-        challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        //var globals = generateGlobals(req);
+        challengeFn.searchChallenges(req.params.val, res, messages);
     });
 
     app.post("/get-categories", function (req, res) {

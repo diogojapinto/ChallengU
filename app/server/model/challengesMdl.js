@@ -62,8 +62,12 @@ exports.getChallengesHome = function (callback) {
 };
 
 exports.searchChallenge = function (searchValue, callback) {
-    db.query("SELECT challenge.challengeid, challenge.name, challenge.content, challenge.difficulty, registeredUser.username,coalesce((SELECT COUNT(*) FROM comment WHERE challenge.challengeID = comment.challengeID GROUP BY challenge.challengeID), 0) AS nComments FROM challenge, registeredUser WHERE challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%" + searchValue + "%'GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC", [], callback);
+    db.query("SELECT challenge.challengeID, challenge.name, challenge.content, challenge.difficulty, registeredUser.username,coalesce((SELECT COUNT(*) FROM comment WHERE challenge.challengeID = comment.challengeID GROUP BY challenge.challengeID), 0) AS nComments FROM challenge, registeredUser WHERE challenge.userID = registeredUser.userID AND challenge.name SIMILAR TO '%" + searchValue + "%'GROUP BY challenge.challengeID, registeredUser.username ORDER BY nComments DESC", [], callback);
 };
+
+exports.getCategoriesByID = function (challengeID, callback) {
+    db.query("SELECT Category.name FROM Category,ChallengeCategory WHERE challengeID = " + challengeID + " AND ChallengeCategory.categoryID = Category.categoryID",[],callback);
+}
 
 /**
  * Insert a challenge response
