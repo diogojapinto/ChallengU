@@ -81,7 +81,7 @@ describe('Account', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); // TODO
+                        res.statusCode.should.equal(400);
                         done();
                     });
             });
@@ -117,7 +117,7 @@ describe('Account', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); //TODO
+                        res.statusCode.should.equal(200);
                         done();
                     });
             });
@@ -147,7 +147,7 @@ describe('Search', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); // TODO
+                        res.statusCode.should.equal(400);
                         done();
                     });
             });
@@ -176,7 +176,7 @@ describe('Search', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); // TODO
+                        res.statusCode.should.equal(200);
                         done();
                     });
             });
