@@ -121,6 +121,7 @@ exports.listen = function (app) {
         if (req.session.user) {
             challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {
+            console.log("FAILED");
             messages.danger.push("Please login in order to create a challenge");
             res.status(400).send(false);
         }
