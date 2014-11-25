@@ -117,7 +117,7 @@ describe('Account', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(400); //TODO
+                        res.statusCode.should.equal(200); //TODO
                         done();
                     });
             });
