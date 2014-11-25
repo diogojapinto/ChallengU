@@ -108,11 +108,13 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
 exports.searchChallenges = function (searchValue, res, messages) {
 
     var stars = [];
+    var chall;
 
     var sendSearchResults = function (challenges) {
 
         if (!challenges) {
             res.status(400).send(false);
+            return;
         } else {
             for (var i = 0; i < challenges.rows.length; i++) {
                 var st = [];
@@ -126,20 +128,33 @@ exports.searchChallenges = function (searchValue, res, messages) {
                 challenges.rows[i]['stars'] = st;
             }
             console.log(searchValue);
-            if (challenges.rows.length <= 0) {
+            chall = challenges.rows;
+
+            userDAO.getUser(searchValue, sendResults);
+        }
+    }
+
+    var sendResults = function (users) {
+        if (!users) {
+            res.status(400).send(false);
+            return;
+        } else {
+            if (chall.length <= 0) {
 
                 res.status(400).render('search.ejs', {
                     title   : 'Search Results',
-                    search  : challenges.rows,
-                    messages: messages,
+                    searchChal  : chall,
+                    searchUser: users.rows,
+                    messages : messages,
                     val     : searchValue
                 });
             } else {
-
+                console.log(chall);
                 res.status(200).render('search.ejs', {
                     title   : 'Search Results',
-                    search  : challenges.rows,
-                    messages: messages,
+                    searchChal  : chall,
+                    searchUser: users.rows,
+                    messages : messages,
                     val     : searchValue
                 });
             }
