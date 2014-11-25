@@ -35,7 +35,6 @@ exports.registerUser = function (data, res) {
 
     if (data.password == data.confirmPassword) {
         password = data.password;
-        console.log("PASSWORD = ", password);
     } else {
         res.status(400).send("Passwords must match!");
         return;

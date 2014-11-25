@@ -263,6 +263,6 @@ var generateMessageBlock = function() {
 
 var generateGlobals = function(req) {
     return {
-        username: req.session.user.username
+        //username: req.session.user.username
     }
 }
