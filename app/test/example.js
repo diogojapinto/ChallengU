@@ -16,6 +16,10 @@ var request = require('supertest');
 
 var url = 'http://127.0.0.1:8081';
 
+var request = require('superagent');
+var user1 = request.agent();
+
+
 describe('Account', function () {
     it('should return error because the user does not exist', function (done) {
         var user = {
@@ -39,10 +43,11 @@ describe('Account', function () {
             username: 'modd1',
             password: 'passmod1'
         };
-        request(url)
-            .post('/login')
+
+        user1
+            .post(url + '/login')
             .send(user)
-            .end(function (err, res, req) {
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
