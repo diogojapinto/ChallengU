@@ -66,7 +66,7 @@ exports.listen = function (app) {
         var globals = generateGlobals(req);
         var userID = parseInt(req.params.id);
         if (req.session.user) {
-            userFn.getProfile(req.session.user.userid, res, messages);
+            userFn.getProfile(req.session.user.userid, res, messages, globals);
         } else {
             res.redirect('/connect');
         }
