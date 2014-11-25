@@ -3,6 +3,7 @@
 var should = require('should');
 var assert = require('assert');
 var request = require('supertest');
+var request = require('superagent');
 
 /*
  // just for example of tested value
@@ -14,9 +15,8 @@ var request = require('supertest');
  // or with assert
  test.assert(typeof example === 'string');*/
 
-var url = 'http://127.0.0.1:8081';
+var url = 'http://178.62.101.158:8081';
 
-var request = require('superagent');
 var user1 = request.agent();
 
 describe('Account', function () {
