@@ -17,11 +17,11 @@ exports.listen = function (app) {
         if (req.session.user) {
             req.session.destroy(function () {
                 messages.success.push({title: "Logged Out", content: "You are now logged out!"});
-                res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
+                res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
             });
         } else {
             messages.warning.push({title: "Sign in first", content: "You are not logged in"});
-            res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
+            res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
         }
     });
 
@@ -35,7 +35,7 @@ exports.listen = function (app) {
 
     app.get("/connect", function (req, res) {
         var messages = generateMessageBlock();
-        if(req.session.user) {
+        if (req.session.user) {
             res.redirect('/invalid');
         }
         res.render('connect.ejs', {messages: messages, title: 'Connect'});
@@ -61,11 +61,21 @@ exports.listen = function (app) {
         }
     });
 
+    app.post("/add-friend", function (req, res) {
+        var messages = generateMessageBlock();
+        if (req.session.user) {
+            var globals = generateGlobals(req);
+
+        } else {//TODO IMPLEMENT
+
+        }
+    });
+
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
-        var globals = generateGlobals(req);
         if (req.session.user) {
-            userFn.getProfile(req.session.user.userid, res, messages);
+            var globals = generateGlobals(req);
+            userFn.getProfile(req.session.user.userid, res, messages, globals);
         } else {
             res.redirect('/connect');
         }
@@ -73,9 +83,9 @@ exports.listen = function (app) {
 
     app.get("/profile/:id", function (req, res) {
         var messages = generateMessageBlock();
-        var globals = generateGlobals(req);
         var userID = parseInt(req.params.id);
         if (req.session.user) {
+            var globals = generateGlobals(req);
             userFn.getProfile(userID, res, messages);
         } else {
             res.redirect('/connect');
@@ -147,53 +157,53 @@ exports.listen = function (app) {
         }
     });
 
-    app.get("/encrypt", function(req, res){
+    app.get("/encrypt", function (req, res) {
         allPasswordsEncrypter.encryptAll();
         res.redirect('/');
     });
 
-    app.post("/forgotPassword", function(req, res){
-       async.waterfall([
-          function(done){
-            bcrypt.genSalt(10, function(err, buff){
-                var token = buff.toString('hex');
-                done(err, token);
-            });
-          },
-            function(token, done){
-                userDAO.getUserByMail(req.body.email, function(user){
-                    if(user.rows[0] == undefined){
+    app.post("/forgotPassword", function (req, res) {
+        async.waterfall([
+            function (done) {
+                bcrypt.genSalt(10, function (err, buff) {
+                    var token = buff.toString('hex');
+                    done(err, token);
+                });
+            },
+            function (token, done) {
+                userDAO.getUserByMail(req.body.email, function (user) {
+                    if (user.rows[0] == undefined) {
                         console.log("NO MAIL");
                         res.status(400).send("Email not registered");
                         return;
                     }
-                    userDAO.setTokenForUser(user.rows[0].username, token, function(result){
+                    userDAO.setTokenForUser(user.rows[0].username, token, function (result) {
 
                     });
-                    var smtpTransport = nodemailer.createTransport('SMTP',{
+                    var smtpTransport = nodemailer.createTransport('SMTP', {
                         service: 'Mailgun',
-                        auth:{
+                        auth   : {
                             user: 'postmaster@challengeu.com',
                             pass: '4e6cf06c34e9dcc98fa530ba5f8dc5c7'
                         }
                     });
 
                     var mailOptions = {
-                        to: user.rows[0].email,
-                        from: 'postmaster@challengeu.com',
+                        to     : user.rows[0].email,
+                        from   : 'postmaster@challengeu.com',
                         subject: 'ChallengeU Password Reset',
-                        text: 'You are receiving this mail because someone have requested the reset of the password.\n\n'+
-                            'Please click on the following link, or paste it into your browser to complete the process:\n\n'+
-                            'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                            'If you did not request this, please ignore this email.\n'
+                        text   : 'You are receiving this mail because someone have requested the reset of the password.\n\n' +
+                        'Please click on the following link, or paste it into your browser to complete the process:\n\n' +
+                        'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                        'If you did not request this, please ignore this email.\n'
                     };
 
-                    smtpTransport.sendMail(mailOptions, function(err, info){
-                        if(err){
-                            res.status(400).send("Error sending email:"+err);
+                    smtpTransport.sendMail(mailOptions, function (err, info) {
+                        if (err) {
+                            res.status(400).send("Error sending email:" + err);
                             return;
                         }
-                        else{
+                        else {
                             res.send(200);
                         }
                     });
@@ -202,33 +212,33 @@ exports.listen = function (app) {
         ])
     });
 
-    app.get('/reset/:token', function(req,res){
+    app.get('/reset/:token', function (req, res) {
         var messages = generateMessageBlock();
-        userDAO.getUserByToken(req.params.token, function(user){
-          if(user.rows[0] === undefined || user.rows[0] === 'null' || user.rows[0] === null || user.rows[0] === "null"){
-              res.status(400).send("No such token");
-              return;
-          }
+        userDAO.getUserByToken(req.params.token, function (user) {
+            if (user.rows[0] === undefined || user.rows[0] === 'null' || user.rows[0] === null || user.rows[0] === "null") {
+                res.status(400).send("No such token");
+                return;
+            }
 
-           res.render("reset.ejs", {messages: messages, title: 'Reset Password'});
+            res.render("reset.ejs", {messages: messages, title: 'Reset Password'});
         })
     });
 
-    app.post('/reset', function(req, res){
+    app.post('/reset', function (req, res) {
         console.log("TOKEN = " + req.body.token);
-        userDAO.getUserByToken(req.body.token, function(user){
-            if(user.rows[0] === undefined){
+        userDAO.getUserByToken(req.body.token, function (user) {
+            if (user.rows[0] === undefined) {
                 res.status(400).send("No such token");
                 return;
             }
             console.log("PASSWORD " + user.rows[0].username);
-            passwordManager.cryptPassword(req.body.password, null, function(err, hash, password){
-                userDAO.updatePasswordByToken(req.body.token, hash, function(result){
-                    if(!result){
+            passwordManager.cryptPassword(req.body.password, null, function (err, hash, password) {
+                userDAO.updatePasswordByToken(req.body.token, hash, function (result) {
+                    if (!result) {
                         res.status(400).send("Error updating password");
                         return;
                     }
-                    else{
+                    else {
                         res.send(200);
                     }
                 });
@@ -257,21 +267,21 @@ exports.listen = function (app) {
             challengeFn.getChallengesHome(res, messages);
             return;
         }
-        res.render("landing.ejs", {landing: true, messages: messages, title:'Landing'});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
     });
 
 };
 
-var generateMessageBlock = function() {
+var generateMessageBlock = function () {
     return {
         success: [],
-        info  : [],
+        info   : [],
         warning: [],
-        danger: []
+        danger : []
     };
 }
 
-var generateGlobals = function(req) {
+var generateGlobals = function (req) {
     return {
         username: req.session.user.username
     }
