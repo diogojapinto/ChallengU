@@ -14,7 +14,7 @@ var request = require('supertest');
  // or with assert
  test.assert(typeof example === 'string');*/
 
-var url = 'http://178.62.101.158:8081';
+var url = 'http://127.0.0.1:8081';
 
 describe('Account', function () {
     it('should return error because the user does not exist', function (done) {
@@ -117,7 +117,7 @@ describe('Account', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(400); //TODO
+                        res.statusCode.should.equal(200);
                         done();
                     });
             });
@@ -147,7 +147,7 @@ describe('Search', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); //TODO
+                        res.statusCode.should.equal(400);
                         done();
                     });
             });
@@ -176,7 +176,7 @@ describe('Search', function () {
                         if (err) {
                             throw err;
                         }
-                        res.statusCode.should.equal(500); //TODO
+                        res.statusCode.should.equal(200);
                         done();
                     });
             });
