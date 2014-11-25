@@ -26,6 +26,11 @@ exports.insertChallenge = function (userid, data, res) {
         categories[i] = data.category[i];
     }
 
+    if (categories.length == 0) {
+        res.status(400).send(false);
+        return;
+    }
+
     var getInsertedChallengeID = function (results) {
 
         if (!results) {
@@ -37,6 +42,7 @@ exports.insertChallenge = function (userid, data, res) {
         var challengeID = results[results.length - 1].rows[0].currval;
 
         if (challengeID) {
+            console.log("ENTROU");
             res.status(200).send(challengeID.toString());
         } else {
             res.status(400).send(false);

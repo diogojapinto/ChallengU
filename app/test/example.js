@@ -16,20 +16,24 @@ var request = require('supertest');
 
 var url = 'http://127.0.0.1:8081';
 
+var request = require('superagent');
+var user1 = request.agent();
+
 describe('Account', function () {
     it('should return error because the user does not exist', function (done) {
         var user = {
             username: 'blablabla',
             password: 'testblabla'
         };
-        request(url)
-            .post('/login')
+        user1
+            .post(url + '/login')
             .send(user)
             .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
                 res.statusCode.should.equal(400);
+                user1 = request.agent();
                 done();
             });
     });
@@ -39,10 +43,11 @@ describe('Account', function () {
             username: 'modd1',
             password: 'passmod1'
         };
-        request(url)
-            .post('/login')
+
+        user1
+            .post(url + '/login')
             .send(user)
-            .end(function (err, res, req) {
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
@@ -52,134 +57,78 @@ describe('Account', function () {
     });
 });
 
- describe('Challenge', function () {
+describe('Challenge', function () {
     it('should return error because the the category field is empty', function (done) {
-        var user = {
-            username: 'modd1',
-            password: 'passmod1'
+
+        var challenge = {
+            name       : 'blablabla',
+            category   : [],
+            type       : "video",
+            difficulty : "3",
+            description: "bla bla bla whiskas saquetas"
         };
-        request(url)
-            .post('/login')
-            .send(user)
-            .end(function (err, res, req) {
+        user1
+            .post(url + '/create-challenge')
+            .send(challenge)
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
-                res.statusCode.should.equal(200);
-
-                var challenge = {
-                    name       : 'blablabla',
-                    category   : [],
-                    type       : "video",
-                    difficulty : "3",
-                    description: "bla bla bla whiskas saquetas"
-                };
-                request(url)
-                    .post('/create-challenge')
-                    .send(challenge)
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.statusCode.should.equal(400);
-                        done();
-                    });
+                res.statusCode.should.equal(400);
+                done();
             });
-
-
     });
 
     it('should return success', function (done) {
-        var user = {
-            username: 'modd1',
-            password: 'passmod1'
+
+        var challenge = {
+            name       : 'blablabla',
+            category   : [2, 3],
+            type       : "video",
+            difficulty : "3",
+            description: "bla bla bla whiskas saquetas"
         };
-        request(url)
-            .post('/login')
-            .send(user)
-            .end(function (err, res, req) {
+        user1
+            .post(url + '/create-challenge')
+            .send(challenge)
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
                 res.statusCode.should.equal(200);
-
-                var challenge = {
-                    name       : 'blablabla',
-                    category   : [2,3],
-                    type       : "video",
-                    difficulty : "3",
-                    description: "bla bla bla whiskas saquetas"
-                };
-                request(url)
-                    .post('/create-challenge')
-                    .send(challenge)
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.statusCode.should.equal(200);
-                        done();
-                    });
+                done();
             });
-
     });
- });
+
+});
 
 describe('Search', function () {
     it('should return nothing', function (done) {
-        var user = {
-            username: 'modd1',
-            password: 'passmod1'
-        };
-        request(url)
-            .post('/login')
-            .send(user)
-            .end(function (err, res, req) {
+
+        var value = 'random';
+        user1
+            .get(url + '/search/' + value)
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
-                res.statusCode.should.equal(200);
-
-                var value = 'random';
-                request(url)
-                    .get('/search/'+value)
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.statusCode.should.equal(400);
-                        done();
-                    });
+                res.statusCode.should.equal(400);
+                done();
             });
-
-
     });
 
     it('should return results', function (done) {
-        var user = {
-            username: 'modd1',
-            password: 'passmod1'
-        };
-        request(url)
-            .post('/login')
-            .send(user)
-            .end(function (err, res, req) {
+
+        var value = 'most';
+        user1
+            .get(url + '/search/' + value)
+            .end(function (err, res) {
                 if (err) {
                     throw err;
                 }
                 res.statusCode.should.equal(200);
-
-                var value = 'most';
-                request(url)
-                    .get('/search/'+value)
-                    .end(function (err, res) {
-                        if (err) {
-                            throw err;
-                        }
-                        res.statusCode.should.equal(200);
-                        done();
-                    });
+                done();
             });
-
     });
+
 });
