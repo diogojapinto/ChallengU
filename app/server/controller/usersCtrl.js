@@ -63,14 +63,9 @@ exports.registerUser = function (data, res) {
     passwordManager.cryptPassword(password, null, function(err, hash, password){
         userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
     });
-
-
-
 }
 
 exports.getProfile = function (data,res,messages, globals) {
-
-    var user;
 
     var loginCallback = function(results) {
         user = results.rows[0];
@@ -80,3 +75,68 @@ exports.getProfile = function (data,res,messages, globals) {
 
     userDAO.getUserByID(data, loginCallback);
 };
+
+exports.getUserByID = function (userID,res) {
+
+    var loginCallback = function(results) {
+        res.send(results.rows[0]);
+    }
+
+    userDAO.getUserByID(userID, loginCallback);
+}
+
+exports.editProfile = function (data,res) {
+
+    var username = data.username;
+    var oldPassword = data.oldPassword, newPassword = data.newPassword, confirmPassword = data.confirmPassword;
+    var name = data.firstName + " " + data.lastName;
+    var email = data.email;
+    var work = data.work;
+    var hometown = data.hometown;
+
+    var updateCallback = function (update) {
+        if (!update) {
+            res.status(400).send(false);
+            return;
+        } else {
+            res.status(200).send(true);
+            return;
+        }
+    }
+
+
+    var loginCallback = function(results) {
+        user = results.rows[0];
+        console.log(results.rows);
+
+        if (newPassword == confirmPassword && oldPassword != newPassword && oldPassword != confirmPassword) {
+            password = newPassword;
+            console.log("PASSWORD = ", password);
+        } else {
+            res.status(400).send("Passwords must match!");
+            return;
+        }
+
+        if (newPassword.length <= 6 || oldPassword.length <= 6 || confirmPassword.length <= 6) {
+            res.status(400).send("Password length must be greater than 6!");
+            return;
+        }
+
+        if (username.length <= 4 || username.length > 15) {
+            res.status(400).send("Username length must be greater than 4 and lower than 15!");
+            return;
+        }
+
+        passwordManager.comparePassword(oldPassword,results.rows[0].pass, function(err, match) {
+            if (match) {
+                passwordManager.cryptPassword(newPassword, null, function(err, hash, password){
+                    userDAO.updateUser(1,username,hash,name,email,work,hometown,updateCallback);
+                });
+            } else {
+                res.status(400).send("Wrong value for oldPassword");
+            }
+        });
+    }
+
+    userDAO.getUserByID(data.id, loginCallback);
+}

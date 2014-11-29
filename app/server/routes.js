@@ -109,11 +109,40 @@ exports.listen = function (app) {
         challengeFn.searchChallenges(req.params.val, res, messages);
     });
 
+    app.get("/edit-profile/:id", function (req, res) {
+        var messages = generateMessageBlock();
+        var userID = parseInt(req.params.id);
+        var globals = generateGlobals(req);
+        if (req.session.user && req.session.user.userid == userID) {
+            res.render('edit-profile.ejs', {user: userID, title: 'Edit your profile', messages: messages, globals: globals})
+        } else {
+            messages.danger.push("You don't have the permissions to access that link");
+            res.status(400).send(false);
+        }
+    });
+
+    app.post("/get-user/:id", function (req, res) {
+        var userID = parseInt(req.params.id);
+        if (req.session.user) {
+            userFn.getUserByID(userID,res);
+        } else {
+            res.status(400).send(false);
+        }
+    });
+
     app.post("/get-categories", function (req, res) {
         if (req.session.user) {
             challengeFn.getCategories(res);
         } else {
             res.status(400).send(false);
+        }
+    });
+
+    app.post("/edit-profile", function (req, res) {
+        if (req.session.user) {
+            userFn.editProfile(req.body,res);
+        } else {
+            res.redirect("/connect");
         }
     });
 

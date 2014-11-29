@@ -16,9 +16,9 @@
                 <h3><%= user.name %></h3>
                 <h4 class="white"><i class="fa fa-dot-circle-o"></i> <%= user.hometown %></h4>
                 <h4 class="white"><i class="fa fa-at"></i> <%= user.email %></h4>
-                <button type="button" class="btn btn-sky btn-md text-uppercase" href="">
+                <a href="/edit-profile/<%= user.userid %>" class="btn btn-sky btn-md text-uppercase">
                     <i class="fa fa-pencil"></i> Update
-                </button>
+                </a>
             </div>
         </div>
         <div class="col-md-6 no-pad">

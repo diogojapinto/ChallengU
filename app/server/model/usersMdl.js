@@ -8,6 +8,10 @@ exports.register = function (username, password, name, email, work, hometown, us
     db.query("INSERT INTO RegisteredUser (userID, username, pass, name, email, work, hometown, lastFreePoints, xp, userType, userState) VALUES (DEFAULT,"+"'"+username+"'"+","+"'"+password+"'"+","+"'"+name+"'"+","+"'"+email+"'"+","+"'"+work+"'"+","+"'"+hometown+"'"+",DEFAULT,DEFAULT,"+"'"+userType+"'"+","+"'"+userState+"'"+")", [], callback);
 };
 
+exports.updateUser = function (userID,username, password, name, email, work, hometown, callback) {
+    db.query("UPDATE RegisteredUser SET username='" + username + "', pass='" + password + "', name='" + name + "',email='" + email + "',work='" + work + "',hometown='" + hometown + "' WHERE userID ="+userID, [], callback);
+};
+
 exports.getUserByID = function(userID,callback) {
     db.query("SELECT * from RegisteredUser WHERE userID = " + userID, [], callback);
 };
