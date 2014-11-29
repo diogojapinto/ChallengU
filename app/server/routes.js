@@ -109,12 +109,12 @@ exports.listen = function (app, passport) {
         challengeFn.searchChallenges(req.params.val, res, messages);
     });
 
-    app.get("/edit-profile/:id", function (req, res) {
+    app.get("/edit-profile", function (req, res) {
         var messages = generateMessageBlock();
         var userID = parseInt(req.params.id);
         var globals = generateGlobals(req);
-        if (req.session.user && req.session.user.userid == userID) {
-            res.render('edit-profile.ejs', {user: userID, title: 'Edit your profile', messages: messages, globals: globals})
+        if (req.session.user) {
+            res.render('edit-profile.ejs', {user: req.session.user.userid, title: 'Edit your profile', messages: messages, globals: globals})
         } else {
             messages.danger.push("You don't have the permissions to access that link");
             res.status(400).send(false);
@@ -140,6 +140,7 @@ exports.listen = function (app, passport) {
 
     app.post("/edit-profile", function (req, res) {
         if (req.session.user) {
+            console.log(req.body);
             userFn.editProfile(req.body,res);
         } else {
             res.redirect("/connect");
