@@ -8,7 +8,7 @@ var userDAO = require('./model/usersMdl');
 var nodemailer = require('nodemailer');
 var passwordManager = require('./managePasswords');
 
-exports.listen = function (app) {
+exports.listen = function (app, passport) {
 
     app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
@@ -274,6 +274,13 @@ exports.listen = function (app) {
             });
 
         });
+    });
+
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
+
+    app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req,res){
+        var globals = generateGlobals(req);
+        res.send(200);
     });
 
     app.get("/:val", function (req, res) {

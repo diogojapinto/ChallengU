@@ -9,6 +9,7 @@ var methodOverride = require('method-override');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
+var passport = require('passport');
 //var flash = require('express-flash');
 //configuration=====================
 app.set("views", __dirname + '/../views');
@@ -30,9 +31,13 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+require('./loginConfig/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 //routes============================
 var routes = require('./routes.js')
-routes.listen(app);
+routes.listen(app, passport);
 
 //listen============================
 var ipAddress = "0.0.0.0";
