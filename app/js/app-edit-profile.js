@@ -8,6 +8,7 @@
 
         $scope.formData = {};
         $scope.loading = true;
+        $scope.pass = false;
 
         var id = angular.element($('input[name=id]')).val();
 
@@ -17,28 +18,45 @@
         $scope.editProfile = function () {
             $scope.loading = true;
             if ($scope.formData != undefined) {
-                if ($scope.formData.username.length <= 4 || $scope.formData.username.length > 15) {
-                    alert("Username length must be greater than 4 and lower than 15!");
-                    return;
-                } else if ($scope.formData.newPassword.length <= 6 || $scope.formData.confirmPassword.length <= 6 || $scope.formData.oldPassword.length <= 6) {
-                    alert("Password length must be greater than 6!");
-                    return;
-                } else if ($scope.formData.newPassword != $scope.formData.confirmPassword) {
-                    alert("New passwords must match!");
-                    return;
-                } else if ($scope.formData.oldPassword === $scope.formData.newPassword || $scope.formData.oldPassword === $scope.formData.confirmPassword) {
-                    alert("New password must be different from the previous!");
-                    return;
-                } else {
-                    Edit.edit($scope.formData)
-                        .success(function () {
-                            $scope.loading = false;
-                            $scope.formData = {};
-                            $window.location.href = '/profile';
-                        })
-                        .error(function (data) {
-                            $window.location.href = '/connect/error-login';
-                        });
+                if ($scope.pass) {
+                    if ($scope.formData.oldPassword == null || $scope.formData.newPassword == null || $scope.formData.confirmPassword == null) {
+                        alert("Password fields empty!");
+                        return;
+                    }else if ($scope.formData.newPassword.length <= 6 || $scope.formData.confirmPassword.length <= 6 || $scope.formData.oldPassword.length <= 6) {
+                        alert("Password length must be greater than 6!");
+                        return;
+                    } else if ($scope.formData.newPassword != $scope.formData.confirmPassword) {
+                        alert("New passwords must match!");
+                        return;
+                    } else if ($scope.formData.oldPassword === $scope.formData.newPassword || $scope.formData.oldPassword === $scope.formData.confirmPassword) {
+                        alert("New password must be different from the previous!");
+                        return;
+                    }else {
+                        Edit.edit($scope.formData, $scope.pass)
+                            .success(function () {
+                                $scope.loading = false;
+                                $scope.formData = {};
+                                $window.location.href = '/profile';
+                            })
+                            .error(function (data) {
+                                $window.location.href = '/connect/error-login';
+                            });
+                    }
+                }else {
+                    if ($scope.formData.username.length <= 4 || $scope.formData.username.length > 15) {
+                        alert("Username length must be greater than 4 and lower than 15!");
+                        return;
+                    } else {
+                        Edit.edit($scope.formData, $scope.pass)
+                            .success(function () {
+                                $scope.loading = false;
+                                $scope.formData = {};
+                                $window.location.href = '/profile';
+                            })
+                            .error(function (data) {
+                                $window.location.href = '/connect/error-login';
+                            });
+                    }
                 }
             }
         };
@@ -49,8 +67,8 @@
      */
     app.factory('Edit', ['$http', function ($http) {
         return{
-            edit: function (user) {
-                return $http.post('/edit-profile', user);
+            edit: function (user, pass) {
+                return $http.post('/edit-profile', {user: user, pass: pass});
             },
             getUser: function (userID, formData) {
                 $http.post("/get-user/"+userID)

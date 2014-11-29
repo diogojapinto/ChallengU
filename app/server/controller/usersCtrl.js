@@ -87,12 +87,12 @@ exports.getUserByID = function (userID,res) {
 
 exports.editProfile = function (data,res) {
 
-    var username = data.username;
-    var oldPassword = data.oldPassword, newPassword = data.newPassword, confirmPassword = data.confirmPassword;
-    var name = data.firstName + " " + data.lastName;
-    var email = data.email;
-    var work = data.work;
-    var hometown = data.hometown;
+    var username = data.user.username;
+    var oldPassword = data.user.oldPassword, newPassword = data.user.newPassword, confirmPassword = data.user.confirmPassword;
+    var name = data.user.firstName + " " + data.user.lastName;
+    var email = data.user.email;
+    var work = data.user.work;
+    var hometown = data.user.hometown;
 
     var updateCallback = function (update) {
         if (!update) {
@@ -109,34 +109,40 @@ exports.editProfile = function (data,res) {
         user = results.rows[0];
         console.log(results.rows);
 
-        if (newPassword == confirmPassword && oldPassword != newPassword && oldPassword != confirmPassword) {
-            password = newPassword;
-            console.log("PASSWORD = ", password);
-        } else {
-            res.status(400).send("Passwords must match!");
-            return;
-        }
-
-        if (newPassword.length <= 6 || oldPassword.length <= 6 || confirmPassword.length <= 6) {
-            res.status(400).send("Password length must be greater than 6!");
-            return;
-        }
-
         if (username.length <= 4 || username.length > 15) {
             res.status(400).send("Username length must be greater than 4 and lower than 15!");
             return;
         }
 
-        passwordManager.comparePassword(oldPassword,results.rows[0].pass, function(err, match) {
-            if (match) {
-                passwordManager.cryptPassword(newPassword, null, function(err, hash, password){
-                    userDAO.updateUser(1,username,hash,name,email,work,hometown,updateCallback);
-                });
+        if (data.pass) {
+            if (newPassword == confirmPassword && oldPassword != newPassword && oldPassword != confirmPassword) {
+                password = newPassword;
             } else {
-                res.status(400).send("Wrong value for oldPassword");
+                res.status(400).send("Passwords must match!");
+                return;
             }
-        });
+
+            if (newPassword.length <= 6 || oldPassword.length <= 6 || confirmPassword.length <= 6) {
+                res.status(400).send("Password length must be greater than 6!");
+                return;
+            }
+
+            passwordManager.comparePassword(oldPassword,results.rows[0].pass, function(err, match) {
+                if (match) {
+                    passwordManager.cryptPassword(newPassword, null, function(err, hash, password){
+                        userDAO.updateUserWithPass(data.user.id,username,hash,name,email,work,hometown,updateCallback);
+                    });
+                } else {
+                    res.status(400).send("Wrong value for oldPassword");
+                }
+            });
+        } else {
+            userDAO.updateUser(data.user.id,username,name,email,work,hometown,updateCallback);
+        }
+
+
+
     }
 
-    userDAO.getUserByID(data.id, loginCallback);
+    userDAO.getUserByID(data.user.id, loginCallback);
 }
