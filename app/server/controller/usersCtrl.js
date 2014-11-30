@@ -70,7 +70,7 @@ exports.getProfile = function (data,res,messages, globals) {
     var loginCallback = function(results) {
         user = results.rows[0];
         console.log(results.rows);
-        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages, globals: globals, logged: true})
+        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages, globals: globals})
     }
 
     userDAO.getUserByID(data, loginCallback);

@@ -12,33 +12,36 @@ exports.listen = function (app, passport) {
 
     app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         // destroy the user's session to log them out
         // will be re-created next request
         if (req.session.user) {
             req.session.destroy(function () {
                 messages.success.push({title: "Logged Out", content: "You are now logged out!"});
-                res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
+                res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', globals: globals});
             });
         } else {
             messages.warning.push({title: "Sign in first", content: "You are not logged in"});
-            res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
+            res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', globals: globals});
         }
     });
 
     app.get("/connect/:val", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.params.val == "error-login") {
             messages.danger.push({title: "Error", content: "There was an error logging you in!"});
         }
-        res.render('connect.ejs', {messages: messages, title: 'Connect', logged: false});
+        res.render('connect.ejs', {messages: messages, title: 'Connect', globals: globals});
     });
 
     app.get("/connect", function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.session.user) {
             res.redirect('/invalid');
         }
-        res.render('connect.ejs', {messages: messages, title: 'Connect', logged: false});
+        res.render('connect.ejs', {messages: messages, title: 'Connect', globals: globals});
     });
 
     app.get("/post-challenge/:val", function (req, res) {
@@ -47,14 +50,22 @@ exports.listen = function (app, passport) {
         if (req.params.val == "error-challenge") {
             messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
         }
-        res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge', logged: true});
+        res.render('challenge-submit.ejs', {
+            messages: messages,
+            globals : globals,
+            title   : 'Submit your challenge'
+        });
     });
 
     app.get("/post-challenge", function (req, res) {
         var globals = generateGlobals(req);
         var messages = generateMessageBlock();
         if (req.session.user) {
-            res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge', logged: true});
+            res.render('challenge-submit.ejs', {
+                messages: messages,
+                globals : globals,
+                title   : 'Submit your challenge'
+            });
         } else {
             messages.warning.push("You must first login")
             res.redirect('/connect');
@@ -105,8 +116,8 @@ exports.listen = function (app, passport) {
 
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
-        //var globals = generateGlobals(req);
-        challengeFn.searchChallenges(req.params.val, res, messages);
+        var globals = generateGlobals(req);
+        challengeFn.searchChallenges(req.params.val, res, messages, globals);
     });
 
     app.get("/edit-profile", function (req, res) {
@@ -114,7 +125,12 @@ exports.listen = function (app, passport) {
         var userID = parseInt(req.params.id);
         var globals = generateGlobals(req);
         if (req.session.user) {
-            res.render('edit-profile.ejs', {user: req.session.user.userid, title: 'Edit your profile', messages: messages, globals: globals})
+            res.render('edit-profile.ejs', {
+                user    : req.session.user.userid,
+                title   : 'Edit your profile',
+                messages: messages,
+                globals : globals
+            })
         } else {
             messages.danger.push("You don't have the permissions to access that link");
             res.status(400).send(false);
@@ -124,7 +140,7 @@ exports.listen = function (app, passport) {
     app.post("/get-user/:id", function (req, res) {
         var userID = parseInt(req.params.id);
         if (req.session.user) {
-            userFn.getUserByID(userID,res);
+            userFn.getUserByID(userID, res);
         } else {
             res.status(400).send(false);
         }
@@ -141,7 +157,7 @@ exports.listen = function (app, passport) {
     app.post("/edit-profile", function (req, res) {
         if (req.session.user) {
             console.log(req.body);
-            userFn.editProfile(req.body,res);
+            userFn.editProfile(req.body, res);
         } else {
             res.redirect("/connect");
         }
@@ -159,7 +175,7 @@ exports.listen = function (app, passport) {
     app.get("/search-challenge", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge', logged: true});
+        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge'});
     });
 
     app.post("/register", function (req, res) {
@@ -277,14 +293,13 @@ exports.listen = function (app, passport) {
         });
     });
 
-    app.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
 
-    app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req,res){
+    app.get('/auth/facebook/callback', passport.authenticate('facebook'), function (req, res) {
         req.session.regenerate(function () {
             req.session.user = req.user;
             res.redirect('/profile/' + req.user.userid);
         });
-
 
     });
 
@@ -299,16 +314,17 @@ exports.listen = function (app, passport) {
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
         }
-        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', globals: globals});
     });
 
     app.get('*', function (req, res) {
         var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
         if (req.session.user) {
-            challengeFn.getChallengesHome(res, messages);
+            challengeFn.getChallengesHome(res, messages, globals);
             return;
         }
-        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', globals: globals});
     });
 
 };
@@ -323,7 +339,17 @@ var generateMessageBlock = function () {
 }
 
 var generateGlobals = function (req) {
-    return {
-        username: req.session.user.username
+    var ret;
+    if (req.session.user) {
+        ret = {
+            username: req.session.user.username,
+            logged  : true
+        }
+    } else {
+        ret = {
+            username: "",
+            logged  : false
+        }
     }
+    return ret;
 }

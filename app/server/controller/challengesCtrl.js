@@ -98,15 +98,14 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
             title    : 'ChallengeU - Challenge ' + challenge.name,
             challenge: challenge,
             messages : messages,
-            globals  : globals,
-            logged: true
+            globals  : globals
         });
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
 
-exports.searchChallenges = function (searchValue, res, messages) {
+exports.searchChallenges = function (searchValue, res, messages, globals) {
 
     var chall = [];
     var i = 0;
@@ -178,7 +177,7 @@ exports.searchChallenges = function (searchValue, res, messages) {
                     searchUser: users.rows,
                     messages  : messages,
                     val       : searchValue,
-                    logged: true
+                    globals: globals
                 });
             } else {
                 res.status(200).render('search.ejs', {
@@ -187,7 +186,7 @@ exports.searchChallenges = function (searchValue, res, messages) {
                     searchUser: users.rows,
                     messages  : messages,
                     val       : searchValue,
-                    logged: true
+                    globals: globals
                 });
             }
         }
@@ -208,8 +207,7 @@ exports.getChallengesHome = function (res, messages, globals) {
             challenges: challenges.rows,
             messages  : messages,
             globals   : globals,
-            title     : 'Home',
-            logged    : true
+            title     : 'Home'
         });
     };
 
