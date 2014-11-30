@@ -8,7 +8,7 @@ var userDAO = require('./model/usersMdl');
 var nodemailer = require('nodemailer');
 var passwordManager = require('./managePasswords');
 
-exports.listen = function (app) {
+exports.listen = function (app, passport) {
 
     app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
@@ -105,8 +105,29 @@ exports.listen = function (app) {
 
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
+        //var globals = generateGlobals(req);
+        challengeFn.searchChallenges(req.params.val, res, messages);
+    });
+
+    app.get("/edit-profile", function (req, res) {
+        var messages = generateMessageBlock();
+        var userID = parseInt(req.params.id);
         var globals = generateGlobals(req);
-        challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        if (req.session.user) {
+            res.render('edit-profile.ejs', {user: req.session.user.userid, title: 'Edit your profile', messages: messages, globals: globals})
+        } else {
+            messages.danger.push("You don't have the permissions to access that link");
+            res.status(400).send(false);
+        }
+    });
+
+    app.post("/get-user/:id", function (req, res) {
+        var userID = parseInt(req.params.id);
+        if (req.session.user) {
+            userFn.getUserByID(userID,res);
+        } else {
+            res.status(400).send(false);
+        }
     });
 
     app.post("/get-categories", function (req, res) {
@@ -114,6 +135,15 @@ exports.listen = function (app) {
             challengeFn.getCategories(res);
         } else {
             res.status(400).send(false);
+        }
+    });
+
+    app.post("/edit-profile", function (req, res) {
+        if (req.session.user) {
+            console.log(req.body);
+            userFn.editProfile(req.body,res);
+        } else {
+            res.redirect("/connect");
         }
     });
 
@@ -245,6 +275,17 @@ exports.listen = function (app) {
             });
 
         });
+    });
+
+    app.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
+
+    app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req,res){
+        req.session.regenerate(function () {
+            req.session.user = req.user;
+            res.redirect('/profile/' + req.user.userid);
+        });
+
+
     });
 
     app.get("/:val", function (req, res) {
