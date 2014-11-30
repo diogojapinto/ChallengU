@@ -98,7 +98,8 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
             title    : 'ChallengeU - Challenge ' + challenge.name,
             challenge: challenge,
             messages : messages,
-            globals: globals
+            globals  : globals,
+            logged: true
         });
     };
 
@@ -142,20 +143,22 @@ exports.searchChallenges = function (searchValue, res, messages) {
             if (chall.length <= 0) {
 
                 res.status(400).render('search.ejs', {
-                    title   : 'Search Results',
-                    searchChal  : chall,
+                    title     : 'Search Results',
+                    searchChal: chall,
                     searchUser: users.rows,
-                    messages : messages,
-                    val     : searchValue
+                    messages  : messages,
+                    val       : searchValue,
+                    logged: true
                 });
             } else {
                 console.log(chall);
                 res.status(200).render('search.ejs', {
-                    title   : 'Search Results',
-                    searchChal  : chall,
+                    title     : 'Search Results',
+                    searchChal: chall,
                     searchUser: users.rows,
-                    messages : messages,
-                    val     : searchValue
+                    messages  : messages,
+                    val       : searchValue,
+                    logged: true
                 });
             }
         }
@@ -172,7 +175,13 @@ exports.getChallengesHome = function (res, messages, globals) {
             messages.warning.push({title: "No Challenges", content: "No challenges available"});
             challenges.rows = null;
         }
-        res.render("home.ejs", {challenges: challenges.rows, messages: messages, globals: globals, title: 'Home'});
+        res.render("home.ejs", {
+            challenges: challenges.rows,
+            messages  : messages,
+            globals   : globals,
+            title     : 'Home',
+            logged    : true
+        });
     };
 
     challengeDAO.getChallengesHome(sendHomepage);

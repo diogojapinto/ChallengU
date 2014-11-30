@@ -17,11 +17,11 @@ exports.listen = function (app) {
         if (req.session.user) {
             req.session.destroy(function () {
                 messages.success.push({title: "Logged Out", content: "You are now logged out!"});
-                res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
+                res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
             });
         } else {
             messages.warning.push({title: "Sign in first", content: "You are not logged in"});
-            res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
+            res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
         }
     });
 
@@ -30,7 +30,7 @@ exports.listen = function (app) {
         if (req.params.val == "error-login") {
             messages.danger.push({title: "Error", content: "There was an error logging you in!"});
         }
-        res.render('connect.ejs', {messages: messages, title: 'Connect'});
+        res.render('connect.ejs', {messages: messages, title: 'Connect', logged: false});
     });
 
     app.get("/connect", function (req, res) {
@@ -38,7 +38,7 @@ exports.listen = function (app) {
         if (req.session.user) {
             res.redirect('/invalid');
         }
-        res.render('connect.ejs', {messages: messages, title: 'Connect'});
+        res.render('connect.ejs', {messages: messages, title: 'Connect', logged: false});
     });
 
     app.get("/post-challenge/:val", function (req, res) {
@@ -47,14 +47,14 @@ exports.listen = function (app) {
         if (req.params.val == "error-challenge") {
             messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
         }
-        res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge'});
+        res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge', logged: true});
     });
 
     app.get("/post-challenge", function (req, res) {
         var globals = generateGlobals(req);
         var messages = generateMessageBlock();
         if (req.session.user) {
-            res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge'});
+            res.render('challenge-submit.ejs', {messages: messages, globals: globals, title: 'Submit your challenge', logged: true});
         } else {
             messages.warning.push("You must first login")
             res.redirect('/connect');
@@ -129,7 +129,7 @@ exports.listen = function (app) {
     app.get("/search-challenge", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge'});
+        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge', logged: true});
     });
 
     app.post("/register", function (req, res) {
@@ -258,7 +258,7 @@ exports.listen = function (app) {
         } else if (req.params.val == "invalid") {
             messages.danger.push({title: "Invalid action", content: "You performed an invalid action!"});
         }
-        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
     });
 
     app.get('*', function (req, res) {
@@ -267,7 +267,7 @@ exports.listen = function (app) {
             challengeFn.getChallengesHome(res, messages);
             return;
         }
-        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing'});
+        res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', logged: false});
     });
 
 };
