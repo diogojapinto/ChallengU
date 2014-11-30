@@ -16,6 +16,7 @@ btn-sky->blue
 // generic
 
 // to be used
+http://bootsnipp.com/snippets/featured/profile-box=============================> homepage challenge
 http://timschlechter.github.io/bootstrap-tagsinput/examples/===================> tags
 http://bootsnipp.com/snippets/featured/change-password-form-with-validation====> proper password validation (could also add the "see password")
 http://bootsnipp.com/snippets/featured/font-awesome-star-ratings===============> ratings everywhere

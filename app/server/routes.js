@@ -8,7 +8,19 @@ var userDAO = require('./model/usersMdl');
 var nodemailer = require('nodemailer');
 var passwordManager = require('./managePasswords');
 
+
 exports.listen = function (app) {
+
+    var io = require('socket.io')(app);
+    var connectedUsers = {};
+
+    io.on('connection', function (client) {
+        client.on('online', function (msg) {
+            connectedUsers[msg.username] = client;
+            console.log("saved user socket");
+        })
+    });
+
 
     app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
@@ -74,6 +86,7 @@ exports.listen = function (app) {
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
+            connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             var globals = generateGlobals(req);
             userFn.getProfile(req.session.user.userid, res, messages, globals);
         } else {
