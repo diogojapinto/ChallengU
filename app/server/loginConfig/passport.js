@@ -9,8 +9,8 @@ module.exports = function(passport){
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        userDAO.getUserByID(id, function(err, user) {
+    passport.deserializeUser(function(user, done) {
+        userDAO.getUserByID(user.userid, function(err, user) {
             done(err, user);
         });
     });
@@ -26,15 +26,10 @@ module.exports = function(passport){
             process.nextTick(function(){
                 userDAO.getUserByFbId(profile.id, function(user){
                     if(user.rows[0] != undefined){ //Found, log the user
-                        console.log("FOUND IT");
-                        req.session.regenerate(function () {
-                            req.session.user = user.rows[0];
-                        });
-                        return done(null, user.rows[0].userid);
+                        return done(null, user.rows[0]);
                     }else{//Not found, register in db
-                        console.log("USER REGISTERING WITH MAIL = " + JSON.stringify(profile.emails[0]));
                         userDAO.registerUserFb(profile.id, token, profile.name.givenName + ' ' + profile.name.familyName, profile.emails[0].value, function(result){
-
+                            return done(null, result.rows[0]);
                         });
                     }
                 });

@@ -1,5 +1,5 @@
 var db = require('../database-setup.js');
-var bcrypt = require('bcrypt');
+var passwordManager = require('../managePasswords');
 
 exports.getUser = function (username, callback) {
     db.query("SELECT * FROM RegisteredUser WHERE username=" + "'" + username + "'", [], callback);
@@ -42,7 +42,8 @@ exports.getUserByFbId = function(id, callback){
 
 exports.registerUserFb = function(id, token, name, email, callback){
     var pass = Math.random().toString(36).slice(2);
-    console.log("PASS = " + pass);
-    db.query("INSERT INTO RegisteredUser (userID, username, pass, name, email, work, hometown, userType, userState) " +
-        "VALUES (DEFAULT," + "'" + id + "'," + "'" + pass + "'," + "'" + name + "'," + "'" + email + "'," + "'none','none','user','normal')", [], callback);
+    passwordManager.cryptPassword(pass, null, function(err, hash, pass){
+        db.query("INSERT INTO RegisteredUser (userID, username, pass, name, email, work, hometown, userType, userState) " +
+            "VALUES (DEFAULT," + "'" + id + "'," + "'" + hash + "'," + "'" + name + "'," + "'" + email + "'," + "'none','none','user','normal') RETURNING *", [], callback);
+    });
 }

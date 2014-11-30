@@ -280,8 +280,12 @@ exports.listen = function (app, passport) {
     app.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
 
     app.get('/auth/facebook/callback', passport.authenticate('facebook'), function(req,res){
-        var globals = generateGlobals(req);
-        res.send(200);
+        req.session.regenerate(function () {
+            req.session.user = req.user;
+            res.redirect('/profile/' + req.user.userid);
+        });
+
+
     });
 
     app.get("/:val", function (req, res) {
