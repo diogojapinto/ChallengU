@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+</head>
+<body ng-app="edit-profile-app">
+<% include partials/header %>
+
+<div class="container vertical-offset-100" ng-controller="editProfileController as editCtrl">
+    <div class="row">
+
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row-fluid user-row">
+                        <img src="../images/edit-icon.png" style="width:30%;height:30%" class="img-responsive"
+                             alt="Console Admin"/>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="editProfileForm">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <span class="input-group-addon">
+                                    Username
+                                 </span>
+                            </div>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.username" type="text"
+                                       placeholder="New Username" pattern="[a-zA-Z0-9]{5,15}"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <span class="input-group-addon">
+                                    Old Password
+                                 </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.oldPassword" type="password"
+                                       placeholder="Old password" pattern=".{7,}"
+                                       />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <span class="input-group-addon">
+                                    New Password
+                                 </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.newPassword" type="password"
+                                       placeholder="New password" pattern=".{7,}"
+                                       />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        Confirm Password
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.confirmPassword" type="password"
+                                       placeholder="Confirm new password" pattern=".{7,}"
+                                       />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        First Name
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.firstName" type="text"
+                                       placeholder="New first name"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        Last Name
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.lastName" type="text"
+                                       placeholder="New lastName"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        Email
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.email" type="text"
+                                       placeholder="New email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        Work
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.work" type="text"
+                                       placeholder="New work"
+                                       required/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                    <span class="input-group-addon">
+                                        Hometown
+                                    </span>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="formData.hometown" type="text"
+                                       placeholder="New hometown"
+                                       required/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                Change Password
+                                <input type="checkbox" ng-model="pass"/>
+                            </div>
+                        </div>
+                        <button style="width: 100%;margin:0px" class="btn btn-sky btn-lg text-uppercase"
+                                ng-disabled="!editProfileForm.$valid"
+                                type="submit"
+                                ng-click="editProfile()">
+                            Edit Profile
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<% include partials/scripts %>
+<script type="text/javascript" src="/js/app-edit-profile.js"></script>
+<input type="hidden" value="<%= user %>" ng-init="id='<%= user %>'" ng-model="id" name="id"/>
+</body>
+</html>

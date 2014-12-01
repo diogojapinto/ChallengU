@@ -97,49 +97,95 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
             title    : 'ChallengeU - Challenge ' + challenge.name,
             challenge: challenge,
             messages : messages,
-            globals: globals
+            globals  : globals
         });
     };
 
     challengeDAO.getChallenge(challengeID, assembleChallenge);
 };
 
-exports.searchChallenges = function (searchValue, res, messages) {
+exports.searchChallenges = function (searchValue, res, messages, globals) {
 
-    var stars = [];
+    var chall = [];
+    var i = 0;
 
     var sendSearchResults = function (challenges) {
 
         if (!challenges) {
             res.status(400).send(false);
+            return;
         } else {
-            for (var i = 0; i < challenges.rows.length; i++) {
-                var st = [];
-                for (var j = 0; j < 5; j++) {
-                    if (j < challenges.rows[i]['difficulty']) {
-                        st.push(1);
+            if (challenges.rows.length == 0) {
+                userDAO.getUser(searchValue, sendResults);
+            } else {
+                for (i = 0; i < challenges.rows.length; i++) {
+                    var st = [];
+                    for (var j = 0; j < 5; j++) {
+                        if (j < challenges.rows[i]['difficulty']) {
+                            st.push(1);
+                        } else {
+                            st.push(0);
+                        }
+                    }
+                    challenges.rows[i]['stars'] = st;
+                    challenges.rows[i]['n'] = i;
+
+                    if (i < challenges.rows.length - 1) {
+                        getCategories(challenges.rows[i]);
                     } else {
-                        st.push(0);
+                        getLastCategories(challenges.rows[i]);
                     }
                 }
-                challenges.rows[i]['stars'] = st;
+                chall = challenges.rows;
             }
-            console.log(searchValue);
-            if (challenges.rows.length <= 0) {
+        }
+    }
+
+    var getCategories = function (challenge) {
+
+        var insertCategories = function (categories) {
+            console.log(categories);
+            challenge['categories'] = categories.rows;
+        }
+
+        challengeDAO.getCategoriesByID(challenge.challengeid, insertCategories);
+    }
+
+    var getLastCategories = function (challenge) {
+
+        var insertLastCategories = function (categories) {
+            console.log(categories);
+            challenge['categories'] = categories.rows;
+            userDAO.getUser(searchValue, sendResults);
+        }
+
+        challengeDAO.getCategoriesByID(challenge.challengeid, insertLastCategories);
+    }
+
+
+    var sendResults = function (users) {
+        if (!users) {
+            res.status(400).send(false);
+            return;
+        } else {
+            if (chall.length <= 0 && users.length <= 0) {
 
                 res.status(400).render('search.ejs', {
-                    title   : 'Search Results',
-                    search  : challenges.rows,
-                    messages: messages,
-                    val     : searchValue
+                    title     : 'Search Results',
+                    searchChal: chall,
+                    searchUser: users.rows,
+                    messages  : messages,
+                    val       : searchValue,
+                    globals: globals
                 });
             } else {
-
                 res.status(200).render('search.ejs', {
-                    title   : 'Search Results',
-                    search  : challenges.rows,
-                    messages: messages,
-                    val     : searchValue
+                    title     : 'Search Results',
+                    searchChal: chall,
+                    searchUser: users.rows,
+                    messages  : messages,
+                    val       : searchValue,
+                    globals: globals
                 });
             }
         }
@@ -156,7 +202,12 @@ exports.getChallengesHome = function (res, messages, globals) {
             messages.warning.push({title: "No Challenges", content: "No challenges available"});
             challenges.rows = null;
         }
-        res.render("home.ejs", {challenges: challenges.rows, messages: messages, globals: globals, title: 'Home'});
+        res.render("home.ejs", {
+            challenges: challenges.rows,
+            messages  : messages,
+            globals   : globals,
+            title     : 'Home'
+        });
     };
 
     challengeDAO.getChallengesHome(sendHomepage);

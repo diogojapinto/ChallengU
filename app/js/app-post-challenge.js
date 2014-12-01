@@ -25,7 +25,7 @@
         this.challengeCategories = [];
         Challenges.getCategories(this.challengeCategories);
 
-        this.challengeTypes = ['sound', 'text', 'photo', 'video'];
+        this.challengeTypes = ['audio', 'text', 'photo', 'video'];
 
         $scope.toggleSelection = function toggleSelection(category) {
             var idx = $scope.formData.category.indexOf(category);
