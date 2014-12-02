@@ -1,4 +1,7 @@
-﻿DROP TABLE IF EXISTS UserAchievement;
+﻿SET DATESTYLE TO PostgreSQL,European;
+SET TIMEZONE TO 'Portugal';
+
+DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
 DROP TABLE IF EXISTS RateChallengeProof;
 DROP TABLE IF EXISTS RateComment;
@@ -166,15 +169,15 @@ INSERT INTO Category (name) VALUES
 /* Users */
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT, 'modd1', 'passmod1', 'Mod', 'mod@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'moderator',
-   'normal');
+  (DEFAULT, 'modd1', '$2a$10$HYNUS6BrRvShEIeiDuvaDOwSBKQDGq0ikEX.CVaRmZHAo135MsB.u', 'Mod', 'mod@gmail.com', 'job',
+   'hometown', DEFAULT, DEFAULT, 'moderator', 'normal'); -- passmod1
 
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT, 'joao1', 'passjoao', 'Joao', 'joao@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT, 'user',
-   'normal');
+  (DEFAULT, 'joao1', '$2a$10$lUN28f9Qfrsa3En2ldAnh./EjUrOgYX6F0kkTGf7PzI407vvZmiTy', 'Joao', 'joao@gmail.com', 'job',
+   'hometown', DEFAULT, DEFAULT, 'user', 'normal'); -- passjoao
 INSERT INTO RegisteredUser VALUES
-  (DEFAULT, 'manuel', 'passmanuel', 'Manuel', 'manuel@gmail.com', 'job', 'hometown', DEFAULT, DEFAULT,
-   'user', 'normal');
+  (DEFAULT, 'manuel', '$2a$10$CG9qQ.rImbgqHTDAu.sexeXYYB6fxs7po5fNxZALmrYPCQenBtH42', 'Manuel', 'manuel@gmail.com',
+   'job', 'hometown', DEFAULT, DEFAULT, 'user', 'normal'); -- passmanuel
 
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
