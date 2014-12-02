@@ -25,6 +25,8 @@ exports.listen = function (app, passport, io) {
         // will be re-created next request
         if (req.session.user) {
             req.session.destroy(function () {
+                globals.username = "";
+                globals.logged = false;
                 messages.success.push({title: "Logged Out", content: "You are now logged out!"});
                 res.render("landing.ejs", {landing: true, messages: messages, title: 'Landing', globals: globals});
             });

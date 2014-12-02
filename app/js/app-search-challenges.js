@@ -28,7 +28,7 @@
     }]);
 
     var otherApp = document.getElementById('oApp');
-    if (oApp != null) {
+    if (otherApp != null) {
         angular.bootstrap(otherApp, angular.element('#otherApp').attr('ng-app'));
     }
 })();
