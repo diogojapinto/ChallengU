@@ -4,10 +4,10 @@
     <% include partials/head %>
     <link type="text/css" rel="stylesheet" href="../css/profile.css">
 </head>
-<body>
+<body ng-app="profile-app">
 <% include partials/header %>
 
-<div class="container" style="width:80%">
+<div ng-controller="ProfileController as profileCtrl" class="container" style="width:80%">
     <div class="row user-menu-container square">
         <div class="col-md-6 user-details">
             <div class="row coralbg white">
@@ -16,9 +16,12 @@
                         <h3><%= user.name %></h3>
                         <h4 class="white"><i class="fa fa-dot-circle-o"></i> <%= user.hometown %></h4>
                         <h4 class="white"><i class="fa fa-at"></i> <%= user.email %></h4>
-                        <a href="/edit-profile" class="btn btn-sky btn-md text-uppercase">
+                        <a href="/edit-profile" class="btn btn-sky btn-md text-uppercase" href="">
                             <i class="fa fa-pencil"></i> Update
                         </a>
+                        <button type="button" class="btn btn-sky btn-md text-uppercase" ng-click="addFriend(<%= user.userid %>)">
+                            <i class="fa fa-pencil"></i> Add Friend
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-6 no-pad">
@@ -140,7 +143,8 @@
                             <p class="small" style="text-overflow: ellipsis">An Awesome Title</p>
 
                             <p class="small coral text-right"><i class="fa fa-clock-o"></i> Posted Today | 10:42
-                                A.M.</small></p>
+                                <small>A.M.</small>
+                            </p>
                         </div>
                         <div class="stats turqbg">
                             <span class="fa fa-heart-o"> <strong>47</strong></span>
@@ -162,7 +166,8 @@
                             <p class="small" style="text-overflow: ellipsis">An Awesome Title</p>
 
                             <p class="small coral text-right"><i class="fa fa-clock-o"></i> Posted Today | 10:42
-                                A.M.</small></p>
+                                <small>A.M.</small>
+                            </p>
                         </div>
                         <div class="stats turqbg">
                             <span class="fa fa-heart-o"> <strong>47</strong></span>
@@ -241,10 +246,11 @@
             </div>
         </div>
     </div>
-
-    <% include partials/footer %>
-    <% include partials/scripts %>
-    <script src="../js/profile.js"></script>
-    <% include partials/global-app-scripts %>
+</div>
+<% include partials/footer %>
+<% include partials/scripts %>
+<script src="../js/profile.js"></script>
+<script src="../js/app-profile.js"></script>
+<% include partials/global-app-scripts %>
 </body>
 </html>
