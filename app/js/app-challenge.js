@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('challenge', []);
+    var app = angular.module('app-challenge', []);
 
     app.controller('ProofSubmit', ['$scope', '$http', 'Proof', function ($scope, $http, Proof) {
         $scope.postChallengeProof = function () {

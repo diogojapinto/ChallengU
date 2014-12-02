@@ -26,4 +26,9 @@
             }
         }
     }]);
+
+    var otherApp = document.getElementById('oApp');
+    if (oApp != null) {
+        angular.bootstrap(otherApp, angular.element('#otherApp').attr('ng-app'));
+    }
 })();

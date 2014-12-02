@@ -1,7 +1,6 @@
 var path = require('path');
 var challengeFn = require('./controller/challengesCtrl');
 var userFn = require('./controller/usersCtrl');
-var allPasswordsEncrypter = require('./encryptAllPasswords');
 var bcrypt = require('bcrypt');
 var async = require('async');
 var userDAO = require('./model/usersMdl');
@@ -210,11 +209,6 @@ exports.listen = function (app, passport, io) {
             messages.danger.push("Please login in order to post a challenge proof");
             res.status(400).send(false);
         }
-    });
-
-    app.get("/encrypt", function (req, res) {
-        allPasswordsEncrypter.encryptAll();
-        res.redirect('/');
     });
 
     app.post("/forgotPassword", function (req, res) {

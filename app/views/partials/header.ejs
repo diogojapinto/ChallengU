@@ -41,7 +41,7 @@
 
 <!---------Nav Bar-------------->
 
-<section class="wrapper">
+<section class="wrapper" ng-app="search-challenges-app">
 
     <nav class="navbar navbar-default" role="navigation">
 
@@ -84,26 +84,28 @@
                     </ul>
                 </li-->
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+            <form ng-controller="ChallengeSearchController as searchCtrl" class="navbar-form navbar-left" role="search">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input class="form-control" ng-model="formData.searchValue" type="text" placeholder="Search for challenges"
+                           required/>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" ng-disabled="!search.$valid"
+                        ng-click="searchChallenge()" class="btn btn-default">Submit</button>
             </form>
             <% if (typeof(globals) != "undefined") { %>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="username"><%= globals.username %></div>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="username" style="display:inline"><%= globals.username %></div>
                         <span class="glyphicon glyphicon-user pull-right"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                        <li><a href="/edit-profile">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="#">User stats <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
                         <li class="divider"></li>
                         <li><a href="#">Messages <span class="badge pull-right"> 42 </span></a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Favourites Snippets <span
+                        <li><a href="#">Favourite Snippets <span
                                         class="glyphicon glyphicon-heart pull-right"></span></a></li>
                         <li class="divider"></li>
                         <li><a href="/logout">Sign Out <span class="glyphicon glyphicon-log-out pull-right"></span></a>
@@ -156,7 +158,7 @@
                 </div>
             </div>
         </a>
-        <a href="#" title="Challenges">
+        <a href="/post-challenge" title="Challenges">
             <div class="row">
                 <div class="col-sm-8 navElem">
                     Challenges
