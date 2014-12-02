@@ -4,10 +4,10 @@
     <% include partials/head %>
     <link rel="stylesheet" type="text/css" href="/css/tabs.css">
 </head>
-<body ng-app="global-app">
+<body>
 <% include partials/header %>
 
-<div class="container">
+<div class="container" ng-app="connect-app">
     <section>
         <div class="container vertical-offset-20">
             <div class="row">
@@ -68,5 +68,6 @@
 <script type="text/javascript" src="/js/app-register.js"></script>
 <script type="text/javascript" src="/js/app-login.js"></script>
 <script type="text/javascript" src="/js/app-forgot.js"></script>
+<% include partials/global-app-scripts %>
 </body>
 </html>
