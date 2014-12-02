@@ -19,16 +19,16 @@ app.use("/images", express.static(path.join(__dirname, '../images')));
 app.use("/js", express.static(path.join(__dirname, '/../js')));
 app.use("/fonts", express.static(path.join(__dirname, '../fonts')));
 app.use(morgan('dev')); // log every request to the console
-app.use(bodyParser.urlencoded({'extended':'true'})); // parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({'extended': 'true'})); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
+app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 app.use(express.static(path.join(__dirname, '../../landing/')));
 //app.use(flash());
 app.use(cookieParser('shhhh, very very very secretzzzzz'));
 app.use(session({
-    secret: 'shhhh, very very very secretzzzzz',
-    resave: true,
+    secret           : 'shhhh, very very very secretzzzzz',
+    resave           : true,
     saveUninitialized: true
 }));
 
@@ -37,13 +37,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 //routes============================
 var routes = require('./routes.js')
-routes.listen(app, passport);
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+routes.listen(app, passport, io);
 
 //listen============================
 var ipAddress = "0.0.0.0";
 var port = 8081;
-app.listen(port, ipAddress, function(){
-  console.log((new Date()) + ' Server is listening on port ' + port);
+
+server.listen(port, ipAddress, function () {
+    console.log((new Date()) + ' Server is listening on port ' + port);
 });
 
 //Exports
