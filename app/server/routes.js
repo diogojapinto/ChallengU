@@ -15,7 +15,6 @@ exports.listen = function (app, passport, io) {
     io.on('connection', function (client) {
         client.on('online', function (msg) {
             connectedUsers[msg.username] = client;
-            console.log("saved user socket");
         })
     });
 
