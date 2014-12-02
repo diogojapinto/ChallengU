@@ -9,9 +9,9 @@ var nodemailer = require('nodemailer');
 var passwordManager = require('./managePasswords');
 
 
-exports.listen = function (app) {
+exports.listen = function (app, io) {
 
-    var io = require('socket.io')(app);
+
     var connectedUsers = {};
 
     io.on('connection', function (client) {
@@ -86,9 +86,10 @@ exports.listen = function (app) {
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
+            console.log(req.session.user.username);
             connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             var globals = generateGlobals(req);
-            userFn.getProfile(req.session.user.userid, res, messages, globals);
+            userFn.getProfile(req.session.user.userid, res, messages, globals, connectedUsers[req.session.user.username]);
         } else {
             res.redirect('/connect');
         }

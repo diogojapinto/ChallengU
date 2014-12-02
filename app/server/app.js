@@ -32,12 +32,16 @@ app.use(session({
 }));
 //routes============================
 var routes = require('./routes.js')
-routes.listen(app);
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+routes.listen(app, io);
 
 //listen============================
 var ipAddress = "0.0.0.0";
 var port = 8081;
-app.listen(port, ipAddress, function () {
+
+server.listen(port, ipAddress, function () {
     console.log((new Date()) + ' Server is listening on port ' + port);
 });
 
