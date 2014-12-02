@@ -26,6 +26,7 @@ CREATE TYPE UserType AS ENUM ('user', 'moderator', 'admin');
 CREATE TYPE UserState AS ENUM ('ban', 'tempban', 'normal');
 CREATE TYPE ChallengeTarget AS ENUM ('private', 'community', 'friendly');
 CREATE TYPE ChallengeType AS ENUM ('text', 'audio', 'video', 'photo');
+CREATE TYPE StatusType AS ENUM ('read', 'unread');
 
 
 /***********************************
@@ -43,7 +44,7 @@ CREATE TABLE RegisteredUser (
   xp             INTEGER             NOT NULL DEFAULT 0,
   userType       UserType,
   userState      UserState,
-  passwordToken  VARCHAR(255)        DEFAULT 'null',
+  passwordToken  VARCHAR(255)                 DEFAULT 'null',
 
   CHECK (char_length(pass) > 6),
   CHECK (char_length(Username) > 4)
@@ -147,6 +148,18 @@ CREATE TABLE UserAchievement (
   achievementID INTEGER,
   FOREIGN KEY (userID) REFERENCES RegisteredUser ON DELETE CASCADE,
   FOREIGN KEY (achievementID) REFERENCES Achievement
+);
+
+CREATE TABLE PersistentNotifications (
+  notificationID SERIAL PRIMARY KEY,
+  receiveirID    INTEGER,
+  senderID       INTEGER,
+  type           VARCHAR,
+  info           INTEGER,
+  status         StatusType,
+  FOREIGN KEY (receiveirID) REFERENCES RegisteredUser ON DELETE CASCADE,
+  FOREIGN KEY (senderID) REFERENCES RegisteredUser ON DELETE CASCADE
+
 );
 
 /***********************************

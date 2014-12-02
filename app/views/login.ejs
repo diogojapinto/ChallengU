@@ -15,7 +15,7 @@
                                     <span class="input-group-addon">
                                         @
                                     </span>
-                                <input class="form-control" ng-model="formData.username" type="text"
+                                <input class="form-control" id="username" ng-model="formData.username" type="text"
                                        placeholder="Username"
                                        required/>
                             </div>
@@ -27,7 +27,7 @@
                                     <i class="glyphicon glyphicon-lock">
                                     </i>
                                 </span>
-                                <input class="form-control" ng-model="formData.password" type="password"
+                                <input class="form-control" id="password" ng-model="formData.password" type="password"
                                        placeholder="Password"
                                        required/>
                             </div>
@@ -36,7 +36,7 @@
                         <a href="" data-toggle="modal"
                            data-target="#myModal">Forgot your password?</a>
                         <br/>
-                        <button style="width: 100%" class="btn btn-sky btn-lg text-uppercase" ng-disabled="!loginForm.$valid"
+                        <button style="width: 100%" id="loginButton" class="btn btn-sky btn-lg text-uppercase" ng-disabled="!loginForm.$valid"
                                 type="submit"
                                 ng-click="login()">
                             Submit
