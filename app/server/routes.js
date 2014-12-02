@@ -19,7 +19,6 @@ exports.listen = function (app, passport, io) {
         })
     });
 
-
     app.get('/logout', function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
@@ -95,9 +94,8 @@ exports.listen = function (app, passport, io) {
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
-            console.log(req.session.user.username);
-            connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             var globals = generateGlobals(req);
+            connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             userFn.getProfile(req.session.user.userid, res, messages, globals, connectedUsers[req.session.user.username]);
         } else {
             res.redirect('/connect');
