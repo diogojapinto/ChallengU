@@ -56,3 +56,7 @@ exports.findFriendRequest = function(receiver, sender, callback) {
     //console.log("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'");
     db.query("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + "AND senderID = " + sender + "AND type LIKE 'amizade'", [], callback);
 }
+
+exports.getAllNotifications = function(receiver, callback) {
+    db.query("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver, [], callback);
+}

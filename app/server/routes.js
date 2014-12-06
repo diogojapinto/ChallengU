@@ -13,7 +13,10 @@ exports.listen = function (app, passport, io) {
 
     io.on('connection', function (client) {
         client.on('online', function (msg) {
-            connectedUsers[msg.username] = client;
+            if (msg.username != "") {
+                connectedUsers[msg.username] = client;
+                userFn.sendNotifications(msg.username, connectedUsers[msg.username]);
+            }
         })
     });
 
@@ -85,7 +88,7 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages, connectedUsers[req.session.user.username]);
+            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages, req.session.user.username, connectedUsers);
         } else {
             res.status(400).send(false);
         }

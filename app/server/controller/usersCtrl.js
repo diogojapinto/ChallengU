@@ -68,17 +68,38 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
     var loginCallback = function (results) {
         user = results.rows[0];
         if (!self) {
-            var hasRequest = function(result) {
+            var hasRequest = function (result) {
                 if (result.rowCount == 0) {
-                    res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: false});
+                    res.render('profile.ejs', {
+                        user      : user,
+                        title     : 'Profile',
+                        messages  : messages,
+                        globals   : globals,
+                        self      : self,
+                        hasRequest: false
+                    });
                 } else {
-                    res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: true});
+                    res.render('profile.ejs', {
+                        user      : user,
+                        title     : 'Profile',
+                        messages  : messages,
+                        globals   : globals,
+                        self      : self,
+                        hasRequest: true
+                    });
                 }
             };
 
             userDAO.findFriendRequest(user.userid, id, hasRequest);
         } else {
-            res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: false});
+            res.render('profile.ejs', {
+                user      : user,
+                title     : 'Profile',
+                messages  : messages,
+                globals   : globals,
+                self      : self,
+                hasRequest: false
+            });
         }
 
     }
@@ -154,7 +175,7 @@ exports.editProfile = function (data, res) {
     userDAO.getUserByID(data.user.id, loginCallback);
 }
 
-exports.addFriendRequest = function (user, res, friend, globals, messages, socket) {
+exports.addFriendRequest = function (user, res, friend, globals, messages, senderUsername, sockets) {
 
     if (user != friend && user > 0 && friend > 0) {
         var friendCallback = function (results) {
@@ -162,8 +183,13 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, socke
 
                 res.status(400).send("Error making request");
             } else {
-                socket.emit('notification', "Friend Request sent!");
-                res.status(200).send("OK");
+                sockets[senderUsername].emit('notification', "Friend Request sent!");
+                var getUsername = function (result) {
+
+                    sockets[result.rows[0].username].emit('notification', "User " + senderUsername + " sent you a Friend request");
+                    res.status(200).send("OK");
+                }
+                userDAO.getUserByID(friend, getUsername);
             }
         };
 
@@ -172,4 +198,29 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, socke
         res.status(400).send("Error making request");
     }
 
+}
+
+exports.sendNotifications = function (username, socket) {
+    var getUser = function (user) {
+        var id = user.rows[0].userid;
+
+        var getNotifications = function (results) {
+            for (var i = 0; i < results.rowCount; i++) {
+                var type = results.rows[i].type;
+                var sender = results.rows[i].senderid;
+                if (type === "amizade") {   //TODO other types
+                    var getUsername = function (result) {
+
+                        sockets.emit('notification', "User " + result.rows[0].username + " sent you a Friend request");
+                        res.status(200).send("OK");
+                    }
+                    userDAO.getUserByID(sender, getUsername);
+                }
+            }
+        }
+
+        userDAO.getAllNotifications(id, getNotifications);
+    };
+
+    userDAO.getUser(username, getUser)
 }

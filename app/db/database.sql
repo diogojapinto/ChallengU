@@ -1,4 +1,4 @@
-﻿SET DATESTYLE TO PostgreSQL,European;
+﻿SET DATESTYLE TO PostgreSQL, European;
 SET TIMEZONE TO 'Portugal';
 
 DROP TABLE IF EXISTS UserAchievement;
@@ -34,17 +34,17 @@ CREATE TYPE StatusType AS ENUM ('read', 'unread');
 ************************************/
 CREATE TABLE RegisteredUser (
   userID         SERIAL PRIMARY KEY,
-  username       VARCHAR(15)         NOT NULL,
-  pass           VARCHAR             NOT NULL,
-  name           VARCHAR             NOT NULL,
-  email          VARCHAR UNIQUE      NOT NULL,
+  username       VARCHAR(15) UNIQUE            NOT NULL,
+  pass           VARCHAR                       NOT NULL,
+  name           VARCHAR                       NOT NULL,
+  email          VARCHAR UNIQUE                NOT NULL,
   work           VARCHAR,
   hometown       VARCHAR,
-  lastFreePoints TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  xp             INTEGER             NOT NULL DEFAULT 0,
+  lastFreePoints TIMESTAMP                     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  xp             INTEGER                       NOT NULL DEFAULT 0,
   userType       UserType,
   userState      UserState,
-  passwordToken  VARCHAR(255)                 DEFAULT 'null',
+  passwordToken  VARCHAR(255)                           DEFAULT 'null',
 
   CHECK (char_length(pass) > 6),
   CHECK (char_length(Username) > 4)
@@ -152,7 +152,7 @@ CREATE TABLE UserAchievement (
 
 CREATE TABLE PersistentNotifications (
   notificationID SERIAL PRIMARY KEY,
-  receiverID    INTEGER,
+  receiverID     INTEGER,
   senderID       INTEGER,
   type           VARCHAR,
   info           INTEGER,
@@ -183,14 +183,17 @@ INSERT INTO Category (name) VALUES
 
 INSERT INTO RegisteredUser VALUES
   (DEFAULT, 'modd1', '$2a$10$HYNUS6BrRvShEIeiDuvaDOwSBKQDGq0ikEX.CVaRmZHAo135MsB.u', 'Mod', 'mod@gmail.com', 'job',
-   'hometown', DEFAULT, DEFAULT, 'moderator', 'normal'); -- passmod1
+   'hometown', DEFAULT, DEFAULT, 'moderator', 'normal');
+-- passmod1
 
 INSERT INTO RegisteredUser VALUES
   (DEFAULT, 'joao1', '$2a$10$lUN28f9Qfrsa3En2ldAnh./EjUrOgYX6F0kkTGf7PzI407vvZmiTy', 'Joao', 'joao@gmail.com', 'job',
-   'hometown', DEFAULT, DEFAULT, 'user', 'normal'); -- passjoao
+   'hometown', DEFAULT, DEFAULT, 'user', 'normal');
+-- passjoao
 INSERT INTO RegisteredUser VALUES
   (DEFAULT, 'manuel', '$2a$10$CG9qQ.rImbgqHTDAu.sexeXYYB6fxs7po5fNxZALmrYPCQenBtH42', 'Manuel', 'manuel@gmail.com',
-   'job', 'hometown', DEFAULT, DEFAULT, 'user', 'normal'); -- passmanuel
+   'job', 'hometown', DEFAULT, DEFAULT, 'user', 'normal');
+-- passmanuel
 
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
