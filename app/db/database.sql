@@ -152,12 +152,12 @@ CREATE TABLE UserAchievement (
 
 CREATE TABLE PersistentNotifications (
   notificationID SERIAL PRIMARY KEY,
-  receiveirID    INTEGER,
+  receiverID    INTEGER,
   senderID       INTEGER,
   type           VARCHAR,
   info           INTEGER,
   status         StatusType,
-  FOREIGN KEY (receiveirID) REFERENCES RegisteredUser ON DELETE CASCADE,
+  FOREIGN KEY (receiverID) REFERENCES RegisteredUser ON DELETE CASCADE,
   FOREIGN KEY (senderID) REFERENCES RegisteredUser ON DELETE CASCADE
 
 );

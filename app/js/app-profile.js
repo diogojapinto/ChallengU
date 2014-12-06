@@ -11,7 +11,6 @@
 
         $scope.addFriend = function (userid) {
             $scope.loading = true;
-            console.log("ADD");
             Profile.requestFriend({userid: userid});
         };
     }]);

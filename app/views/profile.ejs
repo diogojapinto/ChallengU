@@ -16,12 +16,16 @@
                         <h3><%= user.name %></h3>
                         <h4 class="white"><i class="fa fa-dot-circle-o"></i> <%= user.hometown %></h4>
                         <h4 class="white"><i class="fa fa-at"></i> <%= user.email %></h4>
+                        <% if (self) { %>
                         <a href="/edit-profile" class="btn btn-sky btn-md text-uppercase" href="">
                             <i class="fa fa-pencil"></i> Update
                         </a>
-                        <button type="button" class="btn btn-sky btn-md text-uppercase" ng-click="addFriend(user.userid)">
+                        <% } else { %>
+                        <button type="button" class="btn btn-sky btn-md text-uppercase"
+                                ng-click="addFriend(<%= user.userid %>)">
                             <i class="fa fa-pencil"></i> Add Friend
                         </button>
+                        <% } %>
                     </div>
                 </div>
                 <div class="col-md-6 no-pad">

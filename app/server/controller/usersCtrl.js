@@ -7,13 +7,13 @@ exports.getUser = function (username, req, res, messages) {
     var loginCallback = function (user) {
         user = user.rows[0];
         if (user && user.username === req.body.username) { // comentar segunda condicao para encriptacao
-            passwordManager.comparePassword(req.body.password, user.pass, function(err, passwordMatch){
-                if(passwordMatch){
+            passwordManager.comparePassword(req.body.password, user.pass, function (err, passwordMatch) {
+                if (passwordMatch) {
                     req.session.regenerate(function () {
                         req.session.user = user;
                         res.status(200).send("OK");
                     });
-                }else{
+                } else {
                     res.status(400).send("NOT OK");
                 }
             });
@@ -58,32 +58,31 @@ exports.registerUser = function (data, res) {
         }
     }
 
-
-    passwordManager.cryptPassword(password, null, function(err, hash, password){
-        userDAO.register(username,hash,name,email,work,local,'user','normal',registerCallback);
+    passwordManager.cryptPassword(password, null, function (err, hash, password) {
+        userDAO.register(username, hash, name, email, work, local, 'user', 'normal', registerCallback);
     });
 }
 
-exports.getProfile = function (data,res,messages, globals, socket) {
+exports.getProfile = function (data, res, messages, globals, self) {
 
-    var loginCallback = function(results) {
+    var loginCallback = function (results) {
         user = results.rows[0];
-        res.render('profile.ejs', {user:user, title: 'Profile', messages: messages, globals: globals})
+        res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self})
     }
 
     userDAO.getUserByID(data, loginCallback);
 };
 
-exports.getUserByID = function (userID,res) {
+exports.getUserByID = function (userID, res) {
 
-    var loginCallback = function(results) {
+    var loginCallback = function (results) {
         res.send(results.rows[0]);
     }
 
     userDAO.getUserByID(userID, loginCallback);
 }
 
-exports.editProfile = function (data,res) {
+exports.editProfile = function (data, res) {
 
     var username = data.user.username;
     var oldPassword = data.user.oldPassword, newPassword = data.user.newPassword, confirmPassword = data.user.confirmPassword;
@@ -102,8 +101,7 @@ exports.editProfile = function (data,res) {
         }
     }
 
-
-    var loginCallback = function(results) {
+    var loginCallback = function (results) {
         user = results.rows[0];
         console.log(results.rows);
 
@@ -125,26 +123,43 @@ exports.editProfile = function (data,res) {
                 return;
             }
 
-            passwordManager.comparePassword(oldPassword,results.rows[0].pass, function(err, match) {
+            passwordManager.comparePassword(oldPassword, results.rows[0].pass, function (err, match) {
                 if (match) {
-                    passwordManager.cryptPassword(newPassword, null, function(err, hash, password){
-                        userDAO.updateUserWithPass(data.user.id,username,hash,name,email,work,hometown,updateCallback);
+                    passwordManager.cryptPassword(newPassword, null, function (err, hash, password) {
+                        userDAO.updateUserWithPass(data.user.id, username, hash, name, email, work, hometown, updateCallback);
                     });
                 } else {
                     res.status(400).send("Wrong value for oldPassword");
                 }
             });
         } else {
-            userDAO.updateUser(data.user.id,username,name,email,work,hometown,updateCallback);
+            userDAO.updateUser(data.user.id, username, name, email, work, hometown, updateCallback);
         }
-
-
 
     }
 
     userDAO.getUserByID(data.user.id, loginCallback);
 }
 
-exports.addFriendRequest = function(res, friend, globals) {
+exports.addFriendRequest = function (user, res, friend, globals, messages) {
+
+    console.log("user: " + user);
+
+    console.log("friend: " + friend);
+    if (user != friend && user > 0 && friend > 0) {
+        var friendCallback = function (results) {
+            if (!results) {
+
+                res.status(400).send("Error making request");
+            } else {
+                console.log("OK");
+                res.status(200).send("OK");
+            }
+        };
+
+        userDAO.addFriend(user, friend, "amizade", 0, friendCallback);
+    } else {
+        res.status(400).send("Error making request");
+    }
 
 }

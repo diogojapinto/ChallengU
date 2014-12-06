@@ -47,3 +47,7 @@ exports.registerUserFb = function(id, token, name, email, callback){
             "VALUES (DEFAULT," + "'" + id + "'," + "'" + hash + "'," + "'" + name + "'," + "'" + email + "'," + "'none','none','user','normal') RETURNING *", [], callback);
     });
 }
+
+exports.addFriend = function (receiver, sender, type, info, callback) {
+    db.query("INSERT INTO PersistentNotifications (notificationID, receiverID, senderID, type, info, status) VALUES (DEFAULT,"+receiver+","+sender+","+"'"+type+"'"+","+info+","+"'unread'"+")", [], callback);
+};
