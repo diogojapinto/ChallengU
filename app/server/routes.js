@@ -85,7 +85,7 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages);
+            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages, connectedUsers[req.session.user.username]);
         } else {
             res.status(400).send(false);
         }
@@ -96,7 +96,7 @@ exports.listen = function (app, passport, io) {
         if (req.session.user) {
             var globals = generateGlobals(req);
             connectedUsers[req.session.user.username].emit('notification', {success: "success"});
-            userFn.getProfile(req.session.user.userid, res, messages, globals, connectedUsers[req.session.user.username], true);
+            userFn.getProfile(req.session.user.userid, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
         } else {
             res.redirect('/connect');
         }
@@ -111,7 +111,7 @@ exports.listen = function (app, passport, io) {
             if (req.session.user.userid == userID) {
                 self = true;
             }
-            userFn.getProfile(userID, res, messages, globals, self);
+            userFn.getProfile(userID, req.session.user.userid, res, messages, globals, self);
         } else {
             res.redirect('/connect');
         }

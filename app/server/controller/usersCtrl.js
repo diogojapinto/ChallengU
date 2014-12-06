@@ -63,11 +63,24 @@ exports.registerUser = function (data, res) {
     });
 }
 
-exports.getProfile = function (data, res, messages, globals, self) {
+exports.getProfile = function (data, id, res, messages, globals, self) {
 
     var loginCallback = function (results) {
         user = results.rows[0];
-        res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self})
+        if (!self) {
+            var hasRequest = function(result) {
+                if (result.rowCount == 0) {
+                    res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: false});
+                } else {
+                    res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: true});
+                }
+            };
+
+            userDAO.findFriendRequest(user.userid, id, hasRequest);
+        } else {
+            res.render('profile.ejs', {user: user, title: 'Profile', messages: messages, globals: globals, self: self, hasRequest: false});
+        }
+
     }
 
     userDAO.getUserByID(data, loginCallback);
@@ -141,23 +154,20 @@ exports.editProfile = function (data, res) {
     userDAO.getUserByID(data.user.id, loginCallback);
 }
 
-exports.addFriendRequest = function (user, res, friend, globals, messages) {
+exports.addFriendRequest = function (user, res, friend, globals, messages, socket) {
 
-    console.log("user: " + user);
-
-    console.log("friend: " + friend);
     if (user != friend && user > 0 && friend > 0) {
         var friendCallback = function (results) {
             if (!results) {
 
                 res.status(400).send("Error making request");
             } else {
-                console.log("OK");
+                socket.emit('notification', "Friend Request sent!");
                 res.status(200).send("OK");
             }
         };
 
-        userDAO.addFriend(user, friend, "amizade", 0, friendCallback);
+        userDAO.addFriend(friend, user, "amizade", 0, friendCallback);
     } else {
         res.status(400).send("Error making request");
     }

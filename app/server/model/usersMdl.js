@@ -51,3 +51,8 @@ exports.registerUserFb = function(id, token, name, email, callback){
 exports.addFriend = function (receiver, sender, type, info, callback) {
     db.query("INSERT INTO PersistentNotifications (notificationID, receiverID, senderID, type, info, status) VALUES (DEFAULT,"+receiver+","+sender+","+"'"+type+"'"+","+info+","+"'unread'"+")", [], callback);
 };
+
+exports.findFriendRequest = function(receiver, sender, callback) {
+    //console.log("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'");
+    db.query("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + "AND senderID = " + sender + "AND type LIKE 'amizade'", [], callback);
+}

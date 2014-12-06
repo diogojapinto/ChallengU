@@ -20,10 +20,16 @@
                         <a href="/edit-profile" class="btn btn-sky btn-md text-uppercase" href="">
                             <i class="fa fa-pencil"></i> Update
                         </a>
-                        <% } else { %>
+                        <% } else if (hasRequest) { %>
                         <button type="button" class="btn btn-sky btn-md text-uppercase"
+                                disabled>
+                            <i class="fa fa-pencil"></i> Friend Request Sent
+                        </button>
+                        <% } else { %>
+                        <button id="add" type="button" class="btn btn-sky btn-md text-uppercase"
+                                ng-disabled="sent"
                                 ng-click="addFriend(<%= user.userid %>)">
-                            <i class="fa fa-pencil"></i> Add Friend
+                            <i class="fa fa-pencil"></i> {{buttonText}}
                         </button>
                         <% } %>
                     </div>
