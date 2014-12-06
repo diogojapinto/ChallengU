@@ -85,7 +85,8 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-
+            console.log("USER "+req.body.userid);
+            userFn.addFriendRequest(res, req.body.userid, globals);
         } else {//TODO IMPLEMENT
 
         }
@@ -107,7 +108,7 @@ exports.listen = function (app, passport, io) {
         var userID = parseInt(req.params.id);
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.getProfile(userID, res, messages);
+            userFn.getProfile(userID, res, messages, globals);
         } else {
             res.redirect('/connect');
         }

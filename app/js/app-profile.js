@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('profile-app', []);
+    var app = angular.module('profile-app', ['search-challenges-app']);
 
     /**
      * Controller that manages the login information of an user
@@ -11,8 +11,8 @@
 
         $scope.addFriend = function (userid) {
             $scope.loading = true;
-
-            addFriend(userid);
+            console.log("ADD");
+            Profile.requestFriend({userid: userid});
         };
     }]);
 
@@ -21,7 +21,7 @@
      */
     app.factory('Profile', ['$http', function ($http) {
         return{
-            addFriend: function (userid) {
+            requestFriend: function (userid) {
                 return $http.post('/add-friend', userid);
             }
         }

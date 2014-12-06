@@ -144,3 +144,7 @@ exports.editProfile = function (data,res) {
 
     userDAO.getUserByID(data.user.id, loginCallback);
 }
+
+exports.addFriendRequest = function(res, friend, globals) {
+
+}

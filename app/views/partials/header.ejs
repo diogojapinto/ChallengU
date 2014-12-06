@@ -41,7 +41,7 @@
 
 <!---------Nav Bar-------------->
 
-<section class="wrapper" ng-app="search-challenges-app">
+<section class="wrapper">
 
     <nav class="navbar navbar-default" role="navigation">
 
@@ -84,20 +84,25 @@
                     </ul>
                 </li-->
             </ul>
-            <form ng-controller="ChallengeSearchController as searchCtrl" class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input class="form-control" ng-model="formData.searchValue" type="text" placeholder="Search for challenges"
+            <form ng-controller="ChallengeSearchController as searchCtrl" class="navbar-form navbar-left" name="search"
+                  role="search" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : search.name.$invalid && !search.name.$pristine }">
+                    <input class="form-control" ng-model="formData.searchValue" type="text"
+                           placeholder="Search for challenges"
                            required/>
                 </div>
-                <button type="submit" ng-disabled="!search.$valid"
-                        ng-click="searchChallenge()" class="btn btn-default">Submit</button>
+                <button type="submit" ng-disabled="search.$invalid"
+                        ng-click="searchChallenge()" class="btn btn-default">Submit
+                </button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="username" style="display:inline"><%= globals.username %></div>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <div id="username" style="display:inline"><%= globals.username %></div>
                         <span class="glyphicon glyphicon-user pull-right"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/edit-profile">Account Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                        <li><a href="/edit-profile">Account Settings <span
+                                        class="glyphicon glyphicon-cog pull-right"></span></a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="#">User stats <span class="glyphicon glyphicon-stats pull-right"></span></a></li>
@@ -116,7 +121,7 @@
     </nav>
 
     <section class="menu menu--off">
-        <a href="#" title="Home">
+        <a href="/" title="Home">
             <div class="row">
                 <div class="col-sm-8 navElem">
                     Home

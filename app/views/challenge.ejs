@@ -4,9 +4,9 @@
     <% include partials/head %>
 </head>
 
-<body>
+<body ng-app="challenge">
 <% include partials/header %>
-<div id="oApp" ng-app="challenge">
+<div id="oApp" >
     <div class="container" style="margin: 5em auto">
         <h1><%= challenge.name %></h1>
 
@@ -80,7 +80,6 @@
 <% include partials/footer %>
 <% include partials/scripts %>
 <script type="text/javascript" src="/js/app-challenge.js"></script>
-<% include partials/global-app-scripts %>
 
 </body>
 </html>
