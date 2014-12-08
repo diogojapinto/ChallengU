@@ -7,7 +7,7 @@
 $(document).ready(function () {
     var user = $("#username").text();
 
-    var socket = io.connect('http://localhost:8081');
+    var socket = io.connect('http://178.62.101.158:8081/');     //TODO change ip
 
     socket.emit('online', {username: user});
 
