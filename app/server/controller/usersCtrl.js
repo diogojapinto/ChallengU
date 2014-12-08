@@ -211,8 +211,7 @@ exports.sendNotifications = function (username, socket) {
                 if (type === "amizade") {   //TODO other types
                     var getUsername = function (result) {
 
-                        sockets.emit('notification', "User " + result.rows[0].username + " sent you a Friend request");
-                        res.status(200).send("OK");
+                        socket.emit('notification', "User " + result.rows[0].username + " sent you a Friend request");
                     }
                     userDAO.getUserByID(sender, getUsername);
                 }
