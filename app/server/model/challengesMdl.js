@@ -89,7 +89,9 @@ exports.insertChallengeProof = function (userID, challengeID, content, callback)
 };
 
 exports.updateChallengeRating = function(userID, challengeID, rating, callback) {
-    db.query("SELECT merge_rateChallenge($1::int, $2::int, $3::int)", [challengeID, userID, rating], function() {});
+    db.query("SELECT merge_rateChallenge($1::int, $2::int, $3::int)", [challengeID, userID, rating],
+        function() {
+            db.query("SELECT AVG(rating) FROM RateChallenge WHERE challengeID = $1::int", [challengeID], callback);
+        });
 
-    db.query("SELECT AVG(rating) FROM RateChallenge WHERE challengeID = $1::int", [challengeID], callback);
 };
