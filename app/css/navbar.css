@@ -16,7 +16,7 @@
     margin: 0;
 }
 
-.navbar-nav>li>a {
+#mainNav.navbar-nav>li>a {
     line-height: 45px;
 }
 
@@ -24,7 +24,7 @@
     margin-top: 10px;
 }
 
-.navbar-brand, .navbar-brand a {
+#mainNav .navbar-brand, #mainNav .navbar-brand a {
     padding-top: 0px !important;
     line-height: 40px;
 }
