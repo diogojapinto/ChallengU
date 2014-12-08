@@ -99,10 +99,19 @@
                                         </span>
                             </div>
                             <div class="col-md-10">
-                                <input class="form-control" ng-model="formData.password" type="password"
+                                <input id="password1" class="form-control" ng-model="formData.password" type="password"
                                        pattern=".{7,}"
                                        placeholder="Please enter your password (must be greater than 6 chars)"
                                        required/>
+
+                                <div class="col-sm-6">
+                                    <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
+                                    <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
+                                    <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number
+                                </div>
                             </div>
                         </div>
                         <br/>
@@ -114,10 +123,11 @@
                                         </span>
                             </div>
                             <div class="col-md-10">
-                                <input class="form-control" ng-model="formData.confirmPassword" type="password"
+                                <input id="password2" class="form-control" ng-model="formData.confirmPassword" type="password"
                                        pattern=".{7,}"
-                                       placeholder="Please confirm your password (must be greater than 6 chars)"
+                                       placeholder="Please confirm your password"
                                        required/>
+                                <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match
                             </div>
                         </div>
                         By clicking <strong class="label label-primary">Register</strong>,
