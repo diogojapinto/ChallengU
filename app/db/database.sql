@@ -1,6 +1,8 @@
 ﻿SET DATESTYLE TO PostgreSQL, European;
 SET TIMEZONE TO 'Portugal';
 
+DROP FUNCTION merge_ratechallenge(integer,integer,integer);
+
 DROP TABLE IF EXISTS PersistentNotifications;
 DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
@@ -200,41 +202,48 @@ INSERT INTO RegisteredUser VALUES
 
 -- TODO: make a check for challengeproof && friendly challenge (content == NULL and so on)*/
 
-/*
-CREATE OR REPLACE FUNCTION assert_new_challenge_target() RETURNS TRIGGER AS 
-$$
-BEGIN
-IF NEW.targetUserID == NULL THEN 
-	IF NEW.target == 'private' THEN
-		RAISE EXCEPTION 'private challenge did not specifies the target user';
-	ELSE 
-		RETURN NEW;
-END IF;
-IF NEW.targetUserID != NULL AND (NEW.target == 'community' OR NEW.target == 'friendly') THEN
-	RAISE EXCEPTION 'public challenge has a target user specified';
-ELSE
-	RETURN NEW;
-END IF;
-END;
-$$
+
+CREATE OR REPLACE FUNCTION assert_new_challenge_target()
+  RETURNS TRIGGER AS
+  $$
+  BEGIN
+    IF NEW.targetUserID = NULL
+    THEN
+      IF NEW.target = 'private'
+      THEN
+        RAISE EXCEPTION 'private challenge did not specifies the target user';
+      ELSE
+        RETURN NEW;
+      END IF;
+      IF NEW.targetUserID != NULL AND (NEW.target = 'community' OR NEW.target = 'friendly')
+      THEN
+        RAISE EXCEPTION 'public challenge has a target user specified';
+      ELSE
+        RETURN NEW;
+      END IF;
+    ELSE
+      RETURN NEW;
+    END IF;
+  END;
+  $$
 LANGUAGE plpgsql;
 
 DROP TRIGGER IF EXISTS assert_new_challenge_target_trigger ON Challenge;
 CREATE TRIGGER assert_new_challenge_target_trigger
-BEFORE INSERT ON ProductCategory
+BEFORE INSERT ON Challenge
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
-*/
 
-CREATE OR REPLACE FUNCTION merge_db(challengeID INT, userID INT, rating INT)
+
+CREATE OR REPLACE FUNCTION merge_rateChallenge(u_challengeID INT, u_userID INT, u_rating INT)
   RETURNS VOID AS
   $$
   BEGIN
     LOOP
 -- first try to update the key
       UPDATE RateChallenge
-      SET RateChallenge.rating = rating
-      WHERE RateChallenge.challengeID = challengeID
-      AND RateChallenge.userID = userID;
+      SET rating = u_rating
+      WHERE challengeID = u_challengeID
+            AND userID = u_userID;
       IF found
       THEN
         RETURN;

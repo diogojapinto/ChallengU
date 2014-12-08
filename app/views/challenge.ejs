@@ -7,7 +7,7 @@
 
 <body ng-app="app-challenge">
 <% include partials/header %>
-<div>
+<div ng-init="rating = <%= challenge.rating %>; challengeID = <%= challenge.id %>"  id="rating" ng-controller="RatingController as ratingController">
     <div class="container" style="margin: 5em auto">
         <h1><%= challenge.name %></h1>
 
@@ -22,15 +22,17 @@
                     <table class="table">
                         <tr>
                             <td><h3><b>Creator:</b></h3></td>
-                            <td><h3><a href="/profile/<%= challenge.creatorID%>"><%= challenge.creator %></a></h3></td>
+                            <td><h3><a href="/profile/<%= challenge.creatorID %>"><%= challenge.creator %></a></h3></td>
                         </tr>
                         <tr>
                             <td><h3><b>Rating:</b></h3></td>
-                            <td><h3><span id="stars-rating" class="starrr" data-rating="<%= challenge.rating %>"></span></h3></td>
+                            <td><h3><span id="stars-rating" class="starrr" data-rating="{{rating}}"></span></h3>
+                            </td>
                         </tr>
                         <tr>
                             <td><h3><b>Difficulty:</b></h3></td>
-                            <td><h3><span id="stars-difficulty" class="starrr" data-rating="<%= challenge.difficulty %>"></span></h3></td>
+                            <td><h3><span id="stars-difficulty" class="starrr"
+                                          data-rating="<%= challenge.difficulty %>"></span></h3></td>
                         </tr>
                     </table>
                 </div>
@@ -43,6 +45,7 @@
                 <a href="#"><%= response.username %></a>
 
                 <p><%= response.content %></p>
+
                 <div id="stars-rating" class="starrr" data-rating="<%= response.rating %>"></div>
             </div>
             <% }); %>
@@ -52,23 +55,24 @@
         <!-- Button trigger response modal -->
         <div class="row">
             <div class="col-md-offset-8 col-md-4">
-                <button type="button" class="btn btn-sky btn-lg pull-right" data-toggle="modal" data-target="#responseModal">
+                <button type="button" class="btn btn-sky btn-lg pull-right" data-toggle="modal"
+                        data-target="#responseModal">
                     Take this Challenge
                 </button>
             </div>
         </div>
-        <% include partials/challenge-proof-form %>
+        <% include challenge-proof-form %>
     </div>
     <div class="container">
         <table class="table table-striped">
             <% challenge.comments.forEach(function(comment) { %>
             <tr>
-            <td>
-                <a href="#"><%= comment.username %></a>
-            </td>
-            <td>
-                <p><%= comment.content %></p>
-            </td>
+                <td>
+                    <a href="#"><%= comment.username %></a>
+                </td>
+                <td>
+                    <p><%= comment.content %></p>
+                </td>
             </tr>
             <% }); %>
             <tr>

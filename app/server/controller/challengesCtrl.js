@@ -242,11 +242,18 @@ exports.insertChallengeProof = function (userID, data, res) {
     challengeDAO.insertChallengeProof(userID, challengeID, content, getInsertedChallengeProofID);
 };
 
-exports.updateRating = function (userID, challengeID, res) {
-    var getResultingRating = function (results) {
-        if (!results) {
+exports.updateRating = function (userID, challengeID, rating, res) {
+    var getResultingRating = function (result) {
+        if (!result) {
             res.status(400).send(false);
             return;
+        }
+
+        var newChallengeRating = result.rows[0].avg;
+        if (newChallengeRating) {
+            res.status(200).send(newChallengeRating.toString());
+        } else {
+            res.status(400).send(false);
         }
     }
 

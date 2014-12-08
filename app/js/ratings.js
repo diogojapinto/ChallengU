@@ -57,6 +57,11 @@ var __slice = [].slice;
                 rating = void 0;
             }
             this.options.rating = rating;
+            if (this.$el.attr("id") == "stars-rating") {
+                var $scope = $('#rating').scope();
+                $scope.rating = rating;
+                $scope.rateChallenge();
+            }
             this.syncRating();
             return this.$el.trigger('starrr:change', rating);
         };

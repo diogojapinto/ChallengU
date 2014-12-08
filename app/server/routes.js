@@ -172,9 +172,9 @@ exports.listen = function (app, passport, io) {
         }
     });
 
-    app.post("/challenge-rating/:challenge/:rating", function(req, res) {
-        var challengeID = parseInt(req.params.challenge);
-        var rating = parseInt(req.params.rating);
+    app.post("/challenge-rating", function(req, res) {
+        var challengeID = req.body.challenge;
+        var rating =req.body.rating;
         if (req.session.user) {
             challengeFn.updateRating(req.session.user.userid, challengeID, rating, res);
         } else {

@@ -1,13 +1,19 @@
 (function() {
     var app = angular.module('app-challenge', ['search-app']);
 
-    app.controller('ProofSubmit', ['$scope', '$http', 'Proof', function ($scope, $http, Proof) {
+    app.controller('ProofSubmit', ['$scope', '$http', 'Proof', 'Rater', function ($scope, $http, Proof) {
         $scope.postChallengeProof = function () {
             $scope.loading = true;
             if ($scope.formData.content != "") {
                 Proof.create($scope.formData, $scope.loading);
             }
         };
+    }]);
+
+    app.controller('RatingController', ['$scope', '$http', 'Rater', function ($scope, $http, Rater) {
+        $scope.rateChallenge = function() {
+            Rater.rateChallenge($scope.challengeID, $scope.rating);
+        }
     }]);
 
     app.factory('Proof', ['$http', '$window', function ($http, $window) {
@@ -30,6 +36,13 @@
                     .error(function (data) { //TODO error page for this
                         $window.location.href = '/post-challenge/error-challenge';
                     });
+            }
+        }
+    }]);
+    app.factory('Rater', ['$http', '$window', function ($http) {
+        return{
+            rateChallenge: function (challenge, rating) {
+                return $http.post('/challenge-rating/', {challenge: challenge, rating: rating});
             }
         }
     }]);
