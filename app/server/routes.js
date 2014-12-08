@@ -172,6 +172,16 @@ exports.listen = function (app, passport, io) {
         }
     });
 
+    app.post("/challenge-rating/:challenge/:rating", function(req, res) {
+        var challengeID = parseInt(req.params.challenge);
+        var rating = parseInt(req.params.rating);
+        if (req.session.user) {
+            challengeFn.updateRating(req.session.user.userid, challengeID, rating, res);
+        } else {
+            res.status(400).send(false);
+        }
+    });
+
     app.post("/edit-profile", function (req, res) {
         if (req.session.user) {
             userFn.editProfile(req.body, res);

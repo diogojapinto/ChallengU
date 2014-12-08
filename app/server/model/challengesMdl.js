@@ -27,7 +27,7 @@ exports.insertChallenge = function (userid, name, difficulty, type, desc, catego
 exports.getChallenge = function (challengeID, callback) {
     var queries = [];
     var args = [];
-    queries.push("SELECT Challenge.name, username, content, difficulty, target, type " +
+    queries.push("SELECT Challenge.name, username, Challenge.userID, content, difficulty, target, type " +
     "FROM Challenge INNER JOIN RegisteredUser ON RegisteredUser.userID = Challenge.userID " +
     "WHERE challengeID = $1::int");
     args.push([challengeID]);
@@ -87,3 +87,7 @@ exports.insertChallengeProof = function (userID, challengeID, content, callback)
 
     db.transaction(queries, args, callback);
 };
+
+exports.updateChallengeRating = function(userID, challengeID, rating, callback) {
+
+}

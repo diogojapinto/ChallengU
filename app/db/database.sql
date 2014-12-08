@@ -1,6 +1,7 @@
 ﻿SET DATESTYLE TO PostgreSQL, European;
 SET TIMEZONE TO 'Portugal';
 
+DROP TABLE IF EXISTS PersistentNotifications;
 DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
 DROP TABLE IF EXISTS RateChallengeProof;
@@ -13,6 +14,7 @@ DROP TABLE IF EXISTS Challenge;
 DROP TABLE IF EXISTS RegisteredUser;
 DROP TABLE IF EXISTS Category;
 
+DROP TYPE IF EXISTS StatusType;
 DROP TYPE IF EXISTS UserType;
 DROP TYPE IF EXISTS UserState;
 DROP TYPE IF EXISTS ChallengeTarget;
@@ -213,7 +215,7 @@ IF NEW.targetUserID != NULL AND (NEW.target == 'community' OR NEW.target == 'fri
 ELSE
 	RETURN NEW;
 END IF;
-END
+END;
 $$
 LANGUAGE plpgsql;
 
@@ -222,6 +224,35 @@ CREATE TRIGGER assert_new_challenge_target_trigger
 BEFORE INSERT ON ProductCategory
 FOR EACH ROW EXECUTE PROCEDURE assert_new_challenge_target();
 */
+
+CREATE OR REPLACE FUNCTION merge_db(challengeID INT, userID INT, rating INT)
+  RETURNS VOID AS
+  $$
+  BEGIN
+    LOOP
+-- first try to update the key
+      UPDATE RateChallenge
+      SET RateChallenge.rating = rating
+      WHERE RateChallenge.challengeID = challengeID
+      AND RateChallenge.userID = userID;
+      IF found
+      THEN
+        RETURN;
+      END IF;
+-- not there, so try to insert the key
+-- if someone else inserts the same key concurrently,
+-- we could get a unique-key failure
+      BEGIN
+        INSERT INTO RateChallenge (challengeID, userID, rating) VALUES (challengeID, userID, rating);
+        RETURN;
+        EXCEPTION WHEN unique_violation
+        THEN
+-- do nothing, and loop to try the UPDATE again
+      END;
+    END LOOP;
+  END;
+  $$
+LANGUAGE plpgsql;
 
 INSERT INTO Challenge VALUES
   (DEFAULT, 'most awkward onomatopoeic', 1, 'be imaginative', 1, DEFAULT, 'text', NULL);
