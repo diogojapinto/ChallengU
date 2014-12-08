@@ -13,5 +13,6 @@ $(document).ready(function () {
 
     socket.on('notification', function (data) {
         console.log(data);
+        angular.element('.alert-group').append('<div class="alert alert-info"> <strong></strong>' + data + '</div>');
     });
 });
