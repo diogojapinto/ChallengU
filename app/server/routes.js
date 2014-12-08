@@ -173,7 +173,6 @@ exports.listen = function (app, passport, io) {
 
     app.post("/edit-profile", function (req, res) {
         if (req.session.user) {
-            console.log(req.body);
             userFn.editProfile(req.body, res);
         } else {
             res.redirect("/connect");
@@ -204,7 +203,6 @@ exports.listen = function (app, passport, io) {
         if (req.session.user) {
             challengeFn.insertChallenge(req.session.user.userid, req.body, res);
         } else {
-            console.log("FAILED");
             messages.danger.push("Please login in order to create a challenge");
             res.status(400).send(false);
         }
@@ -318,7 +316,6 @@ exports.listen = function (app, passport, io) {
     app.get("/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        console.log(globals);
         if (req.params.val == "logged-in") {
             messages.success.push({title: "Logged In", content: "You are now logged in!"});
             challengeFn.getChallengesHome(res, messages, globals);

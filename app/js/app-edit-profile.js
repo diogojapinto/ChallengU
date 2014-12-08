@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('edit-profile-app', ['search-challenges-app']);
+    var app = angular.module('edit-profile-app', ['search-app']);
 
     /**
      * Controller that manages the login information of an user

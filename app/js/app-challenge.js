@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('app-challenge', ['search-challenges-app']);
+    var app = angular.module('app-challenge', ['search-app']);
 
     app.controller('ProofSubmit', ['$scope', '$http', 'Proof', function ($scope, $http, Proof) {
         $scope.postChallengeProof = function () {

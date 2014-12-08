@@ -84,15 +84,15 @@
                     </ul>
                 </li-->
             </ul>
-            <form ng-controller="ChallengeSearchController as searchCtrl" class="navbar-form navbar-left" name="search"
+            <form ng-controller="SearchController as searchCtrl" class="navbar-form navbar-left" name="search"
                   role="search" novalidate>
                 <div class="form-group" ng-class="{ 'has-error' : search.name.$invalid && !search.name.$pristine }">
                     <input class="form-control" ng-model="formData.searchValue" type="text"
-                           placeholder="Search for challenges"
+                           placeholder="Find challenges and people"
                            required/>
                 </div>
                 <button type="submit" ng-disabled="search.$invalid"
-                        ng-click="searchChallenge()" class="btn btn-default">Submit
+                        ng-click="search()" class="btn btn-default">Submit
                 </button>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -161,10 +161,10 @@
                 </div>
             </div>
         </a>
-        <a href="/post-challenge" title="Challenges">
+        <a href="/post-challenge" title="Create a Challenge">
             <div class="row">
                 <div class="col-sm-8 navElem">
-                    Challenges
+                    Create a Challenge
                 </div>
                 <div class="col-sm-4">
                     <span class="fa fa-trophy"></span>

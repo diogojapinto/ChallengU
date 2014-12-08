@@ -7,7 +7,7 @@
     <!--TODO LOCAL FONT -->
 </head>
 
-<body ng-app="search-challenges-app">
+<body ng-app="search-app">
 <% include partials/header %>
 <section>
     <div class="container vertical-offset-100">
@@ -15,7 +15,7 @@
         <% challenges.forEach(function (value) { %>
         <div class="row panel">
             <div class="col-md-4 bg_blur ">
-                <a href="#" class="follow_btn hidden-xs">Accept</a>
+                <a href="/challenge/<%= value.challengeid %>" class="follow_btn hidden-xs">Accept</a>
             </div>
             <div class="col-md-8  col-xs-12">
                 <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg"
