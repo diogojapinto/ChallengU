@@ -188,12 +188,6 @@ exports.listen = function (app, passport, io) {
         }
     });
 
-    app.get("/search-challenge", function (req, res) {
-        var messages = generateMessageBlock();
-        var globals = generateGlobals(req);
-        res.render('dummy-search.ejs', {messages: messages, globals: globals, title: 'Search challenge'});
-    });
-
     app.post("/register", function (req, res) {
         userFn.registerUser(req.body, res);
     });
