@@ -2,11 +2,12 @@
 <html>
 <head>
     <% include partials/head %>
+    <link type="text/css" rel="stylesheet" href="/challenge.css">
 </head>
 
-<body ng-app="challenge">
+<body ng-app="app-challenge">
 <% include partials/header %>
-<div id="oApp" >
+<div>
     <div class="container" style="margin: 5em auto">
         <h1><%= challenge.name %></h1>
 
@@ -17,18 +18,22 @@
             </h4>
             <hr>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-md-5 col-sm-12">
                     <table class="table">
                         <tr>
                             <td><h3><b>Creator:</b></h3></td>
-                            <td><h3><a href="#"><%= challenge.creator %></a></h3></td>
+                            <td><h3><a href="/profile/<%= challenge.creatorID%>"><%= challenge.creator %></a></h3></td>
+                        </tr>
+                        <tr>
+                            <td><h3><b>Rating:</b></h3></td>
+                            <td><h3><span id="stars-rating" class="starrr" data-rating="<%= challenge.rating %>"></span></h3></td>
+                        </tr>
+                        <tr>
+                            <td><h3><b>Difficulty:</b></h3></td>
+                            <td><h3><span id="stars-difficulty" class="starrr" data-rating="<%= challenge.difficulty %>"></span></h3></td>
                         </tr>
                     </table>
                 </div>
-            </div>
-            <div class="row">
-                <input id="challenge-rating" type="number" class="rating" min=1 max=5 data-readonly="true"
-                       data-show-clear="false" value="<%= challenge.rating %>"/>
             </div>
         </div>
 
@@ -38,9 +43,7 @@
                 <a href="#"><%= response.username %></a>
 
                 <p><%= response.content %></p>
-                <input type="number" class="rating" size="xs" min=1 max=5 step=0.1 data-readonly="true"
-                       data-show-clear="false"
-                       value="<%= response.rating %>"/>
+                <div id="stars-rating" class="starrr" data-rating="<%= response.rating %>"></div>
             </div>
             <% }); %>
         </div>
@@ -80,6 +83,7 @@
 <% include partials/footer %>
 <% include partials/scripts %>
 <script type="text/javascript" src="/js/app-challenge.js"></script>
+<script type="text/javascript" src="/js/ratings.js"></script>
 
 </body>
 </html>

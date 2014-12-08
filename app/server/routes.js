@@ -43,6 +43,8 @@ exports.listen = function (app, passport, io) {
         var globals = generateGlobals(req);
         if (req.params.val == "error-login") {
             messages.danger.push({title: "Error", content: "There was an error logging you in!"});
+        } else if (req.params.val == "first-login") {
+            messages.warning.push({title: "Not logged in", content: "You must first login!"});
         }
         res.render('connect.ejs', {messages: messages, title: 'Connect', globals: globals});
     });
@@ -79,8 +81,7 @@ exports.listen = function (app, passport, io) {
                 title   : 'Submit your challenge'
             });
         } else {
-            messages.warning.push("You must first login")
-            res.redirect('/connect');
+            res.redirect('/connect/first-login');
         }
     });
 
@@ -101,7 +102,7 @@ exports.listen = function (app, passport, io) {
             connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             userFn.getProfile(req.session.user.userid, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
         } else {
-            res.redirect('/connect');
+            res.redirect('/connect/first-login');
         }
     });
 
@@ -116,7 +117,7 @@ exports.listen = function (app, passport, io) {
             }
             userFn.getProfile(userID, req.session.user.userid, res, messages, globals, self);
         } else {
-            res.redirect('/connect');
+            res.redirect('/connect/first-login');
         }
     });
 
@@ -127,7 +128,7 @@ exports.listen = function (app, passport, io) {
             var challengeID = parseInt(req.params.id);
             challengeFn.getChallenge(challengeID, res, messages, globals);
         } else {
-            res.redirect('/connect');
+            res.redirect('/connect/first-login');
         }
     });
 
@@ -175,7 +176,7 @@ exports.listen = function (app, passport, io) {
         if (req.session.user) {
             userFn.editProfile(req.body, res);
         } else {
-            res.redirect("/connect");
+            res.redirect("/connect/first-login");
         }
     });
 
