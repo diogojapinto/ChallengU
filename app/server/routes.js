@@ -99,7 +99,6 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            connectedUsers[req.session.user.username].emit('notification', {success: "success"});
             userFn.getProfile(req.session.user.userid, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
         } else {
             res.redirect('/connect/first-login');

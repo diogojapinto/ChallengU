@@ -186,7 +186,8 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, sende
                 sockets[senderUsername].emit('notification', "Friend Request sent!");
                 var getUsername = function (result) {
 
-                    sockets[result.rows[0].username].emit('notification', "User " + senderUsername + " sent you a Friend request");
+                    if (sockets[result.rows[0].username] != undefined)
+                        sockets[result.rows[0].username].emit('notification', "User " + senderUsername + " sent you a Friend request");
                     res.status(200).send("OK");
                 }
                 userDAO.getUserByID(friend, getUsername);
