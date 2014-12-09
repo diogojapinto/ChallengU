@@ -103,7 +103,7 @@ describe('Challenge', function () {
 });
 
 describe('Search', function () {
-    it('should return nothing', function (done) {
+    /*it('should return nothing', function (done) {
 
         var value = 'random';
         user1
@@ -115,7 +115,7 @@ describe('Search', function () {
                 res.statusCode.should.equal(400);
                 done();
             });
-    });
+    });*/
 
     it('should return results', function (done) {
 
