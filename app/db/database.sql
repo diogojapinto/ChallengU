@@ -1,7 +1,7 @@
 ﻿SET DATESTYLE TO PostgreSQL, European;
 SET TIMEZONE TO 'Portugal';
 
-DROP FUNCTION merge_ratechallenge(integer,integer,integer);
+DROP FUNCTION IF EXISTS merge_ratechallenge(integer,integer,integer);
 
 DROP TABLE IF EXISTS PersistentNotifications;
 DROP TABLE IF EXISTS UserAchievement;

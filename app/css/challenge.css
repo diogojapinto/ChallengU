@@ -1,3 +1,7 @@
-.starrr {
+#stars-rating>i {
     cursor: pointer;
+}
+
+#stars-rating>.selected {
+    color: #00cc00;
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <% include partials/head %>
-    <link type="text/css" rel="stylesheet" href="/challenge.css">
+    <link type="text/css" rel="stylesheet" href="/css/challenge.css">
 </head>
 
 <body ng-app="app-challenge">
@@ -26,7 +26,7 @@
                         </tr>
                         <tr>
                             <td><h3><b>Rating:</b></h3></td>
-                            <td><h3><span id="stars-rating" class="starrr" data-rating="{{rating}}"></span></h3>
+                            <td><h3><span id="stars-rating" class="starrr" data-rating="<%= Math.floor(challenge.rating) %>"></span></h3>
                             </td>
                         </tr>
                         <tr>
