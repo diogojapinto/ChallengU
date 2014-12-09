@@ -148,7 +148,7 @@ exports.listen = function (app, passport, io) {
         if (req.session.user) {
             res.render('edit-profile.ejs', {
                 user    : req.session.user.username,
-                title   : 'Edit your profile',
+                title   : 'Account Settings',
                 messages: messages,
                 globals : globals
             })
