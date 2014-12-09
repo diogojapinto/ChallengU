@@ -68,8 +68,10 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
     var loginCallback = function (results) {
         user = results.rows[0];
         if (!self) {
+            console.log(user);
             var hasRequest = function (result) {
                 if (result.rowCount == 0) {
+
                     res.render('profile.ejs', {
                         user      : user,
                         title     : 'Profile',
@@ -92,28 +94,38 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
 
             userDAO.findFriendRequest(user.userid, id, hasRequest);
         } else {
-            res.render('profile.ejs', {
-                user      : user,
-                title     : 'Profile',
-                messages  : messages,
-                globals   : globals,
-                self      : self,
-                hasRequest: false
-            });
+            userDAO.getFriends(user.userid, renderProfile);
         }
 
     }
 
-    userDAO.getUserByID(data, loginCallback);
+    var renderProfile = function (results) {
+        var friends = [];
+        friends.push(results.rows[0]);
+        friends.push(results.rows[1]);
+        friends.push(results.rows[2]);
+        console.log(results.rows);
+        res.render('profile.ejs', {
+            user      : user,
+            title     : 'Profile',
+            messages  : messages,
+            globals   : globals,
+            self      : self,
+            friends   : friends,
+            hasRequest: false
+        });
+    }
+
+    userDAO.getUser(data, loginCallback);
 };
 
-exports.getUserByID = function (userID, res) {
+exports.getUserByUsername = function (username, res) {
 
     var loginCallback = function (results) {
         res.send(results.rows[0]);
     }
 
-    userDAO.getUserByID(userID, loginCallback);
+    userDAO.getUser(username, loginCallback);
 }
 
 exports.editProfile = function (data, res) {
@@ -177,25 +189,31 @@ exports.editProfile = function (data, res) {
 
 exports.addFriendRequest = function (user, res, friend, globals, messages, senderUsername, sockets) {
 
-    if (user != friend && user > 0 && friend > 0) {
+    if (user != friend) {
         var friendCallback = function (results) {
             if (!results) {
-
+                console.log("ola");
                 res.status(400).send("Error making request");
             } else {
                 sockets[senderUsername].emit('notification', "Friend Request sent!");
-                var getUsername = function (result) {
 
-                    if (sockets[result.rows[0].username] != undefined)
-                        sockets[result.rows[0].username].emit('notification', "User " + senderUsername + " sent you a Friend request");
+                    if (sockets[friend] != undefined)
+                        sockets[friend].emit('notification', "User " + senderUsername + " sent you a Friend request");
                     res.status(200).send("OK");
-                }
-                userDAO.getUserByID(friend, getUsername);
+
             }
         };
 
-        userDAO.addFriend(friend, user, "amizade", 0, friendCallback);
+        var getUsername1 = function (result) {
+            console.log(result.rows);
+            userDAO.addFriend(result.rows[0].userid, user, "amizade", 0, friendCallback);
+        }
+
+        console.log(friend);
+        userDAO.getUser(friend, getUsername1);
+
     } else {
+        console.log("y u do dis");
         res.status(400).send("Error making request");
     }
 
