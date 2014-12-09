@@ -156,7 +156,7 @@ exports.searchChallenges = function (searchValue, res, messages, globals) {
         var insertLastCategories = function (categories) {
             console.log(categories);
             challenge['categories'] = categories.rows;
-            userDAO.getUser(searchValue, sendResults);
+            userDAO.getLikeUser(searchValue, sendResults);
         }
 
         challengeDAO.getCategoriesByID(challenge.challengeid, insertLastCategories);
