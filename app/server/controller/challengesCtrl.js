@@ -117,7 +117,7 @@ exports.searchChallenges = function (searchValue, res, messages, globals) {
             return;
         } else {
             if (challenges.rows.length == 0) {
-                userDAO.getUser(searchValue, sendResults);
+                userDAO.getLikeUser(searchValue, sendResults);
             } else {
                 for (i = 0; i < challenges.rows.length; i++) {
                     var st = [];
@@ -156,6 +156,7 @@ exports.searchChallenges = function (searchValue, res, messages, globals) {
         var insertLastCategories = function (categories) {
             console.log(categories);
             challenge['categories'] = categories.rows;
+            console.log(searchValue);
             userDAO.getLikeUser(searchValue, sendResults);
         }
 
