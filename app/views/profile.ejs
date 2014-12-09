@@ -17,7 +17,7 @@
                         <h4 class="white"><i class="fa fa-dot-circle-o"></i> <%= user.hometown %></h4>
                         <h4 class="white"><i class="fa fa-at"></i> <%= user.email %></h4>
                         <% if (self) { %>
-                        <a href="/edit-profile" class="btn btn-sky btn-md text-uppercase" href="">
+                        <a href="/account-settings" class="btn btn-sky btn-md text-uppercase" href="">
                             <i class="fa fa-pencil"></i> Update
                         </a>
                         <% } else if (hasRequest) { %>
@@ -28,8 +28,8 @@
                         <% } else { %>
                         <button id="add" type="button" class="btn btn-sky btn-md text-uppercase"
                                 ng-disabled="sent"
-                                ng-click="addFriend(<%= user.userid %>)">
-                            <i class="fa fa-pencil"></i> {{buttonText}}
+                                ng-click="addFriend('<%= user.username %>')">
+                            <i class="fa fa-pencil"></i> {{buttonText}} <%= user.username %>
                         </button>
                         <% } %>
                     </div>

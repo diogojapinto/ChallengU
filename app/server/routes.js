@@ -89,7 +89,7 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages, req.session.user.username, connectedUsers);
+            userFn.addFriendRequest(req.session.user.userid, res, req.body.username, globals, messages, req.session.user.username, connectedUsers);
         } else {
             res.status(400).send(false);
         }
@@ -99,22 +99,21 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.getProfile(req.session.user.userid, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
+            userFn.getProfile(req.session.user.username, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
         } else {
             res.redirect('/connect/first-login');
         }
     });
 
-    app.get("/profile/:id", function (req, res) {
+    app.get("/profile/:username", function (req, res) {
         var messages = generateMessageBlock();
-        var userID = parseInt(req.params.id);
         if (req.session.user) {
             var globals = generateGlobals(req);
             var self = false;
-            if (req.session.user.userid == userID) {
+            if (req.session.user.username == req.params.username) {
                 self = true;
             }
-            userFn.getProfile(userID, req.session.user.userid, res, messages, globals, self);
+            userFn.getProfile(req.params.username, req.session.user.userid, res, messages, globals, self);
         } else {
             res.redirect('/connect/first-login');
         }
@@ -137,7 +136,7 @@ exports.listen = function (app, passport, io) {
         challengeFn.searchChallenges(req.params.val, res, messages, globals);
     });
 
-    app.get("/edit-profile", function (req, res) {
+    app.get("/account-settings", function (req, res) {
         var messages = generateMessageBlock();
         var userID = parseInt(req.params.id);
         var globals = generateGlobals(req);
