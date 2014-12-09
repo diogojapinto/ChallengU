@@ -64,3 +64,7 @@ exports.findFriendRequest = function(receiver, sender, callback) {
 exports.getAllNotifications = function(receiver, callback) {
     db.query("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver, [], callback);
 }
+
+exports.getFriends = function(userID,callback) {
+    db.query("SELECT * FROM Friendship WHERE friend1 = " + userID, [], callback);
+}
