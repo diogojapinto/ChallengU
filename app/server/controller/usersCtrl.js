@@ -219,8 +219,31 @@ exports.sendNotifications = function (username, socket) {
             }
         }
 
-        userDAO.getAllNotifications(id, getNotifications);
+        userDAO.getAllNotifications(id, "unread", getNotifications);
     };
 
     userDAO.getUser(username, getUser)
+}
+
+exports.answerRequest = function(userid, friendName, type, res) {
+
+    var getUsername = function (result) {
+        if (result.rows[0].userid == undefined)
+            res.status(400).send(false);
+
+        var friendid = result.rows[0].userid;
+
+        if (type === "postpone") {
+            var postpone = function(results) {
+                if (!results) {
+                    res.status(400).send(false);
+                } else {
+                    res.status(200).send(true);
+                }
+            }
+            userDAO.postponeNotification(userid, friendid, postpone);
+        }
+
+    }
+    userDAO.getUser(friendName, getUsername);
 }

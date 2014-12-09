@@ -95,6 +95,15 @@ exports.listen = function (app, passport, io) {
         }
     });
 
+    app.post("/answer-request", function (req, res) {
+        if (req.session.user) {
+            var globals = generateGlobals(req);
+            userFn.answerRequest(req.session.user.userid, req.body.user, req.body.answType, res);
+        } else {
+            res.status(400).send(false);
+        }
+    });
+
     app.get("/profile", function (req, res) {
         var messages = generateMessageBlock();
         if (req.session.user) {
