@@ -61,6 +61,11 @@ var __slice = [].slice;
                 var $scope = $('#rating').scope();
                 $scope.rating = rating;
                 $scope.rateChallenge();
+                var children = [].slice.call(this.$el.children);
+                children.forEach(function(elem) {
+                    console.log(elem);
+                    elem.addClass("selected");
+                });
             }
             this.syncRating();
             return this.$el.trigger('starrr:change', rating);
@@ -120,6 +125,6 @@ var __slice = [].slice;
     });
 })(window.jQuery, window);
 
-$(function() {
+$(document).ready(function () {
     return $(".starrr").starrr();
 });

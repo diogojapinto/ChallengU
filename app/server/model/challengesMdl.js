@@ -93,5 +93,4 @@ exports.updateChallengeRating = function(userID, challengeID, rating, callback) 
         function() {
             db.query("SELECT AVG(rating) FROM RateChallenge WHERE challengeID = $1::int", [challengeID], callback);
         });
-
 };
