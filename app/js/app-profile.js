@@ -11,9 +11,10 @@
         $scope.sent = false;
         $scope.buttonText = "Add Friend";
 
-        $scope.addFriend = function (userid) {
+        $scope.addFriend = function (username) {
             $scope.loading = true;
-            Profile.requestFriend({userid: userid})
+            alert(username);
+            Profile.requestFriend({username: username})
                 .success(function () {
                     $scope.sent = true;
                     $scope.buttonText = "Friend Request Sent";
@@ -30,8 +31,9 @@
      */
     app.factory('Profile', ['$http', function ($http) {
         return {
-            requestFriend: function (userid) {
-                return $http.post('/add-friend', userid);
+            requestFriend: function (username) {
+                alert(username);
+                return $http.post('/add-friend', username);
             }
         }
     }]);

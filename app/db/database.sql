@@ -3,6 +3,7 @@ SET TIMEZONE TO 'Portugal';
 
 DROP FUNCTION IF EXISTS merge_ratechallenge(integer,integer,integer);
 
+DROP TABLE IF EXISTS Friendship;
 DROP TABLE IF EXISTS PersistentNotifications;
 DROP TABLE IF EXISTS UserAchievement;
 DROP TABLE IF EXISTS Achievement;
@@ -164,6 +165,14 @@ CREATE TABLE PersistentNotifications (
   FOREIGN KEY (receiverID) REFERENCES RegisteredUser ON DELETE CASCADE,
   FOREIGN KEY (senderID) REFERENCES RegisteredUser ON DELETE CASCADE
 
+);
+
+CREATE TABLE IF NOT EXISTS Friendship (
+  friend1 INTEGER,
+  friend2 INTEGER REFERENCES RegisteredUser ON DELETE CASCADE,
+  FOREIGN KEY (friend1) REFERENCES RegisteredUser ON DELETE CASCADE,
+  CONSTRAINT fr UNIQUE (friend1, friend2),
+  CHECK (friend1 < friend2)
 );
 
 /***********************************

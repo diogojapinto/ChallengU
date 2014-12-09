@@ -89,7 +89,16 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.addFriendRequest(req.session.user.userid, res, req.body.userid, globals, messages, req.session.user.username, connectedUsers);
+            userFn.addFriendRequest(req.session.user.userid, res, req.body.username, globals, messages, req.session.user.username, connectedUsers);
+        } else {
+            res.status(400).send(false);
+        }
+    });
+
+    app.post("/answer-request", function (req, res) {
+        if (req.session.user) {
+            var globals = generateGlobals(req);
+            userFn.answerRequest(req.session.user.userid, req.body.user, req.body.answType, res);
         } else {
             res.status(400).send(false);
         }
@@ -99,22 +108,21 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.getProfile(req.session.user.userid, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
+            userFn.getProfile(req.session.user.username, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
         } else {
             res.redirect('/connect/first-login');
         }
     });
 
-    app.get("/profile/:id", function (req, res) {
+    app.get("/profile/:username", function (req, res) {
         var messages = generateMessageBlock();
-        var userID = parseInt(req.params.id);
         if (req.session.user) {
             var globals = generateGlobals(req);
             var self = false;
-            if (req.session.user.userid == userID) {
+            if (req.session.user.username == req.params.username) {
                 self = true;
             }
-            userFn.getProfile(userID, req.session.user.userid, res, messages, globals, self);
+            userFn.getProfile(req.params.username, req.session.user.userid, res, messages, globals, self);
         } else {
             res.redirect('/connect/first-login');
         }
@@ -134,30 +142,34 @@ exports.listen = function (app, passport, io) {
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        if (req.session.user) {
+            challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        } else {
+            messages.danger.push("You must be logged in first!");
+            res.redirect('/connect/first-login');
+        }
     });
 
-    app.get("/edit-profile", function (req, res) {
+    app.get("/account-settings", function (req, res) {
         var messages = generateMessageBlock();
         var userID = parseInt(req.params.id);
         var globals = generateGlobals(req);
         if (req.session.user) {
             res.render('edit-profile.ejs', {
-                user    : req.session.user.userid,
-                title   : 'Edit your profile',
+                user    : req.session.user.username,
+                title   : 'Account Settings',
                 messages: messages,
                 globals : globals
             })
         } else {
             messages.danger.push("You don't have the permissions to access that link");
-            res.status(400).send(false);
+            res.redirect('/connect/first-login');
         }
     });
 
-    app.post("/get-user/:id", function (req, res) {
-        var userID = parseInt(req.params.id);
+    app.post("/get-user/:username", function (req, res) {
         if (req.session.user) {
-            userFn.getUserByID(userID, res);
+            userFn.getUserByUsername(req.params.username, res);
         } else {
             res.status(400).send(false);
         }
