@@ -10,9 +10,9 @@
         $scope.loading = true;
         $scope.pass = false;
 
-        var id = angular.element($('input[name=id]')).val();
+        var username = angular.element($('input[name=username]')).val();
 
-        Edit.getUser(id,$scope.formData);
+        Edit.getUser(username,$scope.formData);
 
 
         $scope.editProfile = function () {
@@ -70,8 +70,8 @@
             edit: function (user, pass) {
                 return $http.post('/edit-profile', {user: user, pass: pass});
             },
-            getUser: function (userID, formData) {
-                $http.post("/get-user/"+userID)
+            getUser: function (username, formData) {
+                $http.post("/get-user/"+username)
                     .success(function (data, status, headers, config) {
                         formData['id'] = data['userid'];
                         formData['username'] = data['username'];

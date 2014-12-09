@@ -133,7 +133,12 @@ exports.listen = function (app, passport, io) {
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        if (req.session.user) {
+            challengeFn.searchChallenges(req.params.val, res, messages, globals);
+        } else {
+            messages.danger.push("You must be logged in first!");
+            res.redirect('/connect/first-login');
+        }
     });
 
     app.get("/account-settings", function (req, res) {
@@ -142,21 +147,20 @@ exports.listen = function (app, passport, io) {
         var globals = generateGlobals(req);
         if (req.session.user) {
             res.render('edit-profile.ejs', {
-                user    : req.session.user.userid,
+                user    : req.session.user.username,
                 title   : 'Edit your profile',
                 messages: messages,
                 globals : globals
             })
         } else {
             messages.danger.push("You don't have the permissions to access that link");
-            res.status(400).send(false);
+            res.redirect('/connect/first-login');
         }
     });
 
-    app.post("/get-user/:id", function (req, res) {
-        var userID = parseInt(req.params.id);
+    app.post("/get-user/:username", function (req, res) {
         if (req.session.user) {
-            userFn.getUserByID(userID, res);
+            userFn.getUserByUsername(req.params.username, res);
         } else {
             res.status(400).send(false);
         }

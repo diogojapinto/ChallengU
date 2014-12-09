@@ -108,13 +108,13 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
     userDAO.getUser(data, loginCallback);
 };
 
-exports.getUserByID = function (userID, res) {
+exports.getUserByUsername = function (username, res) {
 
     var loginCallback = function (results) {
         res.send(results.rows[0]);
     }
 
-    userDAO.getUserByID(userID, loginCallback);
+    userDAO.getUser(username, loginCallback);
 }
 
 exports.editProfile = function (data, res) {
