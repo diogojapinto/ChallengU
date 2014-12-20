@@ -71,26 +71,10 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
             console.log(user);
             var hasRequest = function (result) {
                 if (result.rowCount == 0) {
-
-                    res.render('profile.ejs', {
-                        user      : user,
-                        title     : 'Profile',
-                        messages  : messages,
-                        globals   : globals,
-                        self      : self,
-                        hasRequest: false
-                    });
+                    userDAO.getFriends(user.userid, renderProfile);
                 } else {
-                    res.render('profile.ejs', {
-                        user      : user,
-                        title     : 'Profile',
-                        messages  : messages,
-                        globals   : globals,
-                        self      : self,
-                        hasRequest: true
-                    });
+                    userDAO.getFriends(user.userid, renderProfileTrue);
                 }
-                userDAO.getFriends(user.userid, renderProfile);
             };
 
             userDAO.findFriendRequest(user.userid, id, hasRequest);
@@ -98,6 +82,19 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
             userDAO.getFriends(user.userid, renderProfile);
         }
 
+    }
+
+    var renderProfileTrue = function (results) {
+        console.log(results.rows);
+        res.render('profile.ejs', {
+            user      : user,
+            title     : 'Profile',
+            messages  : messages,
+            globals   : globals,
+            self      : self,
+            friends   : results.rows,
+            hasRequest: true
+        });
     }
 
     var renderProfile = function (results) {
