@@ -190,7 +190,7 @@
                 <ul class="user-menu-list">
                     <% for (var i = 0; i < friends.length; i++) { %>
                     <li style="display:inline">
-                        <a href="profile/<%= friends[i].userid %>">
+                        <a href="profile/<%= friends[i].username %>">
                             <div class="col-md-4">
                                 <div class="view">
                                     <img src="http://24.media.tumblr.com/282fadab7d782edce9debf3872c00ef1/tumblr_n3tswomqPS1st5lhmo1_1280.jpg"
@@ -207,7 +207,7 @@
 
                     <li>
                         <a href="#friends" data-toggle="tab">
-                            <button type="button" class="btn btn-sky btn-md text-uppercase" href="">
+                            <button type="button" class="btn btn-sky btn-md text-uppercase">
                                 <i class="fa fa-users"></i> View All Friends
                             </button>
                         </a>
@@ -231,6 +231,23 @@
                         </div>
                         <div class="tab-pane fade" id="friends">
                             Friends
+                            <ul class="user-menu-list">
+                                <% friends.forEach(function(friend) { %>
+                                <li style="display:inline">
+                                    <a href="profile/<%= friend.username %>">
+                                        <div class="col-md-4">
+                                            <div class="view">
+                                                <img src="http://24.media.tumblr.com/282fadab7d782edce9debf3872c00ef1/tumblr_n3tswomqPS1st5lhmo1_1280.jpg"
+                                                     class="img-responsive">
+                                            </div>
+                                            <div class="info">
+                                                <p class="small" style="text-overflow: ellipsis"><%= friend.username %></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <% }); %>
+                            </ul>
                         </div>
                     </div>
                 </div>

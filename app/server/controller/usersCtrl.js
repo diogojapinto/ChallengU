@@ -90,6 +90,7 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
                         hasRequest: true
                     });
                 }
+                userDAO.getFriends(user.userid, renderProfile);
             };
 
             userDAO.findFriendRequest(user.userid, id, hasRequest);
@@ -100,10 +101,6 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
     }
 
     var renderProfile = function (results) {
-        /*var friends = [];
-        friends.push(results.rows[0]);
-        friends.push(results.rows[1]);
-        friends.push(results.rows[2]);*/
         console.log(results.rows);
         res.render('profile.ejs', {
             user      : user,
