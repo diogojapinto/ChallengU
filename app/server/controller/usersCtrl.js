@@ -100,10 +100,10 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
     }
 
     var renderProfile = function (results) {
-        var friends = [];
+        /*var friends = [];
         friends.push(results.rows[0]);
         friends.push(results.rows[1]);
-        friends.push(results.rows[2]);
+        friends.push(results.rows[2]);*/
         console.log(results.rows);
         res.render('profile.ejs', {
             user      : user,
@@ -111,7 +111,7 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
             messages  : messages,
             globals   : globals,
             self      : self,
-            friends   : friends,
+            friends   : results.rows,
             hasRequest: false
         });
     }

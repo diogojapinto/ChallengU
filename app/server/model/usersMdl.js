@@ -71,5 +71,5 @@ exports.postponeNotification = function (receiver, sender, callback) {
 }
 
 exports.getFriends = function(userID,callback) {
-    db.query("SELECT * FROM Friendship WHERE friend1 = " + userID, [], callback);
+    db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE friend1 = " + userID + " AND friend2 = userid", [], callback);
 }
