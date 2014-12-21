@@ -79,6 +79,10 @@ exports.postponeNotification = function (receiver, sender, callback) {
     db.query("UPDATE PersistentNotifications SET status = 'read' WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'", [], callback);
 };
 
+exports.acceptNotification = function (receiver, sender, callback) {
+    db.query("UPDATE PersistentNotifications SET status = 'accepted' WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'", [], callback);
+};
+
 exports.getFriends = function(userID,callback) {
     db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE (friend1 = " + userID + " AND friend2 = userid) OR (friend2 = " + userID + " AND friend1 = userid)", [], callback);
 };

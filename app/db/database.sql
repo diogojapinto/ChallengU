@@ -31,7 +31,7 @@ CREATE TYPE UserType AS ENUM ('user', 'moderator', 'admin');
 CREATE TYPE UserState AS ENUM ('ban', 'tempban', 'normal');
 CREATE TYPE ChallengeTarget AS ENUM ('private', 'community', 'friendly');
 CREATE TYPE ChallengeType AS ENUM ('text', 'audio', 'video', 'photo');
-CREATE TYPE StatusType AS ENUM ('read', 'unread');
+CREATE TYPE StatusType AS ENUM ('read', 'unread', 'accepted');
 
 
 /***********************************

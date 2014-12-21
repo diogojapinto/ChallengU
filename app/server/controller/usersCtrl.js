@@ -264,7 +264,7 @@ exports.answerRequest = function (userid, friendName, type, res) {
                             res.status(200).send({friendName: friendName});
                         }
                     }
-                    userDAO.postponeNotification(userid, friendid, postpone);
+                    userDAO.acceptNotification(userid, friendid, postpone);
                 }
             }
             if (userid < friendid) {
