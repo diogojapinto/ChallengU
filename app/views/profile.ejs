@@ -3,6 +3,7 @@
 <head>
     <% include partials/head %>
     <link type="text/css" rel="stylesheet" href="../css/profile.css">
+    <link type="text/css" rel="stylesheet" href="../css/events.css">
 </head>
 <body ng-app="profile-app">
 <% include partials/header %>
@@ -82,7 +83,7 @@
         <div class="col-md-5 user-menu user-pad">
             <div class="user-menu-content active">
                 <h3>
-                    Recent Interactions
+                    Recent Notifications
                 </h3>
                 <ul class="user-menu-list">
                     <li>
@@ -97,7 +98,7 @@
                     <li>
                         <a href="#activity" data-toggle="tab">
                             <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
-                                <i class="fa fa-bell-o"></i> View all activity
+                                <i class="fa fa-bell-o"></i> View all notifications
                             </button>
                         </a>
                     </li>
@@ -188,7 +189,8 @@
             </div>
             <div class="user-menu-content">
                 <ul class="user-menu-list">
-                    <% for (var i = 0; i < 3; i++) { %>
+                    <% for (var i = 0; i < friends.length; i++) { %>
+                    <% if (i == 3) { break; }%>
                     <li style="display:inline">
                         <a href="profile/<%= friends[i].username %>">
                             <div class="col-md-4">
@@ -224,7 +226,38 @@
                 <div class="board">
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="activity">
-                            Activity
+                            <h3 style="color:black">Notifications</h3>
+                            <div class="row">
+                                <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+                                    <ul class="event-list">
+                                        <% notifications.forEach(function(notif) { %>
+                                        <li>
+                                            <time datetime="2014-07-20">
+                                                <span class="day">4</span>
+                                                <span class="month">Jul</span>
+                                                <span class="year">2014</span>
+                                                <span class="time">ALL DAY</span>
+                                            </time>
+
+                                            <div class="info">
+                                                <% if (notif.type == "amizade") { %>
+                                                <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h3>
+                                                <% } %>
+
+                                            </div>
+                                            <div class="social">
+                                                <ul>
+                                                    <li class="facebook" style="width:50%;"><a href=""><span
+                                                            class="fa fa-check"></span></a></li>
+                                                    <li class="twitter" style="width:50%;"><a href=""><span
+                                                            class="fa fa-close"></span></a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <% }); %>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="messages">
                             Messages
@@ -241,7 +274,8 @@
                                                      class="img-responsive">
                                             </div>
                                             <div class="info">
-                                                <p class="small" style="text-overflow: ellipsis"><%= friend.username %></p>
+                                                <p class="small" style="text-overflow: ellipsis"><%=
+                                                    friend.username %></p>
                                             </div>
                                         </div>
                                     </a>
