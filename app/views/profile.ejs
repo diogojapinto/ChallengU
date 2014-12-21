@@ -28,7 +28,7 @@
                         <% } else { %>
                         <button id="add" type="button" class="btn btn-sky btn-md text-uppercase"
                                 ng-disabled="sent"
-                                ng-click="addFriend('<%= user.username %>')">
+                                ng-click="addFriendRequest('<%= user.username %>')">
                             <i class="fa fa-pencil"></i> {{buttonText}} <%= user.username %>
                         </button>
                         <% } %>
@@ -188,7 +188,7 @@
             </div>
             <div class="user-menu-content">
                 <ul class="user-menu-list">
-                    <% for (var i = 0; i < 3; i++) { %>
+                    <% for (var i = 0; (i < 3 && i < friends.length); i++) { %>
                     <li style="display:inline">
                         <a href="profile/<%= friends[i].username %>">
                             <div class="col-md-4">
