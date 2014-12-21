@@ -7,7 +7,8 @@
 
 <body ng-app="app-challenge">
 <% include partials/header %>
-<div ng-init="rating = <%= challenge.rating %>; challengeID = <%= challenge.id %>"  id="rating" ng-controller="RatingController as ratingController">
+<div ng-init="rating = <%= challenge.rating %>; challengeID = <%= challenge.id %>" id="rating"
+     ng-controller="RatingController as ratingController">
     <div class="container" style="margin: 5em auto">
         <h1><%= challenge.name %></h1>
 
@@ -26,7 +27,8 @@
                         </tr>
                         <tr>
                             <td><h3><b>Rating:</b></h3></td>
-                            <td><h3><span id="stars-rating" class="starrr" data-rating="<%= Math.floor(challenge.rating) %>"></span></h3>
+                            <td><h3><span id="stars-rating" class="starrr"
+                                          data-rating="<%= Math.floor(challenge.rating) %>"></span></h3>
                             </td>
                         </tr>
                         <tr>
@@ -63,25 +65,71 @@
         </div>
         <% include challenge-proof-form %>
     </div>
+
+    <div ng-controller="CommentController as commentCtrl" class="" style="margin-top: 1em">
+        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em;" type="text" id="userComment"
+                  ng-model="content"
+                  class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
+
+        <div style="" class="pull-right btn btn-primary btn-sm"
+             ng-click="addComment(<%= globals.username %>, <%= challenge.id %>)">
+            <span class="glyphicon glyphicon-comment"></span> Add Comment
+        </div>
+    </div>
+
     <div class="container">
-        <table class="table table-striped">
-            <% challenge.comments.forEach(function(comment) { %>
-            <tr>
-                <td>
-                    <a href="#"><%= comment.username %></a>
-                </td>
-                <td>
-                    <p><%= comment.content %></p>
-                </td>
-            </tr>
-            <% }); %>
-            <tr>
-                <form>
-                    <td><label>my_username</label></td>
-                    <td><textarea style="width: 100%" rows="1" placeholder="Enter your comment here"></textarea></td>
-                </form>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="panel panel-default widget">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span>
+
+                    <h3 class="panel-title">
+                        Recent Comments</h3>
+                <span class="label label-info">
+                   <%= challenge.comments.length %></span>
+                </div>
+                <div class="panel-body">
+                    <ul id="comments" class="list-group">
+                        <% challenge.comments.forEach(function(comment) { %>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-xs-2 col-md-1">
+                                    <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""/></div>
+                                <div class="col-xs-10 col-md-11">
+                                    <div>
+                                        <!--a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html">
+                                            Google Style Login Page Design Using Bootstrap</a-->
+
+                                        <div class="mic-info">
+                                            By: <a href="/profile/<%= comment.username %>">
+                                                <%= comment.username %>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="comment-text">
+                                        <%= comment.content %>
+                                    </div>
+                                    <!--div class="action">
+                                        <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-xs" title="Approved">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </div-->
+                                </div>
+                            </div>
+                        </li>
+                        <% }); %>
+                    </ul>
+                    <!--a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span
+                                class="glyphicon glyphicon-refresh"></span> More</a-->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <% include partials/footer %>

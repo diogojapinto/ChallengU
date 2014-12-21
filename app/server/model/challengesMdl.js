@@ -66,7 +66,7 @@ exports.searchChallenge = function (searchValue, callback) {
 };
 
 exports.getCategoriesByID = function (challengeID, callback) {
-    db.query("SELECT Category.name FROM Category,ChallengeCategory WHERE challengeID = " + challengeID + " AND ChallengeCategory.categoryID = Category.categoryID",[],callback);
+    db.query("SELECT Category.name FROM Category,ChallengeCategory WHERE challengeID = " + challengeID + " AND ChallengeCategory.categoryID = Category.categoryID", [], callback);
 }
 
 /**
@@ -88,9 +88,13 @@ exports.insertChallengeProof = function (userID, challengeID, content, callback)
     db.transaction(queries, args, callback);
 };
 
-exports.updateChallengeRating = function(userID, challengeID, rating, callback) {
+exports.updateChallengeRating = function (userID, challengeID, rating, callback) {
     db.query("SELECT merge_rateChallenge($1::int, $2::int, $3::int)", [challengeID, userID, rating],
-        function() {
+        function () {
             db.query("SELECT AVG(rating) FROM RateChallenge WHERE challengeID = $1::int", [challengeID], callback);
         });
 };
+
+exports.addComment = function (userID, challengeID, content, callback) {
+    db.query("INSERT INTO Comment (commentID, userID, challengeID, content) VALUES (DEFAULT," + userID + "," + challengeID + ",'" + content + "')", [], callback)
+}
