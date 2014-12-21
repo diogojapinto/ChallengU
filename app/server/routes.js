@@ -183,6 +183,17 @@ exports.listen = function (app, passport, io) {
         }
     });
 
+    app.post("/add-comment", function (req, res) {
+        if (req.session.user) {
+            console.log(req.body);
+            challengeFn.addComment(req.body.username, req.body.content, req.body.challengeid, res);
+        } else {
+
+            console.log("erro1");
+            res.status(400).send(false);
+        }
+    });
+
     app.post("/challenge-rating", function(req, res) {
         var challengeID = req.body.challenge;
         var rating =req.body.rating;
