@@ -204,7 +204,6 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, sende
         userDAO.getUser(friend, getUsername1);
 
     } else {
-        console.log("y u do dis");
         res.status(400).send("Error making request");
     }
 

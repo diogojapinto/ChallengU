@@ -380,11 +380,13 @@ var generateGlobals = function (req) {
     if (req.session.user) {
         ret = {
             username: req.session.user.username,
+            userid: req.session.user.userid,
             logged  : true
         }
     } else {
         ret = {
             username: "",
+            userid: null,
             logged  : false
         }
     }

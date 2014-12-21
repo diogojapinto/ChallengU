@@ -71,8 +71,8 @@ exports.getAllNotifications = function (receiver, type, callback) {
     }
 };
 
-exports.getNotificationsForProfile = function (receiver, type, callback) {
-    db.query("SELECT username,userID,type,status FROM PersistentNotifications,RegisteredUser WHERE receiverID = " + receiver + "AND senderID = userID", [], callback);
+exports.getNotificationsForProfile = function (id, type, callback) {
+    db.query("SELECT username,userID,type,status,receiverID,senderID FROM PersistentNotifications,RegisteredUser WHERE (receiverID = " + id + " AND senderID = userID) or (senderID  = " + id + " AND receiverID = userID)", [], callback);
 };
 
 exports.postponeNotification = function (receiver, sender, callback) {

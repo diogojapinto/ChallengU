@@ -227,6 +227,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="activity">
                             <h3 style="color:black">Notifications</h3>
+                            <% if (self) { %>
                             <div class="row">
                                 <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
                                     <ul class="event-list">
@@ -241,14 +242,18 @@
 
                                             <div class="info">
                                                 <% if (notif.type == "amizade" && notif.status == "accepted") { %>
-                                                <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h3>
-                                                <% } else if (notif.type == "amizade" && notif.status != "accepted") { %>
+                                                    <% if (notif.receiverid == globals.userid) { %>
+                                                        <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h3>
+                                                    <% } else if (notif.senderid == globals.userid) { %>
+                                                        <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> is now your friend!</h3>
+                                                    <% } %>
+                                                <% } else if (notif.type == "amizade" && notif.status != "accepted" && notif.receiverid = globals.userid) { %>
                                                 <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h3>
                                                 <% } %>
                                             </div>
                                             <div class="social">
                                                 <ul>
-                                                    <% if (notif.status == "read" || notif.status == "unread") { %>
+                                                    <% if ((notif.status == "read" || notif.status == "unread") && notif.receiverid == globals.userid) { %>
                                                     <li class="facebook" style="width:50%;"><a href="" onclick="accept('<%= notif.username %>')"><span
                                                             class="fa fa-check"></span></a></li>
                                                     <% } %>
@@ -259,6 +264,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            <% } %>
                         </div>
                         <div class="tab-pane fade" id="messages">
                             Messages
