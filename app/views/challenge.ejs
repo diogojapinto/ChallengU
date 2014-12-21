@@ -67,11 +67,10 @@
     </div>
 
     <div ng-controller="CommentController as commentCtrl" class="" style="margin-top: 1em">
-        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em;" type="text" id="userComment"
+        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em; display: table-cell;"" type="text" id="userComment"
                   ng-model="content"
                   class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
-
-        <div style="" class="pull-right btn btn-primary btn-sm"
+        <div style="vertical-align: middle; margin-bottom: 2.5em; width: 10%" class="btn btn-primary btn-lg"
              ng-click="addComment('<%= globals.username %>', <%= challenge.id %>)">
             <span class="glyphicon glyphicon-comment"></span> Add Comment
         </div>
@@ -100,13 +99,13 @@
                                         <!--a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html">
                                             Google Style Login Page Design Using Bootstrap</a-->
 
-                                        <div class="mic-info">
+                                        <div style="color: #ffffff; font-size: small" class="mic-info">
                                             By: <a href="/profile/<%= comment.username %>">
                                                 <%= comment.username %>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="comment-text">
+                                    <div style="font-size: x-large" class="comment-text">
                                         <%= comment.content %>
                                     </div>
                                     <!--div class="action">
