@@ -1,4 +1,4 @@
-﻿SET DATESTYLE TO PostgreSQL, European;
+﻿﻿SET DATESTYLE TO PostgreSQL, European;
 SET TIMEZONE TO 'Portugal';
 
 DROP FUNCTION IF EXISTS merge_ratechallenge(integer,integer,integer);

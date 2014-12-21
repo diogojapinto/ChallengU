@@ -50,16 +50,16 @@ exports.registerUserFb = function (id, token, name, email, callback) {
         db.query("INSERT INTO RegisteredUser (userID, username, pass, name, email, work, hometown, userType, userState) " +
         "VALUES (DEFAULT," + "'" + id + "'," + "'" + hash + "'," + "'" + name + "'," + "'" + email + "'," + "'none','none','user','normal') RETURNING *", [], callback);
     });
-}
+};
 
-exports.addFriend = function (receiver, sender, type, info, callback) {
+exports.addFriendRequest = function (receiver, sender, type, info, callback) {
     db.query("INSERT INTO PersistentNotifications (notificationID, receiverID, senderID, type, info, status) VALUES (DEFAULT," + receiver + "," + sender + "," + "'" + type + "'" + "," + info + "," + "'unread'" + ")", [], callback);
 };
 
 exports.findFriendRequest = function (receiver, sender, callback) {
     //console.log("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'");
     db.query("SELECT * FROM PersistentNotifications WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'", [], callback);
-}
+};
 
 exports.getAllNotifications = function (receiver, type, callback) {
     if (type == "unread") {
@@ -78,8 +78,12 @@ exports.getNotificationsForProfile = function (receiver, type, callback) {
 
 exports.postponeNotification = function (receiver, sender, callback) {
     db.query("UPDATE PersistentNotifications SET status = 'read' WHERE receiverID = " + receiver + " AND senderID = " + sender + " AND type LIKE 'amizade'", [], callback);
-}
+};
 
 exports.getFriends = function(userID,callback) {
-    db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE friend1 = " + userID + " AND friend2 = userid", [], callback);
-}
+    db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE (friend1 = " + userID + " AND friend2 = userid) OR (friend2 = " + userID + " AND friend1 = userid)", [], callback);
+};
+
+exports.addFriendship = function(friend1, friend2, callback) {
+    db.query("INSERT INTO Friendship (friend1, friend2) VALUES (" + friend1 + "," + friend2 + ")", [], callback);
+};

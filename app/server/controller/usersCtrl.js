@@ -186,18 +186,18 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, sende
                 console.log("ola");
                 res.status(400).send("Error making request");
             } else {
-                sockets[senderUsername].emit('notification', "Friend Request sent!");
+                sockets[senderUsername].emit('notification', {message:"Friend Request sent!", type: "info"});
 
-                    if (sockets[friend] != undefined)
-                        sockets[friend].emit('notification', "User " + senderUsername + " sent you a Friend request");
-                    res.status(200).send("OK");
+                if (sockets[friend] != undefined)
+                    sockets[friend].emit('notification', {message: "User " + senderUsername + " sent you a Friend request", type: "amizade"});
+                res.status(200).send("OK");
 
             }
         };
 
         var getUsername1 = function (result) {
             console.log(result.rows);
-            userDAO.addFriend(result.rows[0].userid, user, "amizade", 0, friendCallback);
+            userDAO.addFriendRequest(result.rows[0].userid, user, "amizade", 0, friendCallback);
         }
 
         console.log(friend);
@@ -221,7 +221,7 @@ exports.sendNotifications = function (username, socket) {
                 if (type === "amizade") {   //TODO other types
                     var getUsername = function (result) {
 
-                        socket.emit('notification', "User " + result.rows[0].username + " sent you a Friend request");
+                        socket.emit('notification', {message: "User " + result.rows[0].username + " sent you a Friend request", type: "amizade"});
                     }
                     userDAO.getUserByID(sender, getUsername);
                 }
@@ -234,7 +234,7 @@ exports.sendNotifications = function (username, socket) {
     userDAO.getUser(username, getUser)
 }
 
-exports.answerRequest = function(userid, friendName, type, res) {
+exports.answerRequest = function (userid, friendName, type, res) {
 
     var getUsername = function (result) {
         console.log(result.rows);
@@ -244,7 +244,7 @@ exports.answerRequest = function(userid, friendName, type, res) {
         var friendid = result.rows[0].userid;
 
         if (type === "postpone") {
-            var postpone = function(results) {
+            var postpone = function (results) {
                 if (!results) {
                     res.status(400).send(false);
                 } else {
@@ -252,6 +252,26 @@ exports.answerRequest = function(userid, friendName, type, res) {
                 }
             }
             userDAO.postponeNotification(userid, friendid, postpone);
+        } else if (type === "accept") {
+            var accept = function (results) {
+                if (!results) {
+                    res.status(400).send(false);
+                } else {
+                    var postpone = function(results) {
+                        if (!results) {
+                            res.status(400).send(false);
+                        } else {
+                            res.status(200).send({friendName: friendName});
+                        }
+                    }
+                    userDAO.postponeNotification(userid, friendid, postpone);
+                }
+            }
+            if (userid < friendid) {
+                userDAO.addFriendship(userid, friendid, accept)
+            } else {
+                userDAO.addFriendship(friendid, userid, accept);
+            }
         }
 
     }
