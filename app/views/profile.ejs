@@ -88,10 +88,10 @@
                 <ul class="user-menu-list">
                     <% notifications.forEach(function(notif) { %>
                     <li>
-                        <% if (notif.type == "amizade") { %>
-                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend! </h4>
-                        <% } else { %>
-                        <h4><i class="fa fa-user coral"></i> Placeholder</h4>
+                        <% if (notif.type == "amizade" && notif.status == "accepted") { %>
+                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h4>
+                        <% } else if (notif.type == "amizade" && notif.status != "accepted") { %>
+                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h4>
                         <% } %>
                     </li>
                     <% }); %>
@@ -240,14 +240,15 @@
                                             </time>
 
                                             <div class="info">
-                                                <% if (notif.type == "amizade") { %>
+                                                <% if (notif.type == "amizade" && notif.status == "accepted") { %>
+                                                <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h3>
+                                                <% } else if (notif.type == "amizade" && notif.status != "accepted") { %>
                                                 <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h3>
                                                 <% } %>
-
                                             </div>
                                             <div class="social">
                                                 <ul>
-                                                    <% if (notif.status == "read") { %>
+                                                    <% if (notif.status == "read" || notif.status == "unread") { %>
                                                     <li class="facebook" style="width:50%;"><a href="" onclick="accept('<%= notif.username %>')"><span
                                                             class="fa fa-check"></span></a></li>
                                                     <% } %>

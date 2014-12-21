@@ -97,6 +97,7 @@ exports.listen = function (app, passport, io) {
 
     app.post("/answer-request", function (req, res) {
         if (req.session.user) {
+            console.log("cenas");
             var globals = generateGlobals(req);
             userFn.answerRequest(req.session.user.userid, req.body.user, req.body.answType, res);
         } else {
