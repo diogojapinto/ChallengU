@@ -16,7 +16,7 @@
             Profile.requestFriend({username: username})
                 .success(function () {
                     $scope.sent = true;
-                    $scope.buttonText = "Friend Request Sent";
+                    $scope.buttonText = "Friend request sent to";
                 })
                 .error(function () {
 

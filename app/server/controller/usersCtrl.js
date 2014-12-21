@@ -65,36 +65,32 @@ exports.registerUser = function (data, res) {
 
 exports.getProfile = function (data, id, res, messages, globals, self) {
 
+    var friends;
+    var requests = false;
+
     var loginCallback = function (results) {
         user = results.rows[0];
         if (!self) {
             console.log(user);
             var hasRequest = function (result) {
                 if (result.rowCount == 0) {
-                    userDAO.getFriends(user.userid, renderProfile);
+                    userDAO.getFriends(user.userid, getFriends);
                 } else {
-                    userDAO.getFriends(user.userid, renderProfileTrue);
+                    requests = true;
+                    userDAO.getFriends(user.userid,getFriends);
                 }
             };
 
             userDAO.findFriendRequest(user.userid, id, hasRequest);
         } else {
-            userDAO.getFriends(user.userid, renderProfile);
+            userDAO.getFriends(user.userid, getFriends);
         }
 
     }
 
-    var renderProfileTrue = function (results) {
-        console.log(results.rows);
-        res.render('profile.ejs', {
-            user      : user,
-            title     : 'Profile',
-            messages  : messages,
-            globals   : globals,
-            self      : self,
-            friends   : results.rows,
-            hasRequest: true
-        });
+    var getFriends = function(results) {
+        friends = results.rows;
+        userDAO.getNotificationsForProfile(user.userid,"",renderProfile);
     }
 
     var renderProfile = function (results) {
@@ -105,8 +101,9 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
             messages  : messages,
             globals   : globals,
             self      : self,
-            friends   : results.rows,
-            hasRequest: false
+            friends   : friends,
+            notifications: results.rows,
+            hasRequest: requests
         });
     }
 
@@ -240,6 +237,7 @@ exports.sendNotifications = function (username, socket) {
 exports.answerRequest = function (userid, friendName, type, res) {
 
     var getUsername = function (result) {
+        console.log(result.rows);
         if (result.rows[0].userid == undefined)
             res.status(400).send(false);
 
@@ -266,7 +264,7 @@ exports.answerRequest = function (userid, friendName, type, res) {
                             res.status(200).send({friendName: friendName});
                         }
                     }
-                    userDAO.postponeNotification(userid, friendid, postpone);
+                    userDAO.acceptNotification(userid, friendid, postpone);
                 }
             }
             if (userid < friendid) {
