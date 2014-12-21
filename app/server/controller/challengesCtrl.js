@@ -94,6 +94,8 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
             challenge.responses.push(proof);
         });
 
+        console.log(globals);
+
         res.render('challenge.ejs', {
             title    : 'ChallengeU - Challenge ' + challenge.name,
             challenge: challenge,

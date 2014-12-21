@@ -1,4 +1,4 @@
-(function() {
+    (function() {
     var app = angular.module('app-challenge', ['search-app']);
 
     app.controller('ProofSubmit', ['$scope', '$http', 'Proof', 'Rater', function ($scope, $http, Proof) {
