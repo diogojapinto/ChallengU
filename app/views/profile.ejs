@@ -86,15 +86,15 @@
                     Recent Notifications
                 </h3>
                 <ul class="user-menu-list">
+                    <% notifications.forEach(function(notif) { %>
                     <li>
-                        <h4><i class="fa fa-user coral"></i> Roselynn Smith followed you.</h4>
+                        <% if (notif.type == "amizade") { %>
+                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend! </h4>
+                        <% } else { %>
+                        <h4><i class="fa fa-user coral"></i> Placeholder</h4>
+                        <% } %>
                     </li>
-                    <li>
-                        <h4><i class="fa fa-heart-o coral"></i> Jonathan Hawkins followed you.</h4>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-paper-plane-o coral"></i> Gracie Jenkins followed you.</h4>
-                    </li>
+                    <% }); %>
                     <li>
                         <a href="#activity" data-toggle="tab">
                             <button type="button" class="btn btn-sky btn-md text-uppercase" href="#">
