@@ -17,7 +17,6 @@
                 .success(function () {
                     $scope.sent = true;
                     $scope.buttonText = "Friend request sent to";
-
                 })
                 .error(function () {
 

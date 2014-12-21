@@ -247,10 +247,10 @@
                                             </div>
                                             <div class="social">
                                                 <ul>
-                                                    <li class="facebook" style="width:50%;"><a href=""><span
+                                                    <% if (notif.status == "read") { %>
+                                                    <li class="facebook" style="width:50%;"><a href="" onclick="accept('<%= notif.username %>')"><span
                                                             class="fa fa-check"></span></a></li>
-                                                    <li class="twitter" style="width:50%;"><a href=""><span
-                                                            class="fa fa-close"></span></a></li>
+                                                    <% } %>
                                                 </ul>
                                             </div>
                                         </li>
