@@ -71,7 +71,7 @@ exports.postponeNotification = function (receiver, sender, callback) {
 };
 
 exports.getFriends = function(userID,callback) {
-    db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE friend1 = " + userID + " AND friend2 = userid", [], callback);
+    db.query("SELECT userid,username FROM Friendship,RegisteredUser WHERE (friend1 = " + userID + " AND friend2 = userid) OR (friend2 = " + userID + " AND friend1 = userid)", [], callback);
 };
 
 exports.addFriendship = function(friend1, friend2, callback) {
