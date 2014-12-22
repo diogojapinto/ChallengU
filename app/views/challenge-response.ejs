@@ -20,7 +20,7 @@
                 <% } else if (results.type == "photo") { %>
                 <img src="<%= results.content %>"/>
                 <% } else if (results.type == "video") { %>
-                <iframe width="500" height="300" src="<%= results.content %>" frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="<%= results.content %>" allowfullscreen=""></iframe>
                 <% } else { %>
                 <%= results.content %>
                 <% } %>
