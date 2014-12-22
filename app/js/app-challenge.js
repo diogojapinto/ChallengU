@@ -44,6 +44,8 @@
                 if ($scope.formData.content != "") {
                     Proof.create($scope.formData, $scope.loading);
                 }
+            } else if (type == "video") {
+                console.log("cenas");
             }
 
         };
