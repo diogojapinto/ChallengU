@@ -42,12 +42,12 @@
                             <% } else if (challenge.type == "video") { %>
                             <input id="" ng-model="formData.content" class="form-control" type="url" name="urlField"
                                    required
-                                   ng-pattern="/^(http:\/\/[www\.]?youtube\.com\/.+|https:\/\/[www\.]?youtube\.com\/.+)$/"
+                                   ng-pattern="/^(http:\/\/www\.youtube\.com\/.+|https:\/\/www\.youtube\.com\/.+)$/"
                                    placeholder="Youtube video link"/>
                             <% } else if (challenge.type == "audio") { %>
                             <input id="" ng-model="formData.content" class="form-control" type="url" name="urlField"
                                    required
-                                   ng-pattern="/^(http:\/\/[www\.]?soundcloud\.com\/.+|https:\/\/[www\.]?soundcloud\.com\/.+)$/"
+                                   ng-pattern="/^(http:\/\/soundcloud\.com\/.+|https:\/\/soundcloud\.com\/.+)$/"
                                    placeholder="SoundCloud link"/>
                             <% } %>
                         </div>
