@@ -67,6 +67,19 @@ var __slice = [].slice;
                     elem.addClass("selected");
                 });
             }
+            if (this.$el.attr("class") == "starrr stars-rating-proof") {
+                var $scope = $('#rating').scope();
+                $scope.proofRating = rating;
+                alert(rating);
+                var id = this.$el.attr('data-id');
+                var proofID = $("#proofID"+id).val();
+                $scope.rateChallengeProof(proofID);
+                var children = [].slice.call(this.$el.children);
+                children.forEach(function(elem) {
+                    console.log(elem);
+                    elem.addClass("selected");
+                });
+            }
             this.syncRating();
             return this.$el.trigger('starrr:change', rating);
         };

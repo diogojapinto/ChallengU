@@ -7,7 +7,7 @@
 
 <body ng-app="app-challenge">
 <% include partials/header %>
-<div ng-init="rating = <%= challenge.rating %>; challengeID = <%= challenge.id %>" id="rating"
+<div ng-init="rating = <%= challenge.rating %>; challengeID = <%= challenge.id %>; proofRating = 0" id="rating"
      ng-controller="RatingController as ratingController">
     <div class="container" style="margin: 5em auto">
         <h1><%= challenge.name %></h1>
@@ -42,15 +42,16 @@
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <% challenge.responses.forEach(function(response) { %>
+            <% for (var i = 0; i < challenge.responses.length; i++) { %>
             <div class="container">
-                <a href="#"><%= response.username %></a>
+                <a href="../profile/<%= challenge.responses[i].username %>"><%= challenge.responses[i].username %></a>
+                <input type="hidden" id="proofID<%= i %>" value="<%= challenge.responses[i].proofid %>">
 
-                <p><%= response.content %></p>
+                <p><%= challenge.responses[i].content %></p>
 
-                <div id="stars-rating1" class="starrr" data-rating="<%= response.rating %>"></div>
+                <div data-id ="<%= i %>" class="starrr stars-rating-proof" data-rating="<%= challenge.responses[i].rating %>"></div>
             </div>
-            <% }); %>
+            <% } %>
         </div>
     </div>
     <div class="container bs-component">
