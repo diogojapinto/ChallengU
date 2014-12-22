@@ -247,7 +247,7 @@
                                                     <% } else if (notif.senderid == globals.userid) { %>
                                                         <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> is now your friend!</h3>
                                                     <% } %>
-                                                <% } else if (notif.type == "amizade" && notif.status != "accepted" && notif.receiverid = globals.userid) { %>
+                                                <% } else if (notif.type == "amizade" && notif.status != "accepted" && notif.receiverid == globals.userid) { %>
                                                 <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h3>
                                                 <% } %>
                                             </div>
