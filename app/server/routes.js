@@ -61,14 +61,19 @@ exports.listen = function (app, passport, io) {
     app.get("/post-challenge/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);
-        if (req.params.val == "error-challenge") {
-            messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
+        if (req.session.user) {
+            if (req.params.val == "error-challenge") {
+                messages.danger.push({title: "Error", content: "There was an error creating your challenge!"});
+            }
+            res.render('challenge-submit.ejs', {
+                messages: messages,
+                globals : globals,
+                title   : 'Submit your challenge'
+            });
+        } else {
+            res.redirect('/connect/first-login');
         }
-        res.render('challenge-submit.ejs', {
-            messages: messages,
-            globals : globals,
-            title   : 'Submit your challenge'
-        });
+
     });
 
     app.get("/post-challenge", function (req, res) {
@@ -195,9 +200,9 @@ exports.listen = function (app, passport, io) {
         }
     });
 
-    app.post("/challenge-rating", function(req, res) {
+    app.post("/challenge-rating", function (req, res) {
         var challengeID = req.body.challenge;
-        var rating =req.body.rating;
+        var rating = req.body.rating;
         if (req.session.user) {
             challengeFn.updateRating(req.session.user.userid, challengeID, rating, res);
         } else {
@@ -380,13 +385,13 @@ var generateGlobals = function (req) {
     if (req.session.user) {
         ret = {
             username: req.session.user.username,
-            userid: req.session.user.userid,
+            userid  : req.session.user.userid,
             logged  : true
         }
     } else {
         ret = {
             username: "",
-            userid: null,
+            userid  : null,
             logged  : false
         }
     }
