@@ -47,7 +47,7 @@ exports.getChallenge = function (challengeID, callback) {
     "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT username, proofID, content, coalesce((SELECT AVG(rating) FROM ChallengeProof INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID), 0) AS average_rating " +
+    queries.push("SELECT username, proofID, content, coalesce((SELECT AVG(rating) FROM RateChallengeProof WHERE ChallengeProof.proofID = RateChallengeProof.proofID), 0) AS average_rating " +
     "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID " +
     "WHERE challengeID = $1::int " +
     "GROUP BY username, content, proofID " +
