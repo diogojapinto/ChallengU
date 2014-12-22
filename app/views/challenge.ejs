@@ -48,7 +48,7 @@
 
                 <p><%= response.content %></p>
 
-                <div id="stars-rating" class="starrr" data-rating="<%= response.rating %>"></div>
+                <div id="stars-rating1" class="starrr" data-rating="<%= response.rating %>"></div>
             </div>
             <% }); %>
         </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div ng-controller="CommentController as commentCtrl" class="" style="margin-top: 1em">
-        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em; display: table-cell;"" type="text" id="userComment"
+        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em; display: table-cell;" type="text" id="userComment"
                   ng-model="content"
                   class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
         <div style="vertical-align: middle; margin-bottom: 2.5em; width: 10%" class="btn btn-primary btn-lg"
@@ -96,8 +96,6 @@
                                     <img src="http://placehold.it/80" class="img-circle img-responsive" alt=""/></div>
                                 <div class="col-xs-10 col-md-11">
                                     <div>
-                                        <!--a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html">
-                                            Google Style Login Page Design Using Bootstrap</a-->
 
                                         <div style="color: #ffffff; font-size: small" class="mic-info">
                                             By: <a href="/profile/<%= comment.username %>">
