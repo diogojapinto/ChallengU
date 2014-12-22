@@ -73,7 +73,7 @@ exports.getProof = function (proofID, callback) {
     var queries = [];
     var args = [];
 
-    queries.push("SELECT username,RegisteredUser.userID,ChallengeProof.content,proofID,Challenge.challengeID,Challenge.name FROM ChallengeProof,RegisteredUser,Challenge WHERE proofID = $1::int AND Challenge.challengeID = ChallengeProof.challengeID AND RegisteredUser.userID = ChallengeProof.userID");
+    queries.push("SELECT username,RegisteredUser.userID,ChallengeProof.content,proofID,Challenge.challengeID,Challenge.name, Challenge.type FROM ChallengeProof,RegisteredUser,Challenge WHERE proofID = $1::int AND Challenge.challengeID = ChallengeProof.challengeID AND RegisteredUser.userID = ChallengeProof.userID");
     args.push([proofID]);
 
     queries.push("SELECT AVG(rating) FROM RateChallengeProof WHERE proofID = $1::int");

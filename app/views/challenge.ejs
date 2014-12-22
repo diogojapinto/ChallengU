@@ -49,6 +49,7 @@
                 <input style="display: inline-block" type="hidden" id="proofID<%= i %>" value="<%= challenge.responses[i].proofid %>"/>
 
                 <img class="img-responsive" style="margin-left: 10em; display: inline-block" width="125em" height="125em" src="<%= challenge.responses[i].content %>"/>
+                <a href="../challenge-proof/<%= challenge.responses[i].proofid %>" class="btn btn-sky btn-lg ">View Proof</a>
 
                 <div data-id="<%= i %>" class="starrr stars-rating-proof"
                      data-rating="<%= challenge.responses[i].rating %>"></div>

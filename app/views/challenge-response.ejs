@@ -15,7 +15,15 @@
         <div class="col-md-8 col-sm-12">
             <hr>
             <h4>
+                <% if (results.type == "audio") { %>
+                <a href="<%= results.content %>"><%= results.content %></a>
+                <% } else if (results.type == "photo") { %>
+                <img src="<%= results.content %>"/>
+                <% } else if (results.type == "video") { %>
+                <iframe width="500" height="300" src="<%= results.content %>" frameborder="0" allowfullscreen></iframe>
+                <% } else { %>
                 <%= results.content %>
+                <% } %>
             </h4>
             <hr>
             <div class="row">
