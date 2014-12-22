@@ -43,15 +43,28 @@
 
         <div class="col-md-4 col-sm-6">
             <% for (var i = 0; i < challenge.responses.length; i++) { %>
+            <% if (challenge.type == "photo") { %>
+            <div class="container">
+                <a href="../profile/<%= challenge.responses[i].username %>"><%= challenge.responses[i].username %></a>
+                <input style="display: inline-block" type="hidden" id="proofID<%= i %>" value="<%= challenge.responses[i].proofid %>"/>
+
+                <img class="img-responsive" style="margin-left: 10em; display: inline-block" width="125em" height="125em" src="<%= challenge.responses[i].content %>"/>
+
+                <div data-id="<%= i %>" class="starrr stars-rating-proof"
+                     data-rating="<%= challenge.responses[i].rating %>"></div>
+            </div>
+            <% } else { %>
             <div class="container">
                 <a href="../profile/<%= challenge.responses[i].username %>"><%= challenge.responses[i].username %></a>
                 <input type="hidden" id="proofID<%= i %>" value="<%= challenge.responses[i].proofid %>">
 
                 <p><%= challenge.responses[i].content %></p>
 
-                <div data-id ="<%= i %>" class="starrr stars-rating-proof" data-rating="<%= challenge.responses[i].rating %>"></div>
+                <div data-id="<%= i %>" class="starrr stars-rating-proof"
+                     data-rating="<%= challenge.responses[i].rating %>"></div>
             </div>
-            <% } %>
+            <% }
+            } %>
         </div>
     </div>
     <div class="container bs-component">
@@ -68,9 +81,11 @@
     </div>
 
     <div ng-controller="CommentController as commentCtrl" class="" style="margin-top: 1em">
-        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em; display: table-cell;" type="text" id="userComment"
+        <textarea style="resize: none;width: 50%; margin-left: 28.3em; height: 4em; display: table-cell;" type="text"
+                  id="userComment"
                   ng-model="content"
                   class="form-control input-sm chat-input" placeholder="Write your message here..."></textarea>
+
         <div style="vertical-align: middle; margin-bottom: 2.5em; width: 10%" class="btn btn-primary btn-lg"
              ng-click="addComment('<%= globals.username %>', <%= challenge.id %>)">
             <span class="glyphicon glyphicon-comment"></span> Add Comment
