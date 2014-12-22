@@ -90,7 +90,8 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
         // challenge proofs
         challenge.responses = [];
         results[4].rows.forEach(function (proof) {
-            proof.rating = parseInt(proof.rating);
+            console.log(proof);
+            proof.rating = parseInt(proof.average_rating);
             challenge.responses.push(proof);
         });
 
