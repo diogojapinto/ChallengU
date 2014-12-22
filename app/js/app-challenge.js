@@ -3,7 +3,6 @@
 
     app.controller('ProofSubmit', ['$scope', '$http', 'Proof', 'Rater', function ($scope, $http, Proof) {
 
-
         $scope.postImage = function () {
 
             var image = $("#image")[0].files[0];
@@ -22,13 +21,11 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "https://api.imgur.com/3/image"); // Boooom!
             xhr.setRequestHeader('Authorization', 'Client-ID f91062d2d7ea3e0');
-            xhr.onload = function(data) {
+            xhr.onload = function (data) {
                 // Big win!
                 // The URL of the image is:
                 var json = JSON.parse(data.currentTarget.response);
-                console.log(json);
-                $scope.formData.content =  json.data.link;
-                console.log($scope.formData.content);
+                $scope.formData.content = json.data.link;
                 if ($scope.formData.content != "") {
                     Proof.create($scope.formData, $scope.loading);
                 }
@@ -43,6 +40,12 @@
 
             if (type == "photo") {
                 $scope.postImage();
+            } else if (type == "text") {
+                if ($scope.formData.content != "") {
+                    Proof.create($scope.formData, $scope.loading);
+                }
+            } else if (type == "video") {
+                console.log("cenas");
             }
 
         };
