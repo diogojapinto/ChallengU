@@ -196,8 +196,8 @@ exports.listen = function (app, passport, io) {
     });
 
     app.post("/challenge-rating", function(req, res) {
-        var challengeID = req.body.challenge;
-        var rating =req.body.rating;
+        var challengeID = parseInt(req.body.challenge);
+        var rating = parseInt(req.body.rating);
         if (req.session.user) {
             challengeFn.updateRating(req.session.user.userid, challengeID, rating, res);
         } else {
