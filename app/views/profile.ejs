@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-4 user-pad text-center">
                     <h3 style="color:black">LEVEL</h3>
-                    <h4>456</h4>
+                    <h4> </h4>
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
@@ -60,7 +60,8 @@
                 </div>
                 <div class="col-md-4 user-pad text-center">
                     <h3 style="color:black">ACHIEVEMENTS</h3>
-                    <h4>4,901</h4>
+                    <!--h4>4,901</h4-->
+                    <h6 style="color:black">Candies like this comming up ;)</h6>
                 </div>
             </div>
         </div>
@@ -89,9 +90,13 @@
                     <% notifications.forEach(function(notif) { %>
                     <li>
                         <% if (notif.type == "amizade" && notif.status == "accepted") { %>
-                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h4>
+                        <h4><i class="fa fa-user coral"></i> User <a
+                                    href="/profile/<%= notif.username %>"><%= notif.username %></a> added you as a
+                            friend!</h4>
                         <% } else if (notif.type == "amizade" && notif.status != "accepted") { %>
-                        <h4><i class="fa fa-user coral"></i> User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h4>
+                        <h4><i class="fa fa-user coral"></i> User <a
+                                    href="/profile/<%= notif.username %>"><%= notif.username %></a> wants to add you as
+                            a friend!</h4>
                         <% } %>
                     </li>
                     <% }); %>
@@ -144,7 +149,7 @@
                             <div class="caption">
                                 <p>47LabsDesign</p>
                                 <a href="" rel="tooltip" title="Appreciate"><span
-                                        class="fa fa-heart-o fa-2x"></span></a>
+                                            class="fa fa-heart-o fa-2x"></span></a>
                                 <a href="" rel="tooltip" title="View"><span class="fa fa-search fa-2x"></span></a>
                             </div>
                             <img src="http://24.media.tumblr.com/273167b30c7af4437dcf14ed894b0768/tumblr_n5waxesawa1st5lhmo1_1280.jpg"
@@ -167,7 +172,7 @@
                             <div class="caption">
                                 <p>47LabsDesign</p>
                                 <a href="" rel="tooltip" title="Appreciate"><span
-                                        class="fa fa-heart-o fa-2x"></span></a>
+                                            class="fa fa-heart-o fa-2x"></span></a>
                                 <a href="" rel="tooltip" title="View"><span class="fa fa-search fa-2x"></span></a>
                             </div>
                             <img src="http://24.media.tumblr.com/282fadab7d782edce9debf3872c00ef1/tumblr_n3tswomqPS1st5lhmo1_1280.jpg"
@@ -189,8 +194,13 @@
             </div>
             <div class="user-menu-content">
                 <ul class="user-menu-list">
+                    <% if (friends.length == 0) { %>
+                    <p>Don't be forever alone. Search for your palls in the box above and share the love ;)</p>
+                    <% } else { %>
                     <% for (var i = 0; i < friends.length; i++) { %>
-                    <% if (i == 3) { break; }%>
+                    <% if (i == 3) {
+                        break;
+                    } %>
                     <li style="display:inline">
                         <a href="profile/<%= friends[i].username %>">
                             <div class="col-md-4">
@@ -205,8 +215,6 @@
                         </a>
                     </li>
                     <% } %>
-
-
                     <li>
                         <a href="#friends" data-toggle="tab">
                             <button type="button" class="btn btn-sky btn-md text-uppercase">
@@ -214,6 +222,8 @@
                             </button>
                         </a>
                     </li>
+                    <% } %>
+
                 </ul>
 
             </div>
@@ -242,20 +252,27 @@
 
                                             <div class="info">
                                                 <% if (notif.type == "amizade" && notif.status == "accepted") { %>
-                                                    <% if (notif.receiverid == globals.userid) { %>
-                                                        <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> added you as a friend!</h3>
-                                                    <% } else if (notif.senderid == globals.userid) { %>
-                                                        <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> is now your friend!</h3>
-                                                    <% } %>
+                                                <% if (notif.receiverid == globals.userid) { %>
+                                                <h3 style="color:black;text-transform: lowercase">User <a
+                                                            href="/profile/<%= notif.username %>"><%= notif.username %></a>
+                                                    added you as a friend!</h3>
+                                                <% } else if (notif.senderid == globals.userid) { %>
+                                                <h3 style="color:black;text-transform: lowercase">User <a
+                                                            href="/profile/<%= notif.username %>"><%= notif.username %></a>
+                                                    is now your friend!</h3>
+                                                <% } %>
                                                 <% } else if (notif.type == "amizade" && notif.status != "accepted" && notif.receiverid == globals.userid) { %>
-                                                <h3 style="color:black;text-transform: lowercase">User <a href="/profile/<%=notif.username %>"><%= notif.username %></a> wants to add you as a friend!</h3>
+                                                <h3 style="color:black;text-transform: lowercase">User <a
+                                                            href="/profile/<%= notif.username %>"><%= notif.username %></a>
+                                                    wants to add you as a friend!</h3>
                                                 <% } %>
                                             </div>
                                             <div class="social">
                                                 <ul>
                                                     <% if ((notif.status == "read" || notif.status == "unread") && notif.receiverid == globals.userid) { %>
-                                                    <li class="facebook" style="width:50%;"><a href="" onclick="accept('<%= notif.username %>')"><span
-                                                            class="fa fa-check"></span></a></li>
+                                                    <li class="facebook" style="width:50%;"><a href=""
+                                                                                               onclick="accept('<%= notif.username %>')"><span
+                                                                    class="fa fa-check"></span></a></li>
                                                     <% } %>
                                                 </ul>
                                             </div>
@@ -282,7 +299,7 @@
                                             </div>
                                             <div class="info">
                                                 <p class="small" style="text-overflow: ellipsis"><%=
-                                                    friend.username %></p>
+                                                        friend.username %></p>
                                             </div>
                                         </div>
                                     </a>
