@@ -261,7 +261,36 @@ CREATE OR REPLACE FUNCTION merge_rateChallenge(u_challengeID INT, u_userID INT, 
 -- if someone else inserts the same key concurrently,
 -- we could get a unique-key failure
       BEGIN
-        INSERT INTO RateChallenge (challengeID, userID, rating) VALUES (challengeID, userID, rating);
+        INSERT INTO RateChallenge (challengeID, userID, rating) VALUES (u_challengeID, u_userID, u_rating);
+        RETURN;
+        EXCEPTION WHEN unique_violation
+        THEN
+-- do nothing, and loop to try the UPDATE again
+      END;
+    END LOOP;
+  END;
+  $$
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION merge_rateChallengeProof(u_proofID INT, u_userID INT, u_rating INT)
+  RETURNS VOID AS
+  $$
+  BEGIN
+    LOOP
+-- first try to update the key
+      UPDATE RateChallengeProof
+      SET rating = u_rating
+      WHERE proofID = u_proofID
+            AND userID = u_userID;
+      IF found
+      THEN
+        RETURN;
+      END IF;
+-- not there, so try to insert the key
+-- if someone else inserts the same key concurrently,
+-- we could get a unique-key failure
+      BEGIN
+        INSERT INTO RateChallengeProof (proofID, userID, rating) VALUES (u_proofID, u_userID, u_rating);
         RETURN;
         EXCEPTION WHEN unique_violation
         THEN

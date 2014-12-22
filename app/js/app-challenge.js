@@ -13,6 +13,9 @@
     app.controller('RatingController', ['$scope', '$http', 'Rater', function ($scope, $http, Rater) {
         $scope.rateChallenge = function() {
             Rater.rateChallenge($scope.challengeID, $scope.rating);
+        };
+        $scope.rateChallengeProof = function(proofID) {
+            Rater.rateChallengeProof(proofID, $scope.proofRating);
         }
     }]);
 
@@ -56,6 +59,9 @@
         return{
             rateChallenge: function (challenge, rating) {
                 return $http.post('/challenge-rating/', {challenge: challenge, rating: rating});
+            },
+            rateChallengeProof: function(challengeProof, rating) {
+                return $http.post('/challenge-proof-rating/', {proof: challengeProof, rating: rating});
             }
         }
     }]);

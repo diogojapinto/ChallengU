@@ -94,7 +94,7 @@ exports.getChallenge = function (challengeID, res, messages, globals) {
             challenge.responses.push(proof);
         });
 
-        console.log(globals);
+        console.log(challenge.responses);
 
         res.render('challenge.ejs', {
             title    : 'ChallengeU - Challenge ' + challenge.name,
@@ -261,6 +261,27 @@ exports.updateRating = function (userID, challengeID, rating, res) {
 
     challengeDAO.updateChallengeRating(userID, challengeID, rating, getResultingRating);
 };
+
+exports.updateProofRating = function (userID, proofID, rating, res) {
+    var getResultingRating = function (result) {
+        if (!result) {
+            res.status(400).send(false);
+            return;
+        }
+
+        var newChallengeRating = result.rows[0].avg;
+        console.log(newChallengeRating);
+        if (newChallengeRating) {
+            res.status(200).send(newChallengeRating.toString());
+        } else {
+            console.log("coco");
+            res.status(400).send(false);
+        }
+    }
+
+    challengeDAO.updateChallengeProofRating(userID, proofID, rating, getResultingRating);
+};
+
 
 exports.addComment = function (username, content, challengeid, res) {
     var getUser = function (result) {

@@ -47,10 +47,10 @@ exports.getChallenge = function (challengeID, callback) {
     "WHERE challengeID = $1::int");
     args.push([challengeID]);
 
-    queries.push("SELECT username, content, coalesce((SELECT AVG(rating) FROM ChallengeProof INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID), 0) AS average_rating " +
+    queries.push("SELECT username, proofID, content, coalesce((SELECT AVG(rating) FROM ChallengeProof INNER JOIN RateChallengeProof ON ChallengeProof.proofID = RateChallengeProof.proofID), 0) AS average_rating " +
     "FROM ChallengeProof INNER JOIN RegisteredUser ON ChallengeProof.userID = RegisteredUser.userID " +
     "WHERE challengeID = $1::int " +
-    "GROUP BY username, content " +
+    "GROUP BY username, content, proofID " +
     "ORDER BY average_rating");
     args.push([challengeID]);
 
@@ -92,6 +92,13 @@ exports.updateChallengeRating = function (userID, challengeID, rating, callback)
     db.query("SELECT merge_rateChallenge($1::int, $2::int, $3::int)", [challengeID, userID, rating],
         function () {
             db.query("SELECT AVG(rating) FROM RateChallenge WHERE challengeID = $1::int", [challengeID], callback);
+        });
+};
+
+exports.updateChallengeProofRating = function (userID, proofID, rating, callback) {
+    db.query("SELECT merge_rateChallengeProof($1::int, $2::int, $3::int)", [proofID, userID, rating],
+        function () {
+            db.query("SELECT AVG(rating) FROM RateChallengeProof WHERE proofID = $1::int", [proofID], callback);
         });
 };
 

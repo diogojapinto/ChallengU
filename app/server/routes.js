@@ -205,6 +205,16 @@ exports.listen = function (app, passport, io) {
         }
     });
 
+    app.post("/challenge-proof-rating", function(req, res) {
+        var proofID = parseInt(req.body.proof);
+        var rating = parseInt(req.body.rating);
+        if (req.session.user) {
+            challengeFn.updateProofRating(req.session.user.userid, proofID, rating, res);
+        } else {
+            res.status(400).send(false);
+        }
+    });
+
     app.post("/edit-profile", function (req, res) {
         if (req.session.user) {
             userFn.editProfile(req.body, res);
