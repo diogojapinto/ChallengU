@@ -69,6 +69,19 @@ exports.getCategoriesByID = function (challengeID, callback) {
     db.query("SELECT Category.name FROM Category,ChallengeCategory WHERE challengeID = " + challengeID + " AND ChallengeCategory.categoryID = Category.categoryID", [], callback);
 }
 
+exports.getProof = function (proofID, callback) {
+    var queries = [];
+    var args = [];
+
+    queries.push("SELECT username,RegisteredUser.userID,ChallengeProof.content,proofID,Challenge.challengeID,Challenge.name FROM ChallengeProof,RegisteredUser,Challenge WHERE proofID = $1::int AND Challenge.challengeID = ChallengeProof.challengeID AND RegisteredUser.userID = ChallengeProof.userID");
+    args.push([proofID]);
+
+    queries.push("SELECT AVG(rating) FROM RateChallengeProof WHERE proofID = $1::int");
+    args.push([proofID]);
+
+    db.transaction(queries, args, callback);
+}
+
 /**
  * Insert a challenge response
  * @param userID

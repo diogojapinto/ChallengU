@@ -145,6 +145,17 @@ exports.listen = function (app, passport, io) {
         }
     });
 
+    app.get("/challenge-proof/:id", function (req, res) {
+        var messages = generateMessageBlock();
+        var globals = generateGlobals(req);
+        if (req.session.user) {
+            var proofID = parseInt(req.params.id);
+            challengeFn.getProof(proofID, res, messages, globals);
+        } else {
+            res.redirect('/connect/first-login');
+        }
+    });
+
     app.get("/search/:val", function (req, res) {
         var messages = generateMessageBlock();
         var globals = generateGlobals(req);

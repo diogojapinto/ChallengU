@@ -70,9 +70,19 @@ var __slice = [].slice;
             if (this.$el.attr("class") == "starrr stars-rating-proof") {
                 var $scope = $('#rating').scope();
                 $scope.proofRating = rating;
-                alert(rating);
                 var id = this.$el.attr('data-id');
                 var proofID = $("#proofID"+id).val();
+                $scope.rateChallengeProof(proofID);
+                var children = [].slice.call(this.$el.children);
+                children.forEach(function(elem) {
+                    console.log(elem);
+                    elem.addClass("selected");
+                });
+            }
+            if (this.$el.attr("id") == "stars-rating-proof") {
+                var $scope = $('#rating').scope();
+                $scope.proofRating = rating;
+                var proofID = $("#proofID").val();
                 $scope.rateChallengeProof(proofID);
                 var children = [].slice.call(this.$el.children);
                 children.forEach(function(elem) {

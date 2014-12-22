@@ -48,6 +48,7 @@
                 <input type="hidden" id="proofID<%= i %>" value="<%= challenge.responses[i].proofid %>">
 
                 <p><%= challenge.responses[i].content %></p>
+                <a href="../challenge-proof/<%= challenge.responses[i].proofid %>" class="btn btn-sky btn-lg ">View Proof</a>
 
                 <div data-id ="<%= i %>" class="starrr stars-rating-proof" data-rating="<%= challenge.responses[i].rating %>"></div>
             </div>

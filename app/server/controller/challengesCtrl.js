@@ -216,6 +216,31 @@ exports.getChallengesHome = function (res, messages, globals) {
     challengeDAO.getChallengesHome(sendHomepage);
 };
 
+exports.getProof = function (proofID, res, messages, globals) {
+
+    var renderResults = function (results) {
+
+        if (!results) {
+            res.status(400).send(false);
+            return;
+        }
+
+        console.log(results[0].rows);
+        console.log(results[1].rows);
+        results[1].rows[0]['rating'] = parseInt(results[1].rows[0]['avg']);
+
+        res.render("challenge-response.ejs", {
+            results   : results[0].rows[0],
+            rating    : results[1].rows[0],
+            messages  : messages,
+            globals   : globals,
+            title     : 'Challenge Response'
+        });
+    };
+
+    challengeDAO.getProof(proofID, renderResults);
+};
+
 /**
  * Insert a challenge proof
  * @param userID

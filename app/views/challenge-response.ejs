@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <% include partials/head %>
+    <link type="text/css" rel="stylesheet" href="/css/challenge.css">
+</head>
+
+<body ng-app="app-challenge">
+<% include partials/header %>
+<div ng-init="challengeID = <%= results.challengeid %>; proofRating = 0" id="rating"
+     ng-controller="RatingController as ratingController">
+    <div class="container" style="margin: 5em auto">
+        <h1>Response to challenge named <%= results.name %></h1>
+
+        <div class="col-md-8 col-sm-12">
+            <hr>
+            <h4>
+                <%= results.content %>
+            </h4>
+            <hr>
+            <div class="row">
+                <div class="col-md-5 col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <td><h3><b>Creator:</b></h3></td>
+                            <td><h3><a href="/profile/<%= results.username %>"><%= results.username %></a></h3></td>
+                        </tr>
+                        <input type="hidden" id="proofID" value="<%= results.proofid %>">
+                        <tr>
+                            <td><h3><b>Rating:</b></h3></td>
+                            <td><h3><span id="stars-rating-proof" class="starrr"
+                                          data-rating="<%= Math.floor(rating.rating) %>"></span></h3>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<% include partials/footer %>
+<% include partials/scripts %>
+<script type="text/javascript" src="/js/app-challenge.js"></script>
+<script type="text/javascript" src="/js/ratings.js"></script>
+
+</body>
+</html>
