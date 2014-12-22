@@ -20,13 +20,14 @@
 <div class="modal fade" id="responseModal">
     <div class="modal-dialog">
 
-        <div class="modal-content">
-            <form ng-controller="ProofSubmit as prf" class="form-horizontal" name="proof-form">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span
-                                aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
-                    <h4 class="modal-title">Bring it on!</h4>
-                </div>
+        <div ng-controller="ProofSubmit as prf" class="modal-content" novalidate>
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">x</span></button>
+                <h4 class="modal-title">Bring it on!</h4>
+            </div>
+            <form class="form-horizontal" name="proofForm">
                 <div class="modal-body">
                     <input class="form-control" ng-model="formData.challengeID" type="hidden"
                            ng-init="formData.challengeID = <%= challenge.id %>">
@@ -39,16 +40,23 @@
                             <textarea class="form-control" ng-model="formData.content"
                                       placeholder="Your challenge proof" required></textarea>
                             <% } else if (challenge.type == "video") { %>
-                            <input id="" class="form-control" type="url"
-                                   pattern="http://www\.youtube\.com\/(.+)|https://www\.youtube\.com\/(.+)"
+                            <input id="" ng-model="formData.content" class="form-control" type="url" name="urlField"
+                                   required
+                                   ng-pattern="/^(http:\/\/[www\.]?youtube\.com\/.+|https:\/\/[www\.]?youtube\.com\/.+)$/"
                                    placeholder="Youtube video link"/>
+                            <% } else if (challenge.type == "audio") { %>
+                            <input id="" ng-model="formData.content" class="form-control" type="url" name="urlField"
+                                   required
+                                   ng-pattern="/^(http:\/\/[www\.]?soundcloud\.com\/.+|https:\/\/[www\.]?soundcloud\.com\/.+)$/"
+                                   placeholder="SoundCloud link"/>
                             <% } %>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Chicken out</button>
-                    <button type="button" class="btn btn-fresh" type="submit" ng-disabled="!proof-form.$valid"
+                    <button type="submit" class="btn btn-fresh" type="submit"
+                            ng-disabled="!proofForm.$valid"
                             ng-click="postChallengeProof('<%= challenge.type %>')">
                         Challenge Accepted
                     </button>

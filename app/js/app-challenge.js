@@ -40,12 +40,10 @@
 
             if (type == "photo") {
                 $scope.postImage();
-            } else if (type == "text") {
+            } else {
                 if ($scope.formData.content != "") {
                     Proof.create($scope.formData, $scope.loading);
                 }
-            } else if (type == "video") {
-                console.log("cenas");
             }
 
         };
@@ -55,7 +53,7 @@
         $scope.rateChallenge = function () {
             Rater.rateChallenge($scope.challengeID, $scope.rating);
         };
-        $scope.rateChallengeProof = function(proofID) {
+        $scope.rateChallengeProof = function (proofID) {
             Rater.rateChallengeProof(proofID, $scope.proofRating);
         }
     }]);
@@ -98,10 +96,10 @@
     }]);
     app.factory('Rater', ['$http', '$window', function ($http) {
         return {
-            rateChallenge: function (challenge, rating) {
+            rateChallenge     : function (challenge, rating) {
                 return $http.post('/challenge-rating/', {challenge: challenge, rating: rating});
             },
-            rateChallengeProof: function(challengeProof, rating) {
+            rateChallengeProof: function (challengeProof, rating) {
                 return $http.post('/challenge-proof-rating/', {proof: challengeProof, rating: rating});
             }
         }
