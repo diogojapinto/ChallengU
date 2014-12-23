@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     var user = $("#username").text();
 
-    var socket = io.connect('http://127.0.0.1:8081/');
+    var socket = io.connect('http://178.62.101.158:8081/');
 
     socket.emit('online', {username: user});
 
