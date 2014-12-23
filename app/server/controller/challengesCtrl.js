@@ -265,6 +265,7 @@ exports.insertChallengeProof = function (userID, data, res) {
         } else {
             res.status(400).send(false);
         }
+
     };
 
     challengeDAO.insertChallengeProof(userID, challengeID, content, getInsertedChallengeProofID);
