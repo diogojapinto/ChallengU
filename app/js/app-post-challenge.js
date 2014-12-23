@@ -1,5 +1,5 @@
 (function () {
-    var app = angular.module('challenge-app', ['search-app']);
+    var app = angular.module('challenge-app', ['search-app', 'ngTagsInput']);
 
     /**
      * Controller for challenge submitting
@@ -8,7 +8,8 @@
 
         $scope.formData = {
             name       : "",
-            category   : [],
+            tags   : [],
+            correspondencies : [],
             type      : 'video',
             difficulty: "3",
             description: ""};
@@ -16,14 +17,13 @@
 
         $scope.createChallenge = function () {
             $scope.loading = true;
-            if ($scope.formData.name != "" && $scope.formData.category.length >= 1) {
+            if ($scope.formData.name != "" && $scope.formData.tags.length >= 1) {
                 Challenges.create($scope.formData, $scope.loading);
             }
         };
 
-        //get categories
-        this.challengeCategories = [];
-        Challenges.getCategories(this.challengeCategories);
+
+
 
         this.challengeTypes = ['audio', 'text', 'photo', 'video'];
 
@@ -40,6 +40,10 @@
                 $scope.formData.category.push(category);
             }
         };
+
+        $scope.getCategories = function (query) {
+            return $http.get("/get-categories");
+        };
     }]);
 
     app.factory('Challenges', ['$http', '$window', function ($http, $window) {
@@ -49,34 +53,33 @@
              * @param challengeData user input data of challenge
              */
             create: function (challengeData) {
-                $http.post('/create-challenge', challengeData)
-                    .success(function (data, loading) {
-                        loading = false;
-                        if (data) {
-                            // redirects to the created challenge's page
-                            $window.location.href = '/challenge/' + data;
+                $http.get("/get-categories").
+                    success(function(data, status, headers, config){
+                        for(var i = 0; i < data.length; i++){
+                            for(var j = 0; j < challengeData.tags.length; j++){
+                                console.log(data[i].text + " VS " + challengeData.tags[j].text);
+                                if(data[i].text == challengeData.tags[j].text){
+                                    challengeData.correspondencies.push(i+1);
+                                }
+                            }
                         }
-                        data = {};
 
-                    })
-                    .error(function (data) {
-                        $window.location.href = '/post-challenge/error-challenge';
+                        $http.post('/create-challenge', challengeData)
+                            .success(function (data, loading) {
+                                loading = false;
+                                if (data) {
+                                    // redirects to the created challenge's page
+                                    $window.location.href = '/challenge/' + data;
+                                }
+                                data = {};
+
+                            })
+                            .error(function (data) {
+                                $window.location.href = '/post-challenge/error-challenge';
+                            });
                     });
-            },
-            /**
-             * Retrieves the current categories present in the database
-             * @param categories array to be filled with the currently existing categories
-             */
-            getCategories: function (categories) {
-                $http.post("/get-categories")
-                    .success(function (data, status, headers, config) {
-                        for (i = 0; i < data.length; i++) {
-                            categories[i] = {'name': data[i].name, 'categoryid': data[i].categoryid};
-                        }
-                    }).
-                    error(function (data, status, headers, config) {
-                        alert("failed: " + data);
-                    });
+
+
             }
         }
     }]);
