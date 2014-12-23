@@ -4,7 +4,11 @@ var userDAO = require('../model/usersMdl');
 exports.getCategories = function (res) {
 
     var sendCurrentCategories = function (categories) {
-        res.send(categories.rows);
+        var result = [];
+        for(var i = 0; i < categories.rows.length; i++){
+            result.push({text:categories.rows[i].name});
+        }
+        res.send(result);
     };
 
     challengeDAO.getCategories(sendCurrentCategories);
@@ -20,10 +24,10 @@ exports.insertChallenge = function (userid, data, res) {
     } else {
         desc = "";
     }
-
     var categories = [];
-    for (var i = 0; i < data.category.length; i++) {
-        categories[i] = data.category[i];
+
+    for (var i = 0; i < data.correspondencies.length; i++) {
+        categories[i] = data.correspondencies[i];
     }
 
     if (categories.length == 0) {
