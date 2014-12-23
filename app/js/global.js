@@ -47,5 +47,4 @@ $(document).ready(function () {
             angular.element('.alert-group').append('<div id="alert-' + userName + '" class="alert alert-info"> <strong></strong>' + data.message + '</div>');
         }
     });
-
 });
