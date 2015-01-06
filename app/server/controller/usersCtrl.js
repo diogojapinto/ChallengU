@@ -63,10 +63,11 @@ exports.registerUser = function (data, res) {
     });
 }
 
-exports.getProfile = function (data, id, res, messages, globals, self) {
+exports.getProfile = function (data, id, res, messages, globals, self, selfUsername) {
 
     var friends;
     var requests = false;
+    var isFriend = false;
 
     var loginCallback = function (results) {
         user = results.rows[0];
@@ -77,7 +78,7 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
                     userDAO.getFriends(user.userid, getFriends);
                 } else {
                     requests = true;
-                    userDAO.getFriends(user.userid,getFriends);
+                    userDAO.getFriends(user.userid, getFriends);
                 }
             };
 
@@ -88,22 +89,32 @@ exports.getProfile = function (data, id, res, messages, globals, self) {
 
     }
 
-    var getFriends = function(results) {
+    var getFriends = function (results) {
         friends = results.rows;
-        userDAO.getNotificationsForProfile(user.userid,"",renderProfile);
+        if (!self) {
+            console.log(selfUsername);
+            for (i = 0; i < friends.length; i++) {
+                if (friends[i].username === selfUsername) {
+
+                    isFriend = true;
+                }
+            }
+        }
+        userDAO.getNotificationsForProfile(user.userid, "", renderProfile);
     }
 
     var renderProfile = function (results) {
         console.log(results.rows);
         res.render('profile.ejs', {
-            user      : user,
-            title     : 'Profile',
-            messages  : messages,
-            globals   : globals,
-            self      : self,
-            friends   : friends,
+            user         : user,
+            title        : 'Profile',
+            messages     : messages,
+            globals      : globals,
+            self         : self,
+            friends      : friends,
             notifications: results.rows,
-            hasRequest: requests
+            hasRequest   : requests,
+            isFriend: isFriend
         });
     }
 
@@ -186,10 +197,13 @@ exports.addFriendRequest = function (user, res, friend, globals, messages, sende
                 console.log("ola");
                 res.status(400).send("Error making request");
             } else {
-                sockets[senderUsername].emit('notification', {message:"Friend Request sent!", type: "info"});
+                sockets[senderUsername].emit('notification', {message: "Friend Request sent!", type: "info"});
 
                 if (sockets[friend] != undefined)
-                    sockets[friend].emit('notification', {message: "User " + senderUsername + " sent you a Friend request", type: "amizade"});
+                    sockets[friend].emit('notification', {
+                        message: "User " + senderUsername + " sent you a Friend request",
+                        type   : "amizade"
+                    });
                 res.status(200).send("OK");
 
             }
@@ -220,7 +234,10 @@ exports.sendNotifications = function (username, socket) {
                 if (type === "amizade") {   //TODO other types
                     var getUsername = function (result) {
 
-                        socket.emit('notification', {message: "User " + result.rows[0].username + " sent you a Friend request", type: "amizade"});
+                        socket.emit('notification', {
+                            message: "User " + result.rows[0].username + " sent you a Friend request",
+                            type   : "amizade"
+                        });
                     }
                     userDAO.getUserByID(sender, getUsername);
                 }
@@ -256,7 +273,7 @@ exports.answerRequest = function (userid, friendName, type, res) {
                 if (!results) {
                     res.status(400).send(false);
                 } else {
-                    var postpone = function(results) {
+                    var postpone = function (results) {
                         if (!results) {
                             res.status(400).send(false);
                         } else {

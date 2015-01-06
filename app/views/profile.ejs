@@ -26,6 +26,11 @@
                                 disabled>
                             <i class="fa fa-pencil"></i> Friend Request Sent
                         </button>
+                        <% } else if (isFriend) { %>
+                        <button type="button" class="btn btn-sky btn-md text-uppercase"
+                                disabled>
+                            <i class="fa fa-pencil"></i> Friends
+                        </button>
                         <% } else { %>
                         <button id="add" type="button" class="btn btn-sky btn-md text-uppercase"
                                 ng-disabled="sent"

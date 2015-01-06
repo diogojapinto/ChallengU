@@ -114,7 +114,7 @@ exports.listen = function (app, passport, io) {
         var messages = generateMessageBlock();
         if (req.session.user) {
             var globals = generateGlobals(req);
-            userFn.getProfile(req.session.user.username, 0, res, messages, globals, connectedUsers[req.session.user.username], true);
+            userFn.getProfile(req.session.user.username, 0, res, messages, globals, connectedUsers[req.session.user.username], true, req.session.user.username);
         } else {
             res.redirect('/connect/first-login');
         }
@@ -128,7 +128,7 @@ exports.listen = function (app, passport, io) {
             if (req.session.user.username == req.params.username) {
                 self = true;
             }
-            userFn.getProfile(req.params.username, req.session.user.userid, res, messages, globals, self);
+            userFn.getProfile(req.params.username, req.session.user.userid, res, messages, globals, self, req.session.user.username);
         } else {
             res.redirect('/connect/first-login');
         }
