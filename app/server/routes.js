@@ -362,7 +362,7 @@ exports.listen = function (app, passport, io) {
     app.get('/auth/facebook/callback', passport.authenticate('facebook'), function (req, res) {
         req.session.regenerate(function () {
             req.session.user = req.user;
-            res.redirect('/profile/' + req.user.userid);
+            res.redirect('/profile/' + req.user.username);
         });
 
     });
