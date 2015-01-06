@@ -192,7 +192,7 @@ exports.listen = function (app, passport, io) {
         }
     });
 
-    app.post("/get-categories", function (req, res) {
+    app.get("/get-categories", function (req, res) {
         if (req.session.user) {
             challengeFn.getCategories(res);
         } else {
